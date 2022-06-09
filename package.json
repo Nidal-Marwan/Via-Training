@@ -1,0 +1,15 @@
+{
+  "name": "training",
+  "version": "1.0.0",
+  "description": "monorepo for drivers-map website that contain the client and server projects",
+  "main": "index.js",
+   "scripts": {
+    "start:server": "pnpm run start --filter training-server",
+    "start:client": "pnpm run start --filter training-client"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Nidal-Marwan/Via-Training.git"
+  },
+  "homepage": "https://github.com/Nidal-Marwan/Via-Training#readme"
+}
