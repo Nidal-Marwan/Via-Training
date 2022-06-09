@@ -4,7 +4,9 @@
   "description": "Node js server for the training client",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon app.ts"
+    "start:dev": "nodemon app.ts",
+    "start:prod": "SET NODE_ENV=production node app.ts",
+    "build:client": "cd .. && cd client && pnpm build"
   },
   "author": "",
   "license": "ISC",

@@ -3,9 +3,12 @@
   "version": "1.0.0",
   "description": "monorepo for drivers-map website that contain the client and server projects",
   "main": "index.js",
-   "scripts": {
-    "start:server": "pnpm run start --filter training-server",
-    "start:client": "pnpm run start --filter training-client"
+  "scripts": {
+    "start:server:dev": "pnpm run start:dev --filter training-server",
+    "start:server:prod": "pnpm run start:prod --filter training-server",
+    "start:client:dev": "pnpm run start:dev --filter training-client",
+    "start:client:prod": "pnpm run start:prod --filter training-client",
+    "start:client:server": "pnpm run build:client --filter training-server"
   },
   "repository": {
     "type": "git",
