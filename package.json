@@ -3,12 +3,15 @@
   "version": "1.0.0",
   "description": "monorepo for drivers-map website that contain the client and server projects",
   "main": "index.js",
+  "workspaces": [
+    "./packages/*"
+  ],
   "scripts": {
-    "start:server:dev": "pnpm run start:dev --filter training-server",
-    "start:server:prod": "pnpm run start:prod --filter training-server",
-    "start:client:dev": "pnpm run start:dev --filter training-client",
-    "start:client:prod": "pnpm run start:prod --filter training-client",
-    "start:client:server": "pnpm run build:client --filter training-server"
+    "start:client:dev": "npm run start:dev --workspace=training-client",
+    "start:client:prod": "npm run start:prod --workspace=training-client",
+    "start:server:dev": "npm run start:dev --workspace=training-server",
+    "start:server:prod": " npm run start:prod --workspace=training-server",
+    "start:client:server": "npm run build:client --workspace=training-server"
   },
   "repository": {
     "type": "git",
