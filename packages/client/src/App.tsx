@@ -3,7 +3,13 @@ import { useState } from "react";
 
 import { useTranslation } from "react-i18next";
 import languages from "./common/localization/languages";
-import { Select, MenuItem, SelectChangeEvent } from "@mui/material";
+import {
+  Select,
+  MenuItem,
+  SelectChangeEvent,
+  Container,
+  Box,
+} from "@mui/material";
 
 const cookies = require("js-cookie");
 
@@ -26,20 +32,24 @@ export const App = () => {
   };
 
   return (
-    <>
-      <Select onChange={handleChange} value={language}>
-        {languages.map(({ code, name }) => (
-          <MenuItem
-            key={code}
-            value={name}
-            onClick={() => changeLanguage(code)}
-          >
-            {name}
-          </MenuItem>
-        ))}
-      </Select>
+    <Container maxWidth="xl">
+      <Box>
+        <Select onChange={handleChange} value={language}>
+          {languages.map(({ code, name }) => (
+            <MenuItem
+              key={code}
+              value={name}
+              onClick={() => changeLanguage(code)}
+            >
+              {name}
+            </MenuItem>
+          ))}
+        </Select>
+      </Box>
       <div>{t("app.sekeleton")}</div>
-      <Home />
-    </>
+      <Box>
+        <Home />
+      </Box>
+    </Container>
   );
 };

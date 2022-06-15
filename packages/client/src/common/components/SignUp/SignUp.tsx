@@ -2,10 +2,11 @@ import { TextInput } from "../TextInput/TextInput";
 import { Form, Formik } from "formik";
 import { trainingClient } from "../../api/trainingClient";
 import { SignupSchema } from "./SignUp.schema";
-import "./SignUp.css";
 import { useState } from "react";
 import { CustomButton } from "../Button/Button";
 import { useTranslation } from "react-i18next";
+import Box from "@mui/material/Box";
+import Container from "@mui/material/Container";
 
 interface SignUpResponse {
   status: number;
@@ -13,7 +14,7 @@ interface SignUpResponse {
 }
 
 export const SignUp: React.FC = () => {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const [error, setError] = useState<string | null>();
   const handleSubmit = async (values: any) => {
     setError(null);
@@ -33,17 +34,21 @@ export const SignUp: React.FC = () => {
       validationSchema={SignupSchema}
       onSubmit={(values) => handleSubmit(values)}
     >
-      <Form>
-        <div className="form-container">
-          <div>
+      <Container
+        sx={{
+          position: "absolute",
+        }}
+      >
+        <Form>
+          <Box>
             <TextInput
               name="name"
               type="text"
               id="outlined-basic"
               label={t("form.name")}
             />
-          </div>
-          <div>
+          </Box>
+          <Box>
             <TextInput
               name="email"
               type="email"
@@ -51,33 +56,33 @@ export const SignUp: React.FC = () => {
               label={t("form.email")}
             />
             {error?.includes("Email") && <p className="error">{error}</p>}
-          </div>
-          <div>
+          </Box>
+          <Box>
             <TextInput
               name="phone"
               type="number"
               id="outlined-basic"
               label={t("form.phone")}
             />
-            {error?.includes("Phone") && <p className="error">{error}</p>}
-          </div>
-          <div>
+            {error?.includes("Phone") && <p>{error}</p>}
+          </Box>
+          <Box>
             <TextInput
               name="password"
               type="password"
               id="outlined-basic"
               label={t("form.password")}
             />
-          </div>
-          <div>
+          </Box>
+          <Box>
             <CustomButton
               color="success"
               title={t("form.signup")}
               type="submit"
             />
-          </div>
-        </div>
-      </Form>
+          </Box>
+        </Form>
+      </Container>
     </Formik>
   );
 };

@@ -1,9 +1,10 @@
+import Container from "@mui/material/Container";
 import { SignUp } from "../../common/components/SignUp/SignUp";
 
 export const Home: React.FC = () => {
   return (
-    <div style={{ position: "relative" }} className="container">
+    <Container sx={{ position: "relative" }}>
       <SignUp />
-    </div>
+    </Container>
   );
 };
