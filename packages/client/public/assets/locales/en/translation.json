@@ -1,5 +1,12 @@
 {
   "app": {
     "sekeleton": "REACT SKELETON"
+  },
+  "form": {
+    "name": "Name",
+    "email": " Email",
+    "phone": " Phone",
+    "password": "Password ",
+    "signup": "SignUp"
   }
 }

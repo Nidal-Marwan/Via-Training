@@ -4,7 +4,8 @@ import { trainingClient } from "../../api/trainingClient";
 import { SignupSchema } from "./SignUp.schema";
 import "./SignUp.css";
 import { useState } from "react";
-import { Button } from "../Button/Button";
+import { CustomButton } from "../Button/Button";
+import { useTranslation } from "react-i18next";
 
 interface SignUpResponse {
   status: number;
@@ -12,6 +13,7 @@ interface SignUpResponse {
 }
 
 export const SignUp: React.FC = () => {
+  const { t, i18n } = useTranslation();
   const [error, setError] = useState<string | null>();
   const handleSubmit = async (values: any) => {
     setError(null);
@@ -38,7 +40,7 @@ export const SignUp: React.FC = () => {
               name="name"
               type="text"
               id="outlined-basic"
-              label="Name.."
+              label={t("form.name")}
             />
           </div>
           <div>
@@ -46,7 +48,7 @@ export const SignUp: React.FC = () => {
               name="email"
               type="email"
               id="outlined-basic"
-              label="Email.."
+              label={t("form.email")}
             />
             {error?.includes("Email") && <p className="error">{error}</p>}
           </div>
@@ -55,7 +57,7 @@ export const SignUp: React.FC = () => {
               name="phone"
               type="number"
               id="outlined-basic"
-              label="Phone.."
+              label={t("form.phone")}
             />
             {error?.includes("Phone") && <p className="error">{error}</p>}
           </div>
@@ -64,17 +66,13 @@ export const SignUp: React.FC = () => {
               name="password"
               type="password"
               id="outlined-basic"
-              label="Password.."
+              label={t("form.password")}
             />
           </div>
           <div>
-            <Button
-              radius="20%"
-              border="1px solid"
-              width="100px"
-              padding="15px"
-              color="tomato"
-              title="SignUp"
+            <CustomButton
+              color="success"
+              title={t("form.signup")}
               type="submit"
             />
           </div>

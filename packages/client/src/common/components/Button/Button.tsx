@@ -1,37 +1,28 @@
+import Button from "@mui/material/Button";
+
 interface ButtonProps {
-  border?: string;
-  color?: string;
   title: string;
-  padding?: string;
   onClick?: () => void;
-  radius?: string;
-  width?: string;
   type: "button" | "submit" | "reset";
+  color:
+    | "error"
+    | "inherit"
+    | "primary"
+    | "secondary"
+    | "success"
+    | "info"
+    | "warning";
 }
 
-export const Button: React.FC<ButtonProps> = ({
+export const CustomButton: React.FC<ButtonProps> = ({
   title,
   onClick,
   type,
-  border,
-  radius,
   color,
-  width,
-  padding,
 }: ButtonProps) => {
   return (
-    <button
-      style={{
-        backgroundColor: color,
-        border,
-        borderRadius: radius,
-        padding,
-        width,
-      }}
-      type={type}
-      onClick={onClick}
-    >
+    <Button color={color} variant="contained" type={type} onClick={onClick}>
       {title}
-    </button>
+    </Button>
   );
 };

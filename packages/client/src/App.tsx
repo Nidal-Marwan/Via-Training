@@ -3,10 +3,9 @@ import { useState } from "react";
 
 import { useTranslation } from "react-i18next";
 import languages from "./common/localization/languages";
-
-import cookies from "js-cookie";
-
 import { Select, MenuItem, SelectChangeEvent } from "@mui/material";
+
+const cookies = require("js-cookie");
 
 export const App = () => {
   const { t, i18n } = useTranslation();
