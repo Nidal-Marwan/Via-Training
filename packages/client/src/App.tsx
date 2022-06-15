@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import Table from './common/components/Table';
+import Table from './common/components/Table/Table';
 
 import { useTranslation } from 'react-i18next';
 import languages from './common/localization/languages';
@@ -30,9 +30,38 @@ export const App = () => {
 		{ field: 'name', headerName: 'Name', width: 150 },
 		{ field: 'lat', headerName: 'Latitude', type: 'number', width: 100 },
 		{ field: 'long', headerName: 'Longitude', type: 'number', width: 100 },
-		{ field: 'date', headerName: 'Date', type: 'date', width: 150 },
+		{ field: 'date', headerName: 'Date', type: 'date', width: 100 },
 	];
-	const data = [{id:1, name: 'London', lat: 35.3, long: 35.3, date: new Date()  }];
+	const data = [
+		{
+			id: 1,
+			name: 'London',
+			lat: 35.3,
+			long: 35.3,
+			date: new Date('2022-6-10'),
+		},
+		{
+			id: 4,
+			name: 'London',
+			lat: 35.3,
+			long: 35.3,
+			date: new Date('2022-6-10'),
+		},
+		{
+			id: 2,
+			name: 'London',
+			lat: 33.3,
+			long: 35.3,
+			date: new Date('2022-6-9'),
+		},
+		{
+			id: 3,
+			name: 'London',
+			lat: 34.3,
+			long: 35.3,
+			date: new Date('2022-6-12'),
+		},
+	];
 	return (
 		<>
 			<Select onChange={handleChange} value={language}>
@@ -47,7 +76,7 @@ export const App = () => {
 				))}
 			</Select>
 			<Box>{t('app.sekeleton')}</Box>
-			<Table columns={headers} rows={data}/>
+			<Table columns={headers} rows={data} datepicker />
 		</>
 	);
 };
