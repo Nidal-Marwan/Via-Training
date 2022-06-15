@@ -1,5 +1,9 @@
 {
   "app": {
     "sekeleton": "رياكت عظم"
+  },
+  "table":{
+    "datepicker": "إختر تاريخ"
   }
+
 }
