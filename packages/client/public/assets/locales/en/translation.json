@@ -1,5 +1,8 @@
 {
   "app": {
     "sekeleton": "REACT SKELETON"
+  },
+  "table":{
+    "datepicker": "Pick a date"
   }
 }
