@@ -46,6 +46,7 @@ function Table(props: Data) {
 					/>
 				</LocalizationProvider>
         <IconButton aria-label='reset' size='large' onClick={()=>{
+					setDate(null);
           setRows(props.rows);
         }}>
             <RestartAltIcon fontSize='inherit'/>
