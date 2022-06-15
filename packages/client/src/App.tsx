@@ -1,3 +1,9 @@
+import { Home } from "./views/Home/Home";
+
 export const App = () => {
-  return <p>REACT SKELETON</p>;
+  return (
+    <>
+      <Home />
+    </>
+  );
 };

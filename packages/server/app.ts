@@ -1,14 +1,21 @@
 const express = require("express");
 const path = require("path");
+import authRouter from "./src/routes/auth/auth-route";
+import { AppDataSource } from "./src/utils/data-source";
+const cors = require("cors");
+
 const PORT = process.env.PORT || 3001;
 
-const app = express();
-if (process.env.NODE_ENV) {
-  app.use(express.static(path.join(__dirname, "build")));
-} else {
-  app.use(express.static(path.join(__dirname, "public")));
-}
-
-app.listen(PORT, () => {
-  console.log(`Server listening on ${PORT}`);
-});
+AppDataSource.initialize()
+  .then(async () => {
+    const app = express();
+    app.use(cors({ origin: "http://localhost:3000" }));
+    app.use(express.urlencoded({ extended: true }));
+    app.use(express.static(path.join(__dirname, "public")));
+    app.use(express.json());
+    app.use("/api/home", authRouter);
+    app.listen(PORT, () => {
+      console.log(`Server listening on ${PORT}`);
+    });
+  })
+  .catch((error) => console.log(error));
