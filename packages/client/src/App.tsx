@@ -1,11 +1,13 @@
 import { useState } from 'react';
 
+import Table from './common/components/Table';
+
 import { useTranslation } from 'react-i18next';
 import languages from './common/localization/languages';
 
 import cookies from 'js-cookie';
 
-import { Select, MenuItem, SelectChangeEvent } from '@mui/material';
+import { Select, MenuItem, SelectChangeEvent, Box } from '@mui/material';
 
 export const App = () => {
 	const { t, i18n } = useTranslation();
@@ -24,7 +26,13 @@ export const App = () => {
 	const handleChange = (event: SelectChangeEvent) => {
 		setLanguage(event.target.value);
 	};
-
+	const headers = [
+		{ field: 'name', headerName: 'Name', width: 150 },
+		{ field: 'lat', headerName: 'Latitude', type: 'number', width: 100 },
+		{ field: 'long', headerName: 'Longitude', type: 'number', width: 100 },
+		{ field: 'date', headerName: 'Date', type: 'date', width: 150 },
+	];
+	const data = [{id:1, name: 'London', lat: 35.3, long: 35.3, date: new Date()  }];
 	return (
 		<>
 			<Select onChange={handleChange} value={language}>
@@ -38,7 +46,8 @@ export const App = () => {
 					</MenuItem>
 				))}
 			</Select>
-			<div>{t('app.sekeleton')}</div>
+			<Box>{t('app.sekeleton')}</Box>
+			<Table columns={headers} rows={data}/>
 		</>
 	);
 };
