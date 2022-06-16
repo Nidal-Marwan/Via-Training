@@ -8,5 +8,8 @@
     "phone": "رقم الهاتف",
     "password": "كلمة السر",
     "signup": "تسجيل"
+  }, 
+  "table": {
+    "datepicker" : "إختر تاريخ"
   }
 }
