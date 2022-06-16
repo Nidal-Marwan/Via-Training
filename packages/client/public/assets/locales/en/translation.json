@@ -2,7 +2,11 @@
   "app": {
     "sekeleton": "REACT SKELETON"
   },
-  "table":{
-    "datepicker": "Pick a date"
+  "form": {
+    "name": "Name",
+    "email": " Email",
+    "phone": " Phone",
+    "password": "Password ",
+    "signup": "SignUp"
   }
 }
