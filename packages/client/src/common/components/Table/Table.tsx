@@ -13,6 +13,7 @@ import { useTranslation } from 'react-i18next';
 
 import enLocale from 'date-fns/locale/en-GB';
 import arLocale from 'date-fns/locale/ar-SA';
+import { Box } from '@mui/material';
 
 interface Data {
 	columns: any[];
@@ -32,7 +33,12 @@ function Table(props: Data) {
 	return (
 		<div style={{ height: 400, width: 800, margin: 15 }}>
 			{props.datepicker && (
-				<>
+				<Box
+					sx={{
+						marginTop: 3,
+						marginBottom: 1,
+					}}
+				>
 					<LocalizationProvider
 						dateAdapter={AdapterDateFns}
 						adapterLocale={i18n.language === 'en' ? enLocale : arLocale}
@@ -46,6 +52,9 @@ function Table(props: Data) {
 										},
 									},
 								}),
+							}}
+							InputProps={{
+								notched: false,
 							}}
 							value={date}
 							views={['year', 'month', 'day']}
@@ -71,6 +80,9 @@ function Table(props: Data) {
 												textAlign: 'right',
 											}),
 										},
+										'& .MuiInputLabel-shrink': {
+											marginTop: -1,
+										},
 									}}
 									{...params}
 								/>
@@ -94,7 +106,7 @@ function Table(props: Data) {
 							}}
 						/>
 					</IconButton>
-				</>
+				</Box>
 			)}
 			<DataGrid
 				sx={{
