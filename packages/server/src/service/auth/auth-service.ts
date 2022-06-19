@@ -36,7 +36,6 @@ export const userLogin = async (data: LoginData) => {
     return { status: 409, message: "Email does not exist" };
   } else {
     const hashedPassword = existingEmail.password;
-    console.log(hashedPassword);
     if (await bcrypt.compare(data.password, hashedPassword)) {
       console.log("Login Successful");
       console.log("Generating accessToken");
@@ -46,7 +45,7 @@ export const userLogin = async (data: LoginData) => {
       console.log(token);
       return { status: 200, message: "User logged in successfully", token };
     } else {
-      console.log("Incorrect password");
+      console.error("Incorrect password");
       return { status: 409, message: "Incorrect password" };
     }
   }
