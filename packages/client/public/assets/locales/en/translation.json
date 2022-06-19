@@ -7,6 +7,10 @@
     "email": " Email",
     "phone": " Phone",
     "password": "Password ",
-    "signup": "SignUp"
+    "signup": "SignUp",
+    "login": "Login"
+  },
+  "table": {
+    "datepicker": "Pick a date"
   }
 }
