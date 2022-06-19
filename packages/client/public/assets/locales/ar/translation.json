@@ -8,8 +8,13 @@
     "phone": "رقم الهاتف",
     "password": "كلمة السر",
     "signup": "تسجيل"
-  }, 
+  },
   "table": {
-    "datepicker" : "إختر تاريخ"
+    "datepicker": "إختر تاريخ"
+  },
+  "nav": {
+    "map": "الخريطة",
+    "driver": "السائق",
+    "location": "الموقع"
   }
 }
