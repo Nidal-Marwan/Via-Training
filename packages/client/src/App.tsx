@@ -20,6 +20,7 @@ import {
 } from '@mui/material';
 
 import Table from './common/components/Table/Table';
+import ModalComponent from './common/components/ModalComponent/ModalComponent';
 
 const headers = [
 	{ field: 'name', headerName: 'Name', width: 150 },
@@ -113,6 +114,22 @@ export const App = () => {
 					<Box>
 						<Home />
 					</Box>
+					<ModalComponent
+						message={'Would you like to set-up favorite locations?'}
+						open={true}
+						handleOpen={function (): void {
+							throw new Error('Function not implemented.');
+						}}
+						handleClose={function (): void {
+							throw new Error('Function not implemented.');
+						}}
+						accept={function (): void {
+							throw new Error('Function not implemented.');
+						}}
+						decline={function (): void {
+							throw new Error('Function not implemented.');
+						}}
+					/>
 				</Container>
 			</ThemeProvider>
 		</CacheProvider>

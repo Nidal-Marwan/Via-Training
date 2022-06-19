@@ -18,8 +18,8 @@ google maps.
 the client.<br> 
 &rarr; Run **npm run start:client:prod** to build the
 client.<br> 
-&rarr; Run **pnpm start:server:dev** to start the server.<br> 
-&rarr; Run **pnpm start:server:prod** to build the server.<br> 
+&rarr; Run **npm run start:server:dev** to start the server.<br> 
+&rarr; Run **npm run start:server:prod** to build the server.<br> 
 
 ## Contributers🤝
 
