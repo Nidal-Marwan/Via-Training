@@ -1,10 +1,10 @@
 const express = require("express");
 const path = require("path");
-import authRouter from "./src/routes/auth/auth-route";
+import * as authRouter from "./src/routes/auth/auth-route";
 import { AppDataSource } from "./src/utils/data-source";
 const cors = require("cors");
 
-const PORT = process.env.PORT || 3001;
+const PORT = 3002;
 
 AppDataSource.initialize()
   .then(async () => {

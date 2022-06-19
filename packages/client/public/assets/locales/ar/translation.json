@@ -9,5 +9,8 @@
     "password": "كلمة السر",
     "signup": "تسجيل",
     "login": "دخول"
+  },
+  "table": {
+    "datepicker": "إختر تاريخ"
   }
 }

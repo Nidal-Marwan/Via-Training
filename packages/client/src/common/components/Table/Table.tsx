@@ -31,7 +31,7 @@ function Table(props: Data) {
 	const [rows, setRows] = useState(props.rows);
 
 	return (
-		<div style={{ height: 400, width: 800, margin: 15 }}>
+		<Box style={{ height: 400, width: 800, margin: 15 }}>
 			{props.datepicker && (
 				<Box
 					sx={{
@@ -44,18 +44,6 @@ function Table(props: Data) {
 						adapterLocale={i18n.language === 'en' ? enLocale : arLocale}
 					>
 						<DatePicker
-							PopperProps={{
-								...(i18n.dir() === 'rtl' && {
-									sx: {
-										'& .MuiSvgIcon-root': {
-											transform: 'rotate(-180deg)',
-										},
-									},
-								}),
-							}}
-							InputProps={{
-								notched: false,
-							}}
 							value={date}
 							views={['year', 'month', 'day']}
 							inputFormat='dd/MM/yyyy'
@@ -71,22 +59,7 @@ function Table(props: Data) {
 									})
 								);
 							}}
-							renderInput={(params) => (
-								<TextField
-									sx={{
-										label: {
-											...(i18n.dir() === 'rtl' && {
-												width: '118%',
-												textAlign: 'right',
-											}),
-										},
-										'& .MuiInputLabel-shrink': {
-											marginTop: -1,
-										},
-									}}
-									{...params}
-								/>
-							)}
+							renderInput={(params) => <TextField {...params} />}
 						/>
 					</LocalizationProvider>
 					<IconButton
@@ -109,13 +82,6 @@ function Table(props: Data) {
 				</Box>
 			)}
 			<DataGrid
-				sx={{
-					...(i18n.dir() === 'rtl' && {
-						'& .MuiSvgIcon-root': {
-							transform: 'rotate(-180deg)',
-						},
-					}),
-				}}
 				localeText={
 					i18n.language === 'ar'
 						? arSD.components.MuiDataGrid.defaultProps.localeText
@@ -127,7 +93,7 @@ function Table(props: Data) {
 				rowsPerPageOptions={[]}
 				pageSize={5}
 			/>
-		</div>
+		</Box>
 	);
 }
 
