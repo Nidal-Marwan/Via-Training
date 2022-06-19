@@ -11,5 +11,12 @@
 	},
 	"table": {
 		"datepicker": "Pick a date"
+	},
+	"modal": {
+		"favorites": {
+			"message": "Would you like to set-up favorite locations?",
+			"accept": "Yes",
+			"decline": "Cancel"
+		}
 	}
 }

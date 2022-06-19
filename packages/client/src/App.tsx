@@ -17,11 +17,13 @@ import {
 	Box,
 	createTheme,
 	ThemeProvider,
+	Button,
 } from '@mui/material';
 
 import Table from './common/components/Table/Table';
 import ModalComponent from './common/components/ModalComponent/ModalComponent';
 
+///////////////////////////////////TABLE DUMMY DATA////////////////////////////
 const headers = [
 	{ field: 'name', headerName: 'Name', width: 150 },
 	{ field: 'lat', headerName: 'Latitude', type: 'number', width: 100 },
@@ -58,7 +60,9 @@ const data = [
 		date: new Date('2022-6-12'),
 	},
 ];
+/////////////////////////////////////////////////////////////////////////////////
 
+/////////////////////////////////LTR/RTL THEME SETTINGS/////////////////////////
 const cacheLtr = createCache({
 	key: 'muiltr',
 });
@@ -70,8 +74,10 @@ const cacheRtl = createCache({
 	// if you want to retain the auto-prefixing behavior.
 	stylisPlugins: [prefixer, stylisRTLPlugin],
 });
+//////////////////////////////////////////////////////////////////////////////
 
 export const App = () => {
+	//////////////////////////////i18n SELECTOR SETTINGS/////////////////////////
 	const { t, i18n } = useTranslation();
 	document.body.dir = i18n.dir();
 
@@ -92,7 +98,29 @@ export const App = () => {
 	const theme = createTheme({
 		direction: i18n.dir(),
 	});
+	//////////////////////////////////////////////////////////////////////////////////////
 
+	///////////////////////////////MODAL SETTINGS////////////////////////////////////////
+	const [showModal, setShowModal] = useState(false);
+
+	const handleOpen = () => {
+		setShowModal(true);
+	};
+
+	const handleClose = () => {
+		setShowModal(false);
+	};
+
+	const accept = () => {
+		handleClose();
+		//Routing to favorite locations page
+	};
+
+	const decline = () => {
+		handleClose();
+		//Routing to live page
+	};
+	////////////////////////////////////////////////////////////////////////////////////
 	return (
 		<CacheProvider value={i18n.dir() === 'rtl' ? cacheRtl : cacheLtr}>
 			<ThemeProvider theme={theme}>
@@ -114,21 +142,14 @@ export const App = () => {
 					<Box>
 						<Home />
 					</Box>
+					<Button onClick={handleOpen}>Open modal</Button>
 					<ModalComponent
-						message={'Would you like to set-up favorite locations?'}
-						open={true}
-						handleOpen={function (): void {
-							throw new Error('Function not implemented.');
-						}}
-						handleClose={function (): void {
-							throw new Error('Function not implemented.');
-						}}
-						accept={function (): void {
-							throw new Error('Function not implemented.');
-						}}
-						decline={function (): void {
-							throw new Error('Function not implemented.');
-						}}
+						message={t('modal.favorites.message')}
+						acceptText={t('modal.favorites.accept')}
+						declineText={t('modal.favorites.decline')}
+						open={showModal}
+						accept={accept}
+						decline={decline}
 					/>
 				</Container>
 			</ThemeProvider>

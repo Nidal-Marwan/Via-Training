@@ -17,7 +17,7 @@ const ModalBox = styled(Box)({
 });
 
 const ActionsBox = styled(Box)({
-	marginTop: 25,
+	marginTop: 30,
 	display: 'flex',
 	justifyContent: 'flex-end',
 	gap: '10px',
@@ -27,9 +27,9 @@ const ActionsBox = styled(Box)({
 });
 interface ModalProps {
 	message: string;
+	acceptText: string;
+	declineText: string;
 	open: boolean;
-	handleOpen: () => void;
-	handleClose: () => void;
 	accept: () => void;
 	decline: () => void;
 }
@@ -39,9 +39,8 @@ export default function ModalComponent(props: ModalProps) {
 		<div>
 			<Modal
 				open={props.open}
-				onClose={props.handleClose}
+				onClose={props.decline}
 				aria-labelledby='modal-modal-title'
-				aria-describedby='modal-modal-description'
 			>
 				<ModalBox>
 					<Typography id='modal-modal-title' variant='h6' component='h2'>
@@ -50,10 +49,10 @@ export default function ModalComponent(props: ModalProps) {
 					<Divider />
 					<ActionsBox>
 						<Button variant='contained' onClick={props.accept}>
-							Yes
+							{props.acceptText}
 						</Button>
 						<Button variant='outlined' onClick={props.decline}>
-							Cancel
+							{props.declineText}
 						</Button>
 					</ActionsBox>
 				</ModalBox>
