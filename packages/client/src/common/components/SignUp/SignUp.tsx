@@ -19,7 +19,7 @@ export const SignUp: React.FC = () => {
   const handleSubmit = async (values: any) => {
     setError(null);
     const response = await trainingClient.post<SignUpResponse>(
-      "signup",
+      "/home/signup",
       values
     );
     if (response.data.status === 201) {
