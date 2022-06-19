@@ -4,7 +4,7 @@ import * as authRouter from "./src/routes/auth/auth-route";
 import { AppDataSource } from "./src/utils/data-source";
 const cors = require("cors");
 
-const PORT = 3002;
+const PORT = process.env.PORT || 3001;
 
 AppDataSource.initialize()
   .then(async () => {

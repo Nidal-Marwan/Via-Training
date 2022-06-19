@@ -44,7 +44,7 @@ export const userLogin = async (data: LoginData) => {
         email: data.email,
       });
       console.log(token);
-      return { status: 201, message: "User logged in successfully", token };
+      return { status: 200, message: "User logged in successfully", token };
     } else {
       console.log("Incorrect password");
       return { status: 409, message: "Incorrect password" };
