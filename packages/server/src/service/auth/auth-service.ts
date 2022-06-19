@@ -1,6 +1,8 @@
-import { UserData } from "src/controllers/auth/User";
+import { LoginData, UserData } from "../../controllers/auth/User";
 import { User } from "../../models/User.model";
 import { AppDataSource } from "../../utils/data-source";
+var jwt = require("jsonwebtoken");
+const bcrypt = require("bcrypt");
 
 const userRepository = AppDataSource.getRepository(User);
 
@@ -24,3 +26,33 @@ export const addUser = async (data: UserData) => {
     return { error: err };
   }
 };
+
+export const userLogin = async (data: LoginData) => {
+  const existingEmail = await userRepository.findOne({
+    where: { email: data.email },
+  });
+
+  if (!existingEmail) {
+    return { status: 409, message: "Email does not exist" };
+  } else {
+    const hashedPassword = existingEmail.password;
+    console.log(hashedPassword);
+    if (await bcrypt.compare(data.password, hashedPassword)) {
+      console.log("Login Successful");
+      console.log("Generating accessToken");
+      const token = generateAccessToken({
+        email: data.email,
+      });
+      console.log(token);
+      return { status: 201, message: "User logged in successfully", token };
+    } else {
+      console.log("Incorrect password");
+      return { status: 409, message: "Incorrect password" };
+    }
+  }
+};
+
+export function generateAccessToken(user: any) {
+  var token = jwt.sign(user, `${process.env.ACCESS_TOKEN_SECRET}`);
+  return token;
+}

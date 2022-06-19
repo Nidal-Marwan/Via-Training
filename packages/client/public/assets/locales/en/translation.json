@@ -7,6 +7,7 @@
     "email": " Email",
     "phone": " Phone",
     "password": "Password ",
-    "signup": "SignUp"
+    "signup": "SignUp",
+    "login": "Login"
   }
 }
