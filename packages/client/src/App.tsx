@@ -14,7 +14,6 @@ import {
   SelectChangeEvent,
   Container,
   Box,
-  createTheme,
   ThemeProvider,
 } from "@mui/material";
 
@@ -22,7 +21,7 @@ import Table from "./common/components/Table/Table";
 import { Routes, Route } from "react-router-dom";
 import { NavBar } from "./common/components/NavBar/NavBar";
 import { SignUp } from "./common/components/SignUp/SignUp";
-import { customTheme } from "./common/utils/theem";
+import { customTheme } from "./common/utils/theme";
 
 const headers = [
   { field: "name", headerName: "Name", width: 150 },
