@@ -1,6 +1,6 @@
 const express = require("express");
 const path = require("path");
-import authRouter from "./src/routes/auth/auth-route";
+import * as authRouter from "./src/routes/auth/auth-route";
 import { AppDataSource } from "./src/utils/data-source";
 const cors = require("cors");
 
@@ -18,4 +18,4 @@ AppDataSource.initialize()
       console.log(`Server listening on ${PORT}`);
     });
   })
-  .catch((error) => console.log(error));
+  .catch((error) => console.error(error));

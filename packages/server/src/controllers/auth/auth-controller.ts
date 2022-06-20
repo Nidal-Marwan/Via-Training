@@ -20,3 +20,18 @@ export const postUser = async (req: Request, res: Response) => {
   const response = await service.addUser(data);
   return res.send(response);
 };
+
+export const postLogin = async (req: Request, res: Response) => {
+  let email = req.body.email;
+  let password = req.body.password;
+
+  if (!email || !password) {
+    return res.send({ error: "Invalid input" });
+  }
+  const data = {
+    email: <string>req.body.email,
+    password: <string>req.body.password,
+  };
+  const response = await service.userLogin(data);
+  return res.send(response);
+};
