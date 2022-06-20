@@ -22,8 +22,7 @@ import { Routes, Route } from "react-router-dom";
 import { NavBar } from "./common/components/NavBar/NavBar";
 import { SignUp } from "./common/components/SignUp/SignUp";
 import { customTheme } from "./common/utils/theme";
-
-import Modal from "./common/components/ModalComponent/Modal";
+import Modal from "./common/components/Modal/Modal";
 
 ///////////////////////////////////TABLE DUMMY DATA////////////////////////////
 const headers = [
