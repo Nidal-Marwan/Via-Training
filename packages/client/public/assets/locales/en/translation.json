@@ -7,7 +7,8 @@
     "email": " Email",
     "phone": " Phone",
     "password": "Password ",
-    "signup": "SignUp"
+    "signup": "SignUp",
+    "login": "Login"
   },
   "table": {
     "datepicker": "Pick a date"
@@ -15,7 +16,6 @@
   "nav": {
     "map": "Map",
     "driver": "Driver",
-    "location": "Location",
-    "login": "Login"
+    "location": "Location"
   }
 }

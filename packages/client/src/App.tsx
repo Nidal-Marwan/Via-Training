@@ -21,6 +21,7 @@ import {
 import Table from "./common/components/Table/Table";
 import { Routes, Route } from "react-router-dom";
 import { NavBar } from "./common/components/NavBar/NavBar";
+import { SignUp } from "./common/components/SignUp/SignUp";
 
 const headers = [
   { field: "name", headerName: "Name", width: 150 },
@@ -98,6 +99,7 @@ export const App = () => {
       <NavBar />
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="signup" element={<SignUp />} />
         {/* <Route path="liveMap" element={ <Map/> } />
         <Route path="drivers" element={ <Drivers/> } />
 		<Route path="locations" element={ <Locations/> } /> */}

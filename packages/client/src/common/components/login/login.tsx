@@ -1,12 +1,12 @@
 import { Form, Formik, FormikProps } from "formik";
 import { TextInput } from "../TextInput/TextInput";
-import { Box, Link } from "@mui/material";
+import { Box } from "@mui/material";
 import { t } from "i18next";
 import { CustomButton } from "../Button/Button";
-import { SignUp } from "../SignUp/SignUp";
 import { useState } from "react";
 import { trainingClient } from "../../api/trainingClient";
 import { LoginSchema } from "./login.schema";
+import { Link } from "react-router-dom";
 
 interface LoginResponse {
   status: number;
@@ -66,12 +66,11 @@ const Login = () => {
               type="submit"
             />
             {/* will become a link when routes are created so we can route the user to signup page*/}
-            <CustomButton
-              color="success"
-              title={t("form.signup")}
-              type="submit"
-              onClick={() => {}}
-            />
+            <Box>
+              <p>
+                Not a member ? <Link to="/signup">Join Us</Link>
+              </p>
+            </Box>
           </Form>
         );
       }}
