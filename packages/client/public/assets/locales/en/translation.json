@@ -15,6 +15,7 @@
   "nav": {
     "map": "Map",
     "driver": "Driver",
-    "location": "Location"
+    "location": "Location",
+    "login": "Login"
   }
 }
