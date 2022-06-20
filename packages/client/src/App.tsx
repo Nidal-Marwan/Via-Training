@@ -17,10 +17,13 @@ import {
 	Box,
 	createTheme,
 	ThemeProvider,
+	Button,
 } from '@mui/material';
 
 import Table from './common/components/Table/Table';
+import Modal from './common/components/ModalComponent/Modal';
 
+///////////////////////////////////TABLE DUMMY DATA////////////////////////////
 const headers = [
 	{ field: 'name', headerName: 'Name', width: 150 },
 	{ field: 'lat', headerName: 'Latitude', type: 'number', width: 100 },
@@ -57,7 +60,9 @@ const data = [
 		date: new Date('2022-6-12'),
 	},
 ];
+/////////////////////////////////////////////////////////////////////////////////
 
+/////////////////////////////////LTR/RTL THEME SETTINGS/////////////////////////
 const cacheLtr = createCache({
 	key: 'muiltr',
 });
@@ -69,8 +74,10 @@ const cacheRtl = createCache({
 	// if you want to retain the auto-prefixing behavior.
 	stylisPlugins: [prefixer, stylisRTLPlugin],
 });
+//////////////////////////////////////////////////////////////////////////////
 
 export const App = () => {
+	//////////////////////////////i18n SELECTOR SETTINGS/////////////////////////
 	const { t, i18n } = useTranslation();
 	document.body.dir = i18n.dir();
 
@@ -91,7 +98,29 @@ export const App = () => {
 	const theme = createTheme({
 		direction: i18n.dir(),
 	});
+	//////////////////////////////////////////////////////////////////////////////////////
 
+	///////////////////////////////MODAL SETTINGS////////////////////////////////////////
+	const [showModal, setShowModal] = useState(false);
+
+	const handleOpen = () => {
+		setShowModal(true);
+	};
+
+	const handleClose = () => {
+		setShowModal(false);
+	};
+
+	const onAccept = () => {
+		handleClose();
+		//Routing to favorite locations page
+	};
+
+	const onCancel = () => {
+		handleClose();
+		//Routing to live page
+	};
+	////////////////////////////////////////////////////////////////////////////////////
 	return (
 		<CacheProvider value={i18n.dir() === 'rtl' ? cacheRtl : cacheLtr}>
 			<ThemeProvider theme={theme}>
@@ -113,6 +142,15 @@ export const App = () => {
 					<Box>
 						<Home />
 					</Box>
+					<Button onClick={handleOpen}>Open modal</Button>
+					<Modal
+						message={t('modal.favorites.message')}
+						acceptText={t('modal.favorites.accept')}
+						cancelText={t('modal.favorites.decline')}
+						open={showModal}
+						onAccept={onAccept}
+						onCancel={onCancel}
+					/>
 				</Container>
 			</ThemeProvider>
 		</CacheProvider>
