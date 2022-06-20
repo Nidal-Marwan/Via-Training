@@ -22,6 +22,7 @@ import Table from "./common/components/Table/Table";
 import { Routes, Route } from "react-router-dom";
 import { NavBar } from "./common/components/NavBar/NavBar";
 import { SignUp } from "./common/components/SignUp/SignUp";
+import { customTheme } from "./common/utils/theem";
 
 const headers = [
   { field: "name", headerName: "Name", width: 150 },
@@ -90,39 +91,33 @@ export const App = () => {
     setLanguage(event.target.value);
   };
 
-  const theme = createTheme({
-    direction: i18n.dir(),
-  });
-
   return (
-    <>
-      <NavBar />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="signup" element={<SignUp />} />
-        {/* <Route path="liveMap" element={ <Map/> } />
+    <CacheProvider value={i18n.dir() === "rtl" ? cacheRtl : cacheLtr}>
+      <ThemeProvider theme={{ ...customTheme, direction: i18n.dir() }}>
+        <Container maxWidth="xl">
+          <NavBar />
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="signup" element={<SignUp />} />
+            {/* <Route path="liveMap" element={ <Map/> } />
         <Route path="drivers" element={ <Drivers/> } />
 		<Route path="locations" element={ <Locations/> } /> */}
-      </Routes>
-      <CacheProvider value={i18n.dir() === "rtl" ? cacheRtl : cacheLtr}>
-        <ThemeProvider theme={theme}>
-          <Container maxWidth="xl">
-            <Box>
-              <Select onChange={handleChange} value={language}>
-                {languages.map(({ code, name }) => (
-                  <MenuItem
-                    key={code}
-                    value={name}
-                    onClick={() => changeLanguage(code)}
-                  >
-                    {name}
-                  </MenuItem>
-                ))}
-              </Select>
-            </Box>
-          </Container>
-        </ThemeProvider>
-      </CacheProvider>
-    </>
+          </Routes>
+          <Box>
+            <Select onChange={handleChange} value={language}>
+              {languages.map(({ code, name }) => (
+                <MenuItem
+                  key={code}
+                  value={name}
+                  onClick={() => changeLanguage(code)}
+                >
+                  {name}
+                </MenuItem>
+              ))}
+            </Select>
+          </Box>
+        </Container>
+      </ThemeProvider>
+    </CacheProvider>
   );
 };

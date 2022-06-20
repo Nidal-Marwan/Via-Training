@@ -78,7 +78,7 @@ export const SignUp: React.FC = () => {
           </Box>
           <Box>
             <CustomButton
-              color="success"
+              color="primary"
               title={t("form.signup")}
               type="submit"
             />

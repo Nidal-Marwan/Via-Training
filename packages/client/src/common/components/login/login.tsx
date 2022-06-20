@@ -61,7 +61,7 @@ const Login = () => {
               />
             </Box>
             <CustomButton
-              color="success"
+              color="primary"
               title={t("form.login")}
               type="submit"
             />
