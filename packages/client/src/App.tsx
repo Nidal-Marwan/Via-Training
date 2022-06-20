@@ -18,7 +18,6 @@ import {
   Button,
 } from "@mui/material";
 
-import Table from "./common/components/Table/Table";
 import { Routes, Route } from "react-router-dom";
 import { NavBar } from "./common/components/NavBar/NavBar";
 import { SignUp } from "./common/components/SignUp/SignUp";
