@@ -20,7 +20,7 @@ import {
 } from "@mui/material";
 
 import Table from "./common/components/Table/Table";
-import Modal from "./common/components/ModalComponent/Modal";
+import Modal from "./common/components/Modal/Modal";
 
 ///////////////////////////////////TABLE DUMMY DATA////////////////////////////
 const headers = [
