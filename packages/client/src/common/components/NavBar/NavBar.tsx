@@ -6,7 +6,7 @@ export const NavBar: React.FC = () => {
   const { t } = useTranslation();
   return (
     <Box>
-      <AppBar sx={{ backgroundColor: "tomato" }} position="static">
+      <AppBar color="secondary" position="static">
         <Toolbar>
           <MenuItem>
             <Typography variant="h6" component="div">

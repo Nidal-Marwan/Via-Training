@@ -14,12 +14,15 @@ import {
   SelectChangeEvent,
   Container,
   Box,
-  createTheme,
   ThemeProvider,
   Button,
 } from "@mui/material";
 
-import Table from "./common/components/Table/Table";
+import { Routes, Route } from "react-router-dom";
+import { NavBar } from "./common/components/NavBar/NavBar";
+import { SignUp } from "./common/components/SignUp/SignUp";
+import { customTheme } from "./common/utils/theme";
+
 import Modal from "./common/components/ModalComponent/Modal";
 
 ///////////////////////////////////TABLE DUMMY DATA////////////////////////////
@@ -76,7 +79,6 @@ const cacheRtl = createCache({
 //////////////////////////////////////////////////////////////////////////////
 
 export const App = () => {
-  //////////////////////////////i18n SELECTOR SETTINGS/////////////////////////
   const { t, i18n } = useTranslation();
   document.body.dir = i18n.dir();
 
@@ -93,13 +95,6 @@ export const App = () => {
   const handleChange = (event: SelectChangeEvent) => {
     setLanguage(event.target.value);
   };
-
-  const theme = createTheme({
-    direction: i18n.dir(),
-  });
-  //////////////////////////////////////////////////////////////////////////////////////
-
-  ///////////////////////////////MODAL SETTINGS////////////////////////////////////////
   const [showModal, setShowModal] = useState(false);
 
   const handleOpen = () => {
@@ -119,39 +114,45 @@ export const App = () => {
     handleClose();
     //Routing to live page
   };
-  ////////////////////////////////////////////////////////////////////////////////////
+
   return (
-    <CacheProvider value={i18n.dir() === "rtl" ? cacheRtl : cacheLtr}>
-      <ThemeProvider theme={theme}>
-        <Container maxWidth="xl">
-          <Box>
-            <Select onChange={handleChange} value={language}>
-              {languages.map(({ code, name }) => (
-                <MenuItem
-                  key={code}
-                  value={name}
-                  onClick={() => changeLanguage(code)}
-                >
-                  {name}
-                </MenuItem>
-              ))}
-            </Select>
-          </Box>
-          <Box>{t("app.sekeleton")}</Box>
-          <Box>
-            <Home />
-          </Box>
-          <Button onClick={handleOpen}>Open modal</Button>
-          <Modal
-            message={t("modal.favorites.message")}
-            acceptText={t("modal.favorites.accept")}
-            cancelText={t("modal.favorites.decline")}
-            open={showModal}
-            onAccept={onAccept}
-            onCancel={onCancel}
-          />
-        </Container>
-      </ThemeProvider>
-    </CacheProvider>
+    <>
+      <NavBar />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="signup" element={<SignUp />} />
+        {/* <Route path="liveMap" element={ <Map/> } />
+      <Route path="drivers" element={ <Drivers/> } />
+  <Route path="locations" element={ <Locations/> } /> */}
+      </Routes>
+      <CacheProvider value={i18n.dir() === "rtl" ? cacheRtl : cacheLtr}>
+        <ThemeProvider theme={{ ...customTheme, direction: i18n.dir() }}>
+          <Container maxWidth="xl">
+            <Box>
+              <Select onChange={handleChange} value={language}>
+                {languages.map(({ code, name }) => (
+                  <MenuItem
+                    key={code}
+                    value={name}
+                    onClick={() => changeLanguage(code)}
+                  >
+                    {name}
+                  </MenuItem>
+                ))}
+              </Select>
+            </Box>
+            <Button onClick={handleOpen}>Open modal</Button>
+            <Modal
+              message={t("modal.favorites.message")}
+              acceptText={t("modal.favorites.accept")}
+              cancelText={t("modal.favorites.decline")}
+              open={showModal}
+              onAccept={onAccept}
+              onCancel={onCancel}
+            />
+          </Container>
+        </ThemeProvider>
+      </CacheProvider>
+    </>
   );
 };
