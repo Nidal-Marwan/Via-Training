@@ -116,17 +116,19 @@ export const App = () => {
 
   return (
     <>
-      <NavBar />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="signup" element={<SignUp />} />
-        {/* <Route path="liveMap" element={ <Map/> } />
-      <Route path="drivers" element={ <Drivers/> } />
-  <Route path="locations" element={ <Locations/> } /> */}
-      </Routes>
       <CacheProvider value={i18n.dir() === "rtl" ? cacheRtl : cacheLtr}>
         <ThemeProvider theme={{ ...customTheme, direction: i18n.dir() }}>
+          <NavBar />
           <Container maxWidth="xl">
+            <Box>
+              <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="signup" element={<SignUp />} />
+                {/* <Route path="liveMap" element={ <Map/> } />
+      <Route path="drivers" element={ <Drivers/> } />
+  <Route path="locations" element={ <Locations/> } /> */}
+              </Routes>
+            </Box>
             <Box>
               <Select onChange={handleChange} value={language}>
                 {languages.map(({ code, name }) => (
