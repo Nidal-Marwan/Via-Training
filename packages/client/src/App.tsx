@@ -23,6 +23,8 @@ import { NavBar } from "./common/components/NavBar/NavBar";
 import { SignUp } from "./common/components/SignUp/SignUp";
 import { customTheme } from "./common/utils/theme";
 import Modal from "./common/components/Modal/Modal";
+import { ModalContainer } from "./common/components/ModalContainer/ModalContainer";
+import { FavLocation } from "./views/FavoriteLocation/FavLocation";
 
 ///////////////////////////////////TABLE DUMMY DATA////////////////////////////
 const headers = [
@@ -78,7 +80,7 @@ const cacheRtl = createCache({
 //////////////////////////////////////////////////////////////////////////////
 
 export const App = () => {
-  const { t, i18n } = useTranslation();
+  const { i18n } = useTranslation();
   document.body.dir = i18n.dir();
 
   const changeLanguage = (lng: string) => {
@@ -94,26 +96,6 @@ export const App = () => {
   const handleChange = (event: SelectChangeEvent) => {
     setLanguage(event.target.value);
   };
-  const [showModal, setShowModal] = useState(false);
-
-  const handleOpen = () => {
-    setShowModal(true);
-  };
-
-  const handleClose = () => {
-    setShowModal(false);
-  };
-
-  const onAccept = () => {
-    handleClose();
-    //Routing to favorite locations page
-  };
-
-  const onCancel = () => {
-    handleClose();
-    //Routing to live page
-  };
-
   return (
     <>
       <CacheProvider value={i18n.dir() === "rtl" ? cacheRtl : cacheLtr}>
@@ -124,9 +106,10 @@ export const App = () => {
               <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="signup" element={<SignUp />} />
+                <Route path="locations" element={<FavLocation />} />
                 {/* <Route path="liveMap" element={ <Map/> } />
       <Route path="drivers" element={ <Drivers/> } />
-  <Route path="locations" element={ <Locations/> } /> */}
+   */}
               </Routes>
             </Box>
             <Box>
@@ -142,15 +125,7 @@ export const App = () => {
                 ))}
               </Select>
             </Box>
-            <Button onClick={handleOpen}>Open modal</Button>
-            <Modal
-              message={t("modal.favorites.message")}
-              acceptText={t("modal.favorites.accept")}
-              cancelText={t("modal.favorites.decline")}
-              open={showModal}
-              onAccept={onAccept}
-              onCancel={onCancel}
-            />
+            <ModalContainer />
           </Container>
         </ThemeProvider>
       </CacheProvider>
