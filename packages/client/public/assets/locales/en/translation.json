@@ -1,23 +1,28 @@
 {
-	"app": {
-		"sekeleton": "REACT SKELETON"
-	},
-	"form": {
-		"name": "Name",
-		"email": " Email",
-		"phone": " Phone",
-		"password": "Password ",
-		"signup": "SignUp",   
-		"login": "Login"
-	},
-	"table": {
-		"datepicker": "Pick a date"
-	},
-	"modal": {
-		"favorites": {
-			"message": "Would you like to set-up favorite locations?",
-			"accept": "Yes",
-			"decline": "Cancel"
-		}
-	}
+  "app": {
+    "sekeleton": "REACT SKELETON"
+  },
+  "form": {
+    "name": "Name",
+    "email": " Email",
+    "phone": " Phone",
+    "password": "Password ",
+    "signup": "SignUp",
+    "login": "Login"
+  },
+  "table": {
+    "datepicker": "Pick a date"
+  },
+  "nav": {
+    "map": "Map",
+    "driver": "Driver",
+    "location": "Location"
+  },
+  "modal": {
+    "favorites": {
+      "message": "Would you like to set-up favorite locations?",
+      "accept": "Yes",
+      "decline": "Cancel"
+    }
+  }
 }
