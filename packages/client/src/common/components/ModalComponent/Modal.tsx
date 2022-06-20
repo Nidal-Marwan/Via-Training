@@ -1,4 +1,10 @@
-import { Modal, Box, Typography, Button, Divider } from '@mui/material';
+import {
+	Modal as MuiModal,
+	Box,
+	Typography,
+	Button,
+	Divider,
+} from '@mui/material';
 import { styled } from '@mui/system';
 
 const ModalBox = styled(Box)({
@@ -28,18 +34,18 @@ const ActionsBox = styled(Box)({
 interface ModalProps {
 	message: string;
 	acceptText: string;
-	declineText: string;
+	cancelText: string;
 	open: boolean;
-	accept: () => void;
-	decline: () => void;
+	onAccept: () => void;
+	onCancel: () => void;
 }
 
-export default function ModalComponent(props: ModalProps) {
+export default function Modal(props: ModalProps) {
 	return (
 		<div>
-			<Modal
+			<MuiModal
 				open={props.open}
-				onClose={props.decline}
+				onClose={props.onCancel}
 				aria-labelledby='modal-modal-title'
 			>
 				<ModalBox>
@@ -48,15 +54,15 @@ export default function ModalComponent(props: ModalProps) {
 					</Typography>
 					<Divider />
 					<ActionsBox>
-						<Button variant='contained' onClick={props.accept}>
+						<Button variant='contained' onClick={props.onAccept}>
 							{props.acceptText}
 						</Button>
-						<Button variant='outlined' onClick={props.decline}>
-							{props.declineText}
+						<Button variant='outlined' onClick={props.onCancel}>
+							{props.cancelText}
 						</Button>
 					</ActionsBox>
 				</ModalBox>
-			</Modal>
+			</MuiModal>
 		</div>
 	);
 }

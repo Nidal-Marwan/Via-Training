@@ -21,7 +21,7 @@ import {
 } from '@mui/material';
 
 import Table from './common/components/Table/Table';
-import ModalComponent from './common/components/ModalComponent/ModalComponent';
+import Modal from './common/components/ModalComponent/Modal';
 
 ///////////////////////////////////TABLE DUMMY DATA////////////////////////////
 const headers = [
@@ -111,12 +111,12 @@ export const App = () => {
 		setShowModal(false);
 	};
 
-	const accept = () => {
+	const onAccept = () => {
 		handleClose();
 		//Routing to favorite locations page
 	};
 
-	const decline = () => {
+	const onCancel = () => {
 		handleClose();
 		//Routing to live page
 	};
@@ -143,13 +143,13 @@ export const App = () => {
 						<Home />
 					</Box>
 					<Button onClick={handleOpen}>Open modal</Button>
-					<ModalComponent
+					<Modal
 						message={t('modal.favorites.message')}
 						acceptText={t('modal.favorites.accept')}
-						declineText={t('modal.favorites.decline')}
+						cancelText={t('modal.favorites.decline')}
 						open={showModal}
-						accept={accept}
-						decline={decline}
+						onAccept={onAccept}
+						onCancel={onCancel}
 					/>
 				</Container>
 			</ThemeProvider>
