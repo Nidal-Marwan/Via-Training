@@ -14,6 +14,7 @@ import { Routes, Route } from "react-router-dom";
 import { NavBar } from "./common/components/NavBar/NavBar";
 import { SignUp } from "./common/components/SignUp/SignUp";
 import { customTheme } from "./common/utils/theme";
+
 import { ModalContainer } from "./common/components/ModalContainer/ModalContainer";
 import { FavLocation } from "./views/FavoriteLocation/FavLocation";
 
