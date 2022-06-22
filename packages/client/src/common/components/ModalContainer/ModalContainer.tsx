@@ -26,12 +26,6 @@ export const ModalContainer = () => {
   };
   return (
     <>
-      <CustomButton
-        color="primary"
-        title="Open modal"
-        type="button"
-        onClick={handleOpen}
-      />
       <Modal
         message={t("modal.favorites.message")}
         acceptText={t("modal.favorites.accept")}
