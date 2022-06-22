@@ -10,10 +10,6 @@ export const StyledForm = styled(Form)(({theme})=>({
 	gap: 25,
 	border: `1px solid ${theme.palette.primary.main}`,
 	borderRadius: 5,
-	'& .MuiFormHelperText-root': {
-		marginTop: 0,
-		height: 0,
-	},
 	'& .MuiButton-root': {
 		width: 80,
 	},
