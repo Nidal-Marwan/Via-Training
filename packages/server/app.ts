@@ -2,8 +2,8 @@ const express = require('express');
 const path = require('path');
 import * as authRouter from './src/routes/auth/auth-route';
 import { AppDataSource } from './src/utils/data-source';
+import logger from './src/utils/logger';
 const cors = require('cors');
-const logger = require('./src/utils/logger');
 
 const PORT = process.env.PORT || 3001;
 
