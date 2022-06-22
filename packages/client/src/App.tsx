@@ -17,6 +17,7 @@ import {
   ThemeProvider,
   Button,
 } from "@mui/material";
+import CssBaseline from "@mui/material/CssBaseline";
 
 import { Routes, Route } from "react-router-dom";
 import { NavBar } from "./common/components/NavBar/NavBar";
@@ -100,6 +101,7 @@ export const App = () => {
     <>
       <CacheProvider value={i18n.dir() === "rtl" ? cacheRtl : cacheLtr}>
         <ThemeProvider theme={{ ...customTheme, direction: i18n.dir() }}>
+          <CssBaseline />
           <NavBar />
           <Container maxWidth="xl">
             <Box>
