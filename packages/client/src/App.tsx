@@ -1,72 +1,20 @@
 import { Home } from "./views/Home/Home";
-import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import languages from "./common/localization/languages";
-import cookies from "js-cookie";
 import stylisRTLPlugin from "stylis-plugin-rtl";
 import { prefixer } from "stylis";
 import createCache from "@emotion/cache";
 import { CacheProvider } from "@emotion/react";
 
-import {
-  Select,
-  MenuItem,
-  SelectChangeEvent,
-  Container,
-  Box,
-  ThemeProvider,
-  Button,
-} from "@mui/material";
+import { Container, Box, ThemeProvider } from "@mui/material";
 import CssBaseline from "@mui/material/CssBaseline";
 
 import { Routes, Route } from "react-router-dom";
 import { NavBar } from "./common/components/NavBar/NavBar";
 import { SignUp } from "./common/components/SignUp/SignUp";
 import { customTheme } from "./common/utils/theme";
-import Modal from "./common/components/Modal/Modal";
 import { ModalContainer } from "./common/components/ModalContainer/ModalContainer";
 import { FavLocation } from "./views/FavoriteLocation/FavLocation";
 
-///////////////////////////////////TABLE DUMMY DATA////////////////////////////
-const headers = [
-  { field: "name", headerName: "Name", width: 150 },
-  { field: "lat", headerName: "Latitude", type: "number", width: 100 },
-  { field: "long", headerName: "Longitude", type: "number", width: 100 },
-  { field: "date", headerName: "Date", type: "date", width: 100 },
-];
-const data = [
-  {
-    id: 1,
-    name: "London",
-    lat: 35.3,
-    long: 35.3,
-    date: new Date("2022-6-10"),
-  },
-  {
-    id: 4,
-    name: "London",
-    lat: 35.3,
-    long: 35.3,
-    date: new Date("2022-6-10"),
-  },
-  {
-    id: 2,
-    name: "London",
-    lat: 33.3,
-    long: 35.3,
-    date: new Date("2022-6-9"),
-  },
-  {
-    id: 3,
-    name: "London",
-    lat: 34.3,
-    long: 35.3,
-    date: new Date("2022-6-12"),
-  },
-];
-/////////////////////////////////////////////////////////////////////////////////
-
-/////////////////////////////////LTR/RTL THEME SETTINGS/////////////////////////
 const cacheLtr = createCache({
   key: "muiltr",
 });
@@ -83,20 +31,6 @@ const cacheRtl = createCache({
 export const App = () => {
   const { i18n } = useTranslation();
   document.body.dir = i18n.dir();
-
-  const changeLanguage = (lng: string) => {
-    i18n.changeLanguage(lng);
-    document.body.dir = i18n.dir();
-  };
-
-  const currentLanguageCode = cookies.get("i18next") || "en";
-
-  const [language, setLanguage] = useState(
-    currentLanguageCode === "en" ? "English" : "العربية"
-  );
-  const handleChange = (event: SelectChangeEvent) => {
-    setLanguage(event.target.value);
-  };
   return (
     <>
       <CacheProvider value={i18n.dir() === "rtl" ? cacheRtl : cacheLtr}>
@@ -114,7 +48,6 @@ export const App = () => {
    */}
               </Routes>
             </Box>
-            <ModalContainer />
           </Container>
         </ThemeProvider>
       </CacheProvider>
