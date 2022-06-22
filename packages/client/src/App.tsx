@@ -4,8 +4,12 @@ import stylisRTLPlugin from "stylis-plugin-rtl";
 import { prefixer } from "stylis";
 import createCache from "@emotion/cache";
 import { CacheProvider } from "@emotion/react";
+
+
 import { Container, Box, ThemeProvider } from "@mui/material";
 import CssBaseline from "@mui/material/CssBaseline";
+
+
 import { Routes, Route } from "react-router-dom";
 import { NavBar } from "./common/components/NavBar/NavBar";
 import { SignUp } from "./common/components/SignUp/SignUp";
@@ -27,7 +31,6 @@ const cacheRtl = createCache({
 //////////////////////////////////////////////////////////////////////////////
 
 export const App = () => {
-
   const { i18n } = useTranslation();
   document.body.dir = i18n.dir();
   return (
