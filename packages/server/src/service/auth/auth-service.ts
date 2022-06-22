@@ -3,6 +3,8 @@ import { User } from "../../models/User.model";
 import { AppDataSource } from "../../utils/data-source";
 import * as jwt from "jsonwebtoken";
 import * as bcrypt from "bcrypt";
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const logger = require("../../utils/logger");
 
 const userRepository = AppDataSource.getRepository(User);
 
@@ -37,15 +39,15 @@ export const userLogin = async (data: LoginData) => {
 	} else {
 		const hashedPassword = existingEmail.password;
 		if (await bcrypt.compare(data.password, hashedPassword)) {
-			console.log("Login Successful");
-			console.log("Generating accessToken");
+			logger.info("Login Succesful");
+			logger.info("Generating Access Token");
 			const token = generateAccessToken({
 				email: data.email,
 			});
-			console.log(token);
+			logger.info(token);
 			return { status: 200, message: "User logged in successfully", token };
 		} else {
-			console.error("Incorrect password");
+			logger.error("Incorrect Password");
 			return { status: 409, message: "Incorrect password" };
 		}
 	}

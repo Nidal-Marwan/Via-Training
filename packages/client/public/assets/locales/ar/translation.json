@@ -12,5 +12,17 @@
   },
   "table": {
     "datepicker": "إختر تاريخ"
+  },
+  "nav": {
+    "map": "الخريطة",
+    "driver": "السائق",
+    "location": "الموقع"
+  },
+  "modal": {
+    "favorites": {
+      "message": "هل ترغب في إضافة مواقع مفضلة؟",
+      "accept": "نعم",
+      "decline": "إلغاء"
+    }
   }
 }

@@ -6,6 +6,7 @@ import { CustomButton } from "../Button/Button";
 import { useState } from "react";
 import { trainingClient } from "../../api/trainingClient";
 import { LoginSchema } from "./login.schema";
+import { Link } from "react-router-dom";
 
 interface LoginResponse {
   status: number;
@@ -60,17 +61,16 @@ interface LoginResponse {
               />
             </Box>
             <CustomButton
-              color="success"
+              color="primary"
               title={t("form.login")}
               type="submit"
             />
             {/* will become a link when routes are created so we can route the user to signup page*/}
-            <CustomButton
-              color="success"
-              title={t("form.signup")}
-              type="submit"
-              onClick={() => {}}
-            />
+            <Box>
+              <p>
+                Not a member ? <Link to="/signup">Join Us</Link>
+              </p>
+            </Box>
           </Form>
         );
       }}

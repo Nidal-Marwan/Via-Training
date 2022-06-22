@@ -7,6 +7,7 @@ import { CustomButton } from "../Button/Button";
 import { useTranslation } from "react-i18next";
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
+import { useNavigate } from "react-router-dom";
 
 interface SignUpResponse {
   status: number;
@@ -14,6 +15,7 @@ interface SignUpResponse {
 }
 
 export const SignUp: React.FC = () => {
+  const navigate = useNavigate();
   const { t } = useTranslation();
   const [error, setError] = useState<string | null>();
   const handleSubmit = async (values: any) => {
@@ -23,7 +25,7 @@ export const SignUp: React.FC = () => {
       values
     );
     if (response.data.status === 201) {
-      //navigate to login
+      navigate("/");
     } else {
       setError(response.data.message);
     }
@@ -76,7 +78,7 @@ export const SignUp: React.FC = () => {
           </Box>
           <Box>
             <CustomButton
-              color="success"
+              color="primary"
               title={t("form.signup")}
               type="submit"
             />

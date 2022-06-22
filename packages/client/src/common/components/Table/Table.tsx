@@ -41,7 +41,7 @@ function Table(props: Data) {
 				>
 					<LocalizationProvider
 						dateAdapter={AdapterDateFns}
-						adapterLocale={i18n.language === 'en' ? enLocale : arLocale}
+						adapterLocale={i18n.language === 'ar' ? arLocale : enLocale}
 					>
 						<DatePicker
 							value={date}

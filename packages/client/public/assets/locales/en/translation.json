@@ -12,5 +12,17 @@
   },
   "table": {
     "datepicker": "Pick a date"
+  },
+  "nav": {
+    "map": "Map",
+    "driver": "Driver",
+    "location": "Location"
+  },
+  "modal": {
+    "favorites": {
+      "message": "Would you like to set-up favorite locations?",
+      "accept": "Yes",
+      "decline": "Cancel"
+    }
   }
 }

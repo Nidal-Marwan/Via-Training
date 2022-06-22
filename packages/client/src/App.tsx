@@ -1,6 +1,5 @@
 import { Home } from "./views/Home/Home";
 import { useState } from "react";
-
 import { useTranslation } from "react-i18next";
 import languages from "./common/localization/languages";
 import cookies from "js-cookie";
@@ -15,12 +14,17 @@ import {
   SelectChangeEvent,
   Container,
   Box,
-  createTheme,
   ThemeProvider,
+  Button,
 } from "@mui/material";
 
-import Table from "./common/components/Table/Table";
+import { Routes, Route } from "react-router-dom";
+import { NavBar } from "./common/components/NavBar/NavBar";
+import { SignUp } from "./common/components/SignUp/SignUp";
+import { customTheme } from "./common/utils/theme";
+import Modal from "./common/components/Modal/Modal";
 
+///////////////////////////////////TABLE DUMMY DATA////////////////////////////
 const headers = [
   { field: "name", headerName: "Name", width: 150 },
   { field: "lat", headerName: "Latitude", type: "number", width: 100 },
@@ -57,7 +61,9 @@ const data = [
     date: new Date("2022-6-12"),
   },
 ];
+/////////////////////////////////////////////////////////////////////////////////
 
+/////////////////////////////////LTR/RTL THEME SETTINGS/////////////////////////
 const cacheLtr = createCache({
   key: "muiltr",
 });
@@ -69,6 +75,7 @@ const cacheRtl = createCache({
   // if you want to retain the auto-prefixing behavior.
   stylisPlugins: [prefixer, stylisRTLPlugin],
 });
+//////////////////////////////////////////////////////////////////////////////
 
 export const App = () => {
   const { t, i18n } = useTranslation();
@@ -87,34 +94,66 @@ export const App = () => {
   const handleChange = (event: SelectChangeEvent) => {
     setLanguage(event.target.value);
   };
+  const [showModal, setShowModal] = useState(false);
 
-  const theme = createTheme({
-    direction: i18n.dir(),
-  });
+  const handleOpen = () => {
+    setShowModal(true);
+  };
+
+  const handleClose = () => {
+    setShowModal(false);
+  };
+
+  const onAccept = () => {
+    handleClose();
+    //Routing to favorite locations page
+  };
+
+  const onCancel = () => {
+    handleClose();
+    //Routing to live page
+  };
 
   return (
-    <CacheProvider value={i18n.dir() === "rtl" ? cacheRtl : cacheLtr}>
-      <ThemeProvider theme={theme}>
-        <Container maxWidth="xl">
-          <Box>
-            <Select onChange={handleChange} value={language}>
-              {languages.map(({ code, name }) => (
-                <MenuItem
-                  key={code}
-                  value={name}
-                  onClick={() => changeLanguage(code)}
-                >
-                  {name}
-                </MenuItem>
-              ))}
-            </Select>
-          </Box>
-          <Box>{t("app.sekeleton")}</Box>
-          <Box>
-            <Home />
-          </Box>
-        </Container>
-      </ThemeProvider>
-    </CacheProvider>
+    <>
+      <CacheProvider value={i18n.dir() === "rtl" ? cacheRtl : cacheLtr}>
+        <ThemeProvider theme={{ ...customTheme, direction: i18n.dir() }}>
+          <NavBar />
+          <Container maxWidth="xl">
+            <Box>
+              <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="signup" element={<SignUp />} />
+                {/* <Route path="liveMap" element={ <Map/> } />
+      <Route path="drivers" element={ <Drivers/> } />
+  <Route path="locations" element={ <Locations/> } /> */}
+              </Routes>
+            </Box>
+            <Box>
+              <Select onChange={handleChange} value={language}>
+                {languages.map(({ code, name }) => (
+                  <MenuItem
+                    key={code}
+                    value={name}
+                    onClick={() => changeLanguage(code)}
+                  >
+                    {name}
+                  </MenuItem>
+                ))}
+              </Select>
+            </Box>
+            <Button onClick={handleOpen}>Open modal</Button>
+            <Modal
+              message={t("modal.favorites.message")}
+              acceptText={t("modal.favorites.accept")}
+              cancelText={t("modal.favorites.decline")}
+              open={showModal}
+              onAccept={onAccept}
+              onCancel={onCancel}
+            />
+          </Container>
+        </ThemeProvider>
+      </CacheProvider>
+    </>
   );
 };
