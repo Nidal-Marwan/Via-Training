@@ -1,9 +1,8 @@
 import { Form, Formik, FormikProps } from "formik";
 import { TextInput } from "../TextInput/TextInput";
-import { Box, Link } from "@mui/material";
+import { Box } from "@mui/material";
 import { t } from "i18next";
 import { CustomButton } from "../Button/Button";
-import { SignUp } from "../SignUp/SignUp";
 import { useState } from "react";
 import { trainingClient } from "../../api/trainingClient";
 import { LoginSchema } from "./login.schema";
@@ -14,7 +13,7 @@ interface LoginResponse {
   token: string;
 }
 
-const Login = () => {
+ const Login = () => {
   const [error, setError] = useState<string | null>();
   const initialValues = {
     email: "",
@@ -33,7 +32,7 @@ const Login = () => {
       setError(response.data.message);
     }
   };
-
+  
   return (
     <Formik
       initialValues={initialValues}
