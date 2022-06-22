@@ -112,19 +112,6 @@ export const App = () => {
    */}
               </Routes>
             </Box>
-            <Box>
-              <Select onChange={handleChange} value={language}>
-                {languages.map(({ code, name }) => (
-                  <MenuItem
-                    key={code}
-                    value={name}
-                    onClick={() => changeLanguage(code)}
-                  >
-                    {name}
-                  </MenuItem>
-                ))}
-              </Select>
-            </Box>
             <ModalContainer />
           </Container>
         </ThemeProvider>

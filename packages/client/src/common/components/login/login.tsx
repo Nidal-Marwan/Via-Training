@@ -1,6 +1,6 @@
 import { Form, Formik, FormikProps } from "formik";
 import { TextInput } from "../TextInput/TextInput";
-import { Box } from "@mui/material";
+import { Box, Container } from "@mui/material";
 import { t } from "i18next";
 import { CustomButton } from "../Button/Button";
 import { useState } from "react";
@@ -43,35 +43,44 @@ const Login = () => {
     >
       {({}: FormikProps<any>): React.ReactNode => {
         return (
-          <Form>
-            <Box>
-              <TextInput
-                name="email"
-                type="text"
-                id="outlined-basic"
-                label={t("form.email")}
+          <Container
+            sx={{
+              width: "30%",
+              border: "1px solid",
+              borderRadius: "8%",
+              padding: "6%",
+            }}
+          >
+            <Form>
+              <Box>
+                <TextInput
+                  name="email"
+                  type="text"
+                  id="outlined-basic"
+                  label={t("form.email")}
+                />
+              </Box>
+              <Box>
+                <TextInput
+                  name="password"
+                  type="password"
+                  id="outlined-basic"
+                  label={t("form.password")}
+                />
+              </Box>
+              <CustomButton
+                color="primary"
+                title={t("form.login")}
+                type="submit"
               />
-            </Box>
-            <Box>
-              <TextInput
-                name="password"
-                type="password"
-                id="outlined-basic"
-                label={t("form.password")}
-              />
-            </Box>
-            <CustomButton
-              color="primary"
-              title={t("form.login")}
-              type="submit"
-            />
-            {/* will become a link when routes are created so we can route the user to signup page*/}
-            <Box>
-              <p>
-                Not a member ? <Link to="/signup">Join Us</Link>
-              </p>
-            </Box>
-          </Form>
+              {/* will become a link when routes are created so we can route the user to signup page*/}
+              <Box>
+                <p>
+                  Not a member ? <Link to="/signup">Join Us</Link>
+                </p>
+              </Box>
+            </Form>
+          </Container>
         );
       }}
     </Formik>
