@@ -5,8 +5,10 @@ import { prefixer } from "stylis";
 import createCache from "@emotion/cache";
 import { CacheProvider } from "@emotion/react";
 
+
 import { Container, Box, ThemeProvider } from "@mui/material";
 import CssBaseline from "@mui/material/CssBaseline";
+
 
 import { Routes, Route } from "react-router-dom";
 import { NavBar } from "./common/components/NavBar/NavBar";
@@ -15,16 +17,16 @@ import { customTheme } from "./common/utils/theme";
 import { ModalContainer } from "./common/components/ModalContainer/ModalContainer";
 import { FavLocation } from "./views/FavoriteLocation/FavLocation";
 
-const cacheLtr = createCache({
-  key: "muiltr",
-});
 
+const cacheLtr = createCache({
+	key: 'muiltr',
+});
 const cacheRtl = createCache({
-  key: "muirtl",
-  // prefixer is the only stylis plugin by default, so when
-  // overriding the plugins you need to include it explicitly
-  // if you want to retain the auto-prefixing behavior.
-  stylisPlugins: [prefixer, stylisRTLPlugin],
+	key: 'muirtl',
+	// prefixer is the only stylis plugin by default, so when
+	// overriding the plugins you need to include it explicitly
+	// if you want to retain the auto-prefixing behavior.
+	stylisPlugins: [prefixer, stylisRTLPlugin],
 });
 //////////////////////////////////////////////////////////////////////////////
 
@@ -53,4 +55,5 @@ export const App = () => {
       </CacheProvider>
     </>
   );
+
 };
