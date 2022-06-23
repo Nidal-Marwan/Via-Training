@@ -1,28 +1,54 @@
 {
-  "app": {
-    "sekeleton": "REACT SKELETON"
-  },
-  "form": {
-    "name": "Name",
-    "email": " Email",
-    "phone": " Phone",
-    "password": "Password ",
-    "signup": "SignUp",
-    "login": "Login"
-  },
-  "table": {
-    "datepicker": "Pick a date"
-  },
-  "nav": {
-    "map": "Map",
-    "driver": "Driver",
-    "location": "Location"
-  },
-  "modal": {
-    "favorites": {
-      "message": "Would you like to set-up favorite locations?",
-      "accept": "Yes",
-      "decline": "Cancel"
-    }
-  }
+	"app": {
+		"sekeleton": "REACT SKELETON"
+	},
+	"form": {
+		"name": "Name",
+		"email": " Email",
+		"phone": " Phone",
+		"password": "Password ",
+		"signup": "SignUp",
+		"login": "Login",
+		"registration": {
+			"text": "Not a member?",
+			"link": "Join us"
+		},
+		"loginAlerts": {
+			"email": "Please enter a valid email",
+			"password": {
+				"required": "Password is required",
+				"min": "Password is too short - should be at least 8 characters"
+			}
+		},
+		"signupAlerts": {
+			"name": "Name is required",
+			"phone": {
+				"required": "Phone is required",
+				"min": "Invalid phone number"
+			},
+			"email": {
+				"required": "Email is required",
+				"invalid": "Invalid email address"
+			},
+			"password": {
+				"required": "Password is required",
+				"min": "Must be 8 characters or more"
+			}
+		}
+	},
+	"table": {
+		"datepicker": "Pick a date"
+	},
+	"nav": {
+		"map": "Map",
+		"driver": "Driver",
+		"location": "Location"
+	},
+	"modal": {
+		"favorites": {
+			"message": "Would you like to set-up favorite locations?",
+			"accept": "Yes",
+			"decline": "Cancel"
+		}
+	}
 }
