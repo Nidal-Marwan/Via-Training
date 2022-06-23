@@ -1,13 +1,13 @@
 import { TextInput } from '../TextInput/TextInput';
 import { StyledBox, StyledForm, Title } from './SignUp.styles';
-import { Form, Formik } from 'formik';
+import {  Formik } from 'formik';
 import { trainingClient } from '../../api/trainingClient';
 import { useState } from 'react';
 import { CustomButton } from '../Button/Button';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
-import { Typography } from '@mui/material';
+
 
 interface SignUpResponse {
 	status: number;
