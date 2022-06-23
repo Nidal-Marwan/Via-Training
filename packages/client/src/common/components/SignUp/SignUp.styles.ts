@@ -6,7 +6,7 @@ export const StyledForm = styled(Form)(({theme})=>({
 	padding: 25,
 	display: 'flex',
 	flexDirection: 'column',
-	width: 300,
+	width: 400,
 	gap: 25,
 	border: `1px solid ${theme.palette.primary.main}`,
 	borderRadius: 5,
