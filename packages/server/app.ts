@@ -2,7 +2,7 @@ import * as express from "express";
 import * as path from "path";
 import * as authRouter from "./src/routes/auth/auth-route";
 import { AppDataSource } from "./src/utils/data-source";
-import cors from "cors";
+import * as cors from "cors";
 import logger from "./src/utils/logger";
 
 
