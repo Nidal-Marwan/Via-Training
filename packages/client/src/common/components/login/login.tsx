@@ -4,11 +4,11 @@ import { useTranslation } from 'react-i18next';
 import { CustomButton } from '../Button/Button';
 import { useState } from 'react';
 import { trainingClient } from '../../api/trainingClient';
-import { StyledForm } from './Login.styles';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Typography } from '@mui/material';
 import * as Yup from 'yup';
 import { ModalContainer } from '../ModalContainer/ModalContainer';
+import { StyledForm } from './login.styles';
 
 interface LoginResponse {
 	status: number;
@@ -18,7 +18,6 @@ interface LoginResponse {
 
 const Login = () => {
 	const { t } = useTranslation();
-
 	const [isloggedIn, setIsLoggedIn] = useState(false);
 
 	const [error, setError] = useState<string | null>();
@@ -36,6 +35,8 @@ const Login = () => {
 		if (response.data.status === 200) {
 			window.localStorage.setItem('access_token', response.data.token);
 			setIsLoggedIn(true);
+			<ModalContainer/>
+
 			//navigate to home
 		} else {
 			setError(response.data.message);
