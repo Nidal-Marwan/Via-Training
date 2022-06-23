@@ -1,4 +1,4 @@
-import { Box, Typography } from '@mui/material';
+import { Alert, Box, Typography } from '@mui/material';
 import { styled } from '@mui/system';
 import { Form } from 'formik';
 
@@ -8,8 +8,6 @@ export const StyledForm = styled(Form)(({theme})=>({
 	flexDirection: 'column',
 	width: 400,
 	gap: 25,
-	border: `1px solid ${theme.palette.primary.main}`,
-	borderRadius: 5,
 	'& .MuiButton-root': {
 		width: 80,
 	},
@@ -18,12 +16,27 @@ export const StyledForm = styled(Form)(({theme})=>({
 export const StyledBox = styled(Box)(({theme})=>({
 	display: 'flex',
 	alignItems: 'center',
-	justifyContent: 'space-around',
-	height: '80vh',
-
+	justifyContent: 'center',
+	width: 400,
+	minHeight: 470,
+	border: `1px solid ${theme.palette.primary.main}`,
+	borderRadius: 5,
 }));
 
 export const Title = styled(Typography)(({ theme }) => ({
 	textAlign: 'center',
 	color: theme.palette.primary.main,
 }));
+
+export const ContainerBox = styled(Box)({
+	display:'flex',
+	justifyContent: 'center',
+	alignItems: 'center',
+	height: '80vh',
+});
+
+export const StyledAlert = styled(Alert)({
+	position: 'absolute',
+	top:'-50px',
+	width: '100%',
+});
