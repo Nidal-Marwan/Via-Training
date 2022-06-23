@@ -6,7 +6,7 @@ import { useState } from 'react';
 import { trainingClient } from '../../api/trainingClient';
 import { StyledAlert, StyledBox, StyledForm } from './Login.styles';
 import { Link } from 'react-router-dom';
-import {Collapse, CircularProgress, Stack, Typography, IconButton } from '@mui/material';
+import { Collapse, CircularProgress, Stack, Typography, IconButton } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import * as Yup from 'yup';
 import { ModalContainer } from '../ModalContainer/ModalContainer';
@@ -29,7 +29,7 @@ const Login = () => {
 		password: '',
 	};
 	const handleSubmit = async (values: any) => {
-		setIsLoading(true)
+		setIsLoading(true);
 		setError(null);
 		const response = await trainingClient.post<LoginResponse>(
 			'/home/login',
@@ -47,30 +47,30 @@ const Login = () => {
 		}
 	};
 	return (
-		<Stack spacing={2} sx={{position:'relative'}}>
-		{error && (
-			<Collapse in={error === null ? false: true}>
-				<StyledAlert 
-				action={
-					<IconButton
-						aria-label="close"
-						color="inherit"
-						size="small"
-						onClick={() => {
-							setError(null);
-						}}
-					>
-						<CloseIcon fontSize="inherit" />
-					</IconButton>
-				}
-				severity='error'>
-					{error}
-				</StyledAlert>
-			</Collapse>
-		)}
-		<StyledBox>
-			{isLoading ? <CircularProgress/> : (
-						<Formik
+		<Stack spacing={2} sx={{ position: 'relative' }}>
+			{error && (
+				<Collapse in={error === null ? false : true}>
+					<StyledAlert
+						action={
+							<IconButton
+								aria-label="close"
+								color="inherit"
+								size="small"
+								onClick={() => {
+									setError(null);
+								}}
+							>
+								<CloseIcon fontSize="inherit" />
+							</IconButton>
+						}
+						severity='error'>
+						{error}
+					</StyledAlert>
+				</Collapse>
+			)}
+			<StyledBox>
+				{isLoading ? <CircularProgress /> : (
+					<Formik
 						initialValues={initialValues}
 						validationSchema={Yup.object({
 							email: Yup.string()
@@ -83,7 +83,7 @@ const Login = () => {
 						onSubmit={handleSubmit}
 						validateOnChange={false}
 					>
-						{({}: FormikProps<any>): React.ReactNode => {
+						{({ }: FormikProps<any>): React.ReactNode => {
 							return (
 								<StyledForm>
 									<TextInput
@@ -112,9 +112,9 @@ const Login = () => {
 							);
 						}}
 					</Formik>
-			)}
-						{isloggedIn && <ModalContainer />}
-		</StyledBox>
+				)}
+				{isloggedIn && <ModalContainer />}
+			</StyledBox>
 		</Stack>
 	);
 };
