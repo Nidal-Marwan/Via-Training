@@ -1,6 +1,6 @@
 import { Box, Typography } from '@mui/material';
 import Container from '@mui/material/Container';
-import Login from '../../common/components/Login/login';
+import Login from '../../common/components/Login/Login';
 import MapImg from '../../assets/images/maps.png';
 
 export const Home: React.FC = () => {
