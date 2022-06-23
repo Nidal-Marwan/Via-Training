@@ -3,8 +3,7 @@ import * as path from "path";
 import * as authRouter from "./src/routes/auth/auth-route";
 import { AppDataSource } from "./src/utils/data-source";
 import cors from "cors";
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const logger = require("./src/utils/logger");
+import logger from "./src/utils/logger";
 
 
 const PORT = process.env.PORT || 3001; 
