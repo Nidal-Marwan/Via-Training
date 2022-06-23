@@ -19,7 +19,7 @@ interface LoginResponse {
 
 const Login = () => {
 	const { t } = useTranslation();
-
+	const [isLoggedIn,setIsLoggedIn] = useState(false);
 	const [isLoading, setIsLoading] = useState(false);
 	const [error, setError] = useState<string | null>();
 
@@ -37,13 +37,15 @@ const Login = () => {
 		if (response.data.status === 200) {
 			window.localStorage.setItem('access_token', response.data.token);
 			setIsLoading(false);
-			<ModalContainer />;
+			setIsLoggedIn(true);
+			
 		} else {
 			setIsLoading(false);
 			setError(response.data.message);
 		}
 	};
 	return (
+		<>
 		<Stack spacing={2} sx={{ position: 'relative' }}>
 			{error && (
 				<StyledAlert
@@ -106,6 +108,8 @@ const Login = () => {
 				)}
 			</StyledBox>
 		</Stack>
+		{isLoggedIn && <ModalContainer/>}
+		</>
 	);
 };
 export default Login;
