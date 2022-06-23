@@ -13,7 +13,11 @@
       "start:server:prod": " npm run start:prod --workspace=training-server",
       "start:client:server": "npm run build:client --workspace=training-server",
       "start": "ts-node src/index.ts",
-      "typeorm": "typeorm-ts-node-commonjs"
+      "typeorm": "typeorm-ts-node-commonjs",
+      "lint:client:fix": "eslint packages/client/src/**/*.{ts,tsx} --fix",
+      "lint:server:fix": "eslint packages/server/src/**/*.{ts,tsx} --fix",
+      "lint:client": "eslint packages/client/src/**/*.{ts,tsx}",
+      "lint:server": "eslint packages/server/src/**/*.{ts,tsx}"
    },
    "repository": {
       "type": "git",
@@ -22,6 +26,15 @@
    "homepage": "https://github.com/Nidal-Marwan/Via-Training#readme",
    "devDependencies": {
       "@types/node": "^16.11.10",
+      "@typescript-eslint/eslint-plugin": "^5.28.0",
+      "@typescript-eslint/parser": "^5.28.0",
+      "eslint-auto-fix": "^1.0.4",
+      "eslint-config-airbnb": "^19.0.4",
+      "eslint-plugin-import": "^2.26.0",
+      "eslint-plugin-jsx-a11y": "^6.5.1",
+      "eslint-plugin-react": "^7.30.0",
+      "eslint-plugin-react-hooks": "^4.6.0",
+      "prettier": "2.7.1",
       "ts-node": "10.7.0",
       "typescript": "4.5.2"
    },

@@ -1,19 +1,20 @@
+/* eslint-disable no-mixed-spaces-and-tabs */
 import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity("User")
 export class User {
   @PrimaryGeneratedColumn()
-  id: number;
+  	id: number;
 
   @Column({ unique: true })
-  email: string;
+  	email: string;
 
   @Column()
-  username: string;
+  	username: string;
 
   @Column({ unique: true })
-  phone: string;
+  	phone: string;
 
   @Column()
-  password: string;
+  	password: string;
 }
