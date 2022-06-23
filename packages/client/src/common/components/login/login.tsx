@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { CustomButton } from '../Button/Button';
 import { useState } from 'react';
 import { trainingClient } from '../../api/trainingClient';
-import { StyledForm } from './login.styles';
+import { StyledForm } from './Login.styles';
 import { Link } from 'react-router-dom';
 import { Typography } from '@mui/material';
 import * as Yup from 'yup';
