@@ -20,7 +20,6 @@ interface LoginResponse {
 const Login = () => {
 	const { t } = useTranslation();
 
-	const [isloggedIn, setIsLoggedIn] = useState(false);
 	const [isLoading, setIsLoading] = useState(false);
 	const [error, setError] = useState<string | null>();
 
@@ -37,11 +36,10 @@ const Login = () => {
 		);
 		if (response.data.status === 200) {
 			window.localStorage.setItem('access_token', response.data.token);
-			setIsLoggedIn(true);
 			setIsLoading(false);
+			<ModalContainer />
 			//navigate to home
 		} else {
-			setIsLoggedIn(false);
 			setIsLoading(false);
 			setError(response.data.message);
 		}
@@ -113,7 +111,6 @@ const Login = () => {
 						}}
 					</Formik>
 				)}
-				{isloggedIn && <ModalContainer />}
 			</StyledBox>
 		</Stack>
 	);
