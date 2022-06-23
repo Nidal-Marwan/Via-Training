@@ -6,7 +6,7 @@ import { useState } from 'react';
 import { trainingClient } from '../../api/trainingClient';
 import { StyledAlert, StyledBox, StyledForm } from './Login.styles';
 import { Link } from 'react-router-dom';
-import { Collapse, CircularProgress, Stack, Typography, IconButton } from '@mui/material';
+import { CircularProgress, Stack, Typography, IconButton } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import * as Yup from 'yup';
 import { ModalContainer } from '../ModalContainer/ModalContainer';
@@ -37,7 +37,7 @@ const Login = () => {
 		if (response.data.status === 200) {
 			window.localStorage.setItem('access_token', response.data.token);
 			setIsLoading(false);
-			<ModalContainer />
+			<ModalContainer />;
 			//navigate to home
 		} else {
 			setIsLoading(false);
@@ -47,24 +47,22 @@ const Login = () => {
 	return (
 		<Stack spacing={2} sx={{ position: 'relative' }}>
 			{error && (
-				<Collapse in={error === null ? false : true}>
-					<StyledAlert
-						action={
-							<IconButton
-								aria-label="close"
-								color="inherit"
-								size="small"
-								onClick={() => {
-									setError(null);
-								}}
-							>
-								<CloseIcon fontSize="inherit" />
-							</IconButton>
-						}
-						severity='error'>
-						{error}
-					</StyledAlert>
-				</Collapse>
+				<StyledAlert
+					action={
+						<IconButton
+							aria-label="close"
+							color="inherit"
+							size="small"
+							onClick={() => {
+								setError(null);
+							}}
+						>
+							<CloseIcon fontSize="inherit" />
+						</IconButton>
+					}
+					severity='error'>
+					{error}
+				</StyledAlert>
 			)}
 			<StyledBox>
 				{isLoading ? <CircularProgress /> : (
@@ -81,34 +79,30 @@ const Login = () => {
 						onSubmit={handleSubmit}
 						validateOnChange={false}
 					>
-						{({ }: FormikProps<any>): React.ReactNode => {
-							return (
-								<StyledForm>
-									<TextInput
-										name='email'
-										type='text'
-										id='outlined-basic'
-										label={t('form.email')}
-									/>
-									<TextInput
-										name='password'
-										type='password'
-										id='outlined-basic'
-										label={t('form.password')}
-									/>
-									<CustomButton
-										color='primary'
-										title={t('form.login')}
-										type='submit'
-									/>
-									{/* will become a link when routes are created so we can route the user to signup page*/}
-									<Typography variant='body1'>
-										{t('form.registration.text')}{' '}
-										<Link to='/signup'>{t('form.registration.link')}</Link>
-									</Typography>
-								</StyledForm>
-							);
-						}}
+						<StyledForm>
+							<TextInput
+								name='email'
+								type='text'
+								id='outlined-basic'
+								label={t('form.email')}
+							/>
+							<TextInput
+								name='password'
+								type='password'
+								id='outlined-basic'
+								label={t('form.password')}
+							/>
+							<CustomButton
+								color='primary'
+								title={t('form.login')}
+								type='submit'
+							/>
+							{/* will become a link when routes are created so we can route the user to signup page*/}
+							<Typography variant='body1'>
+								{t('form.registration.text')}{' '}
+								<Link to='/signup'>{t('form.registration.link')}</Link>
+							</Typography>
+						</StyledForm>
 					</Formik>
 				)}
 			</StyledBox>
