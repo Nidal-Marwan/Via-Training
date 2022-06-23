@@ -38,7 +38,6 @@ const Login = () => {
 			window.localStorage.setItem('access_token', response.data.token);
 			setIsLoading(false);
 			<ModalContainer />;
-			//navigate to home
 		} else {
 			setIsLoading(false);
 			setError(response.data.message);
