@@ -14,8 +14,6 @@ import { Routes, Route } from "react-router-dom";
 import { NavBar } from "./common/components/NavBar/NavBar";
 import { SignUp } from "./common/components/SignUp/SignUp";
 import { customTheme } from "./common/utils/theme";
-
-import { ModalContainer } from "./common/components/ModalContainer/ModalContainer";
 import { FavLocation } from "./views/FavoriteLocation/FavLocation";
 
 
@@ -33,7 +31,6 @@ const cacheRtl = createCache({
 
 export const App = () => {
   const { i18n } = useTranslation();
-  document.body.dir = i18n.dir();
   return (
     <>
       <CacheProvider value={i18n.dir() === "rtl" ? cacheRtl : cacheLtr}>

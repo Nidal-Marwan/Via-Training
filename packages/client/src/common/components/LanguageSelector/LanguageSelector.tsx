@@ -7,7 +7,7 @@ import { Box, MenuItem, Select, SelectChangeEvent, Icon } from '@mui/material';
 import LanguageIcon from '@mui/icons-material/Language';
 
 export default function LanguageSelector() {
-	const { t, i18n } = useTranslation();
+	const { i18n } = useTranslation();
 	document.body.dir = i18n.dir();
 
 	const changeLanguage = (lng: string) => {
@@ -26,7 +26,9 @@ export default function LanguageSelector() {
 
 	return (
 		<Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-
+			<Icon>
+				<LanguageIcon />
+			</Icon>
 			<Select
 				sx={{ backgroundColor: '#fff' }}
 				onChange={handleChange}

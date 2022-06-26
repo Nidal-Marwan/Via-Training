@@ -6,6 +6,7 @@ export const StyledForm = styled(Form)(({ theme }) => ({
 	padding: 30,
 	display: 'flex',
 	flexDirection: 'column',
+	width:350,	
 	gap: 25,
 	'& .MuiButton-root': {
 		width: 80,
