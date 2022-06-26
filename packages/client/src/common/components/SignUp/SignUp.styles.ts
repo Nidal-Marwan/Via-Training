@@ -11,6 +11,12 @@ export const StyledForm = styled(Form)(({theme})=>({
 	'& .MuiButton-root': {
 		width: 80,
 	},
+	'& .MuiTypography-root': {
+		'& a': {
+			textDecoration: 'none',
+			color: theme.palette.primary.main,
+		},
+	},
 }));
 
 export const StyledBox = styled(Box)(({theme})=>({

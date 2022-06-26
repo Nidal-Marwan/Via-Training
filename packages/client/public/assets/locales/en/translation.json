@@ -13,6 +13,10 @@
 			"text": "Not a member?",
 			"link": "Join us"
 		},
+		"signin":{
+			"text":"Already have account ?",
+			"link":" SignIn"
+		},
 		"loginAlerts": {
 			"email": "Please enter a valid email",
 			"password": {
