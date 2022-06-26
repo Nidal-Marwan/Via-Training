@@ -4,19 +4,15 @@ import stylisRTLPlugin from "stylis-plugin-rtl";
 import { prefixer } from "stylis";
 import createCache from "@emotion/cache";
 import { CacheProvider } from "@emotion/react";
-
-
 import { Container, Box, ThemeProvider } from "@mui/material";
 import CssBaseline from "@mui/material/CssBaseline";
-
-
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import { NavBar } from "./common/components/NavBar/NavBar";
 import { SignUp } from "./common/components/SignUp/SignUp";
 import { customTheme } from "./common/utils/theme";
-
 import { ModalContainer } from "./common/components/ModalContainer/ModalContainer";
 import { FavLocation } from "./views/FavoriteLocation/FavLocation";
+import { useEffect, useState } from "react";
 
 
 const cacheLtr = createCache({
@@ -29,9 +25,19 @@ const cacheRtl = createCache({
 	// if you want to retain the auto-prefixing behavior.
 	stylisPlugins: [prefixer, stylisRTLPlugin],
 });
-//////////////////////////////////////////////////////////////////////////////
+const checkIsLoggedIn = () => {
+  if(window.localStorage.getItem("access_token")){
+    return true;
+  }else
+    return false;
+}
 
 export const App = () => {
+  const [isLoggedIn, setIsLoggedIn] = useState(checkIsLoggedIn())
+  console.log(isLoggedIn)
+   useEffect(() => {
+    setIsLoggedIn(checkIsLoggedIn());
+  }, []);
   const { i18n } = useTranslation();
   document.body.dir = i18n.dir();
   return (
@@ -45,10 +51,10 @@ export const App = () => {
               <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="signup" element={<SignUp />} />
-                <Route path="locations" element={<FavLocation />} />
+                <Route path="locations" element={isLoggedIn ? <FavLocation/> : <Navigate to="/" />} />
                 {/* <Route path="liveMap" element={ <Map/> } />
-      <Route path="drivers" element={ <Drivers/> } />
-   */}
+                    <Route path="drivers" element={ <Drivers/> } />
+                */}
               </Routes>
             </Box>
           </Container>
