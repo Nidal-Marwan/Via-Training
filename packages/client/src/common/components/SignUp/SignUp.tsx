@@ -5,9 +5,9 @@ import { trainingClient } from '../../api/trainingClient';
 import { useState } from 'react';
 import { CustomButton } from '../Button/Button';
 import { useTranslation } from 'react-i18next';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import signupSchema from './SignUp.schema';
-import { CircularProgress, IconButton, Stack } from '@mui/material';
+import { CircularProgress, IconButton, Stack,Typography } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 
 
@@ -55,7 +55,7 @@ export const SignUp: React.FC = () => {
 							</IconButton>
 						}
 						severity='error'>
-						{error}
+						{t(`${error}`)}
 					</StyledAlert>
 				)}
 				<StyledBox>
@@ -96,9 +96,15 @@ export const SignUp: React.FC = () => {
 									title={t('form.signup')}
 									type='submit'
 								/>
+								<Typography variant='body1'>
+									{t('form.signin.text')}{' '}
+									<Link to='/'>{t('form.signin.link')}</Link>
+								</Typography>
 							</StyledForm>
 						</Formik>
+						
 					)}
+					
 				</StyledBox>
 			</Stack>
 		</ContainerBox>

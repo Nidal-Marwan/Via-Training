@@ -13,6 +13,10 @@
 			"text": "Not a member?",
 			"link": "Join us"
 		},
+		"signin":{
+			"text":"Already have account ?",
+			"link":" SignIn"
+		},
 		"loginAlerts": {
 			"email": {
 				"invalid": "Please enter a valid email",
@@ -53,5 +57,12 @@
 			"accept": "Yes",
 			"decline": "Cancel"
 		}
+	},
+	"server": {
+		"signup": {
+			"email": "Email already exists",
+			"phone": "Phone already exists"
+		},
+		"login": "Email or password are incorrect"
 	}
 }

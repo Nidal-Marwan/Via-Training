@@ -62,7 +62,7 @@ const Login = () => {
 							</IconButton>
 						}
 						severity='error'>
-						{error}
+						{t(`${error}`)}
 					</StyledAlert>
 				)}
 				<StyledBox>

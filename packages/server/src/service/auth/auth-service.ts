@@ -17,10 +17,10 @@ export const addUser = async (data: UserData) => {
 		where: { phone: data.phone },
 	});
 	if (existingEmail) {
-		return { status: 409, message: "Email already exist" };
+		return { status: 409, message: "server.signup.email" };
 	}
 	if (existingPhone) {
-		return { status: 409, message: "Phone already exist" };
+		return { status: 409, message: "server.signup.phone" };
 	}
 	try {
 		await userRepository.save(data);
@@ -36,7 +36,7 @@ export const userLogin = async (data: LoginData) => {
 	});
 
 	if (!existingEmail) {
-		return { status: 409, message: "Email or password do not exist" };
+		return { status: 409, message: "server.login" };
 	} else {
 		const hashedPassword = existingEmail.password;
 		if (await bcrypt.compare(data.password, hashedPassword)) {
@@ -52,7 +52,7 @@ export const userLogin = async (data: LoginData) => {
 		} else {
 			//console.error('Incorrect password');
 			logger.error("Incorrect Password");
-			return { status: 409, message: "Email or password do not exist" };
+			return { status: 409, message: "server.login" };
 		}
 	}
 };
