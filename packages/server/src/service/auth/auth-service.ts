@@ -17,10 +17,10 @@ export const addUser = async (data: UserData) => {
 		where: { phone: data.phone },
 	});
 	if (existingEmail) {
-		return { status: 409, message: "Email already exist" };
+		return { status: 409, message: "server.signup.email" };
 	}
 	if (existingPhone) {
-		return { status: 409, message: "Phone already exist" };
+		return { status: 409, message: "server.signup.phone" };
 	}
 	try {
 		await userRepository.save(data);
@@ -36,7 +36,7 @@ export const userLogin = async (data: LoginData) => {
 	});
 
 	if (!existingEmail) {
-		return { status: 409, message: "Email does not exist" };
+		return { status: 409, message: "server.login" };
 	} else {
 		const hashedPassword = existingEmail.password;
 		if (await bcrypt.compare(data.password, hashedPassword)) {
@@ -52,7 +52,7 @@ export const userLogin = async (data: LoginData) => {
 		} else {
 			//console.error('Incorrect password');
 			logger.error("Incorrect Password");
-			return { status: 409, message: "Incorrect password" };
+			return { status: 409, message: "server.login" };
 		}
 	}
 };
@@ -80,5 +80,5 @@ export const getMe = async (req: Request) => {
 			return { status: 401, message: "unauthorized" };
 		}
 	}
-	return { error: "Token doen't send with headres" };
+	return { error: "Token doesn't send with headers" };
 };

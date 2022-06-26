@@ -5,9 +5,9 @@ import { trainingClient } from '../../api/trainingClient';
 import { useState } from 'react';
 import { CustomButton } from '../Button/Button';
 import { useTranslation } from 'react-i18next';
-import { useNavigate } from 'react-router-dom';
-import * as Yup from 'yup';
-import { CircularProgress, IconButton, Stack } from '@mui/material';
+import { Link, useNavigate } from 'react-router-dom';
+import signupSchema from './SignUp.schema';
+import { CircularProgress, IconButton, Stack,Typography } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 
 
@@ -55,25 +55,14 @@ export const SignUp: React.FC = () => {
 							</IconButton>
 						}
 						severity='error'>
-						{error}
+						{t(`${error}`)}
 					</StyledAlert>
 				)}
 				<StyledBox>
 					{isLoading ? <CircularProgress /> : (
 						<Formik
 							initialValues={{ name: '', email: '', phone: '', password: '' }}
-							validationSchema={Yup.object({
-								name: Yup.string().required(t('form.signupAlerts.name')),
-								phone: Yup.number()
-									.required(t('form.signupAlerts.phone.required'))
-									.min(10, t('form.signupAlerts.phone.min')),
-								email: Yup.string()
-									.email(t('form.signupAlerts.email.invalid'))
-									.required(t('form.signupAlerts.email.required')),
-								password: Yup.string()
-									.min(8, t('form.signupAlerts.password.min'))
-									.required(t('form.signupAlerts.password.required')),
-							})}
+							validationSchema={signupSchema}
 							onSubmit={(values) => handleSubmit(values)}
 						>
 							<StyledForm>
@@ -107,9 +96,15 @@ export const SignUp: React.FC = () => {
 									title={t('form.signup')}
 									type='submit'
 								/>
+								<Typography variant='body1'>
+									{t('form.signin.text')}{' '}
+									<Link to='/'>{t('form.signin.link')}</Link>
+								</Typography>
 							</StyledForm>
 						</Formik>
+						
 					)}
+					
 				</StyledBox>
 			</Stack>
 		</ContainerBox>
