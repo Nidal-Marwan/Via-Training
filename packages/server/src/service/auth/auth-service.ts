@@ -36,7 +36,7 @@ export const userLogin = async (data: LoginData) => {
 	});
 
 	if (!existingEmail) {
-		return { status: 409, message: "Email does not exist" };
+		return { status: 409, message: "Email or password do not exist" };
 	} else {
 		const hashedPassword = existingEmail.password;
 		if (await bcrypt.compare(data.password, hashedPassword)) {
@@ -52,7 +52,7 @@ export const userLogin = async (data: LoginData) => {
 		} else {
 			//console.error('Incorrect password');
 			logger.error("Incorrect Password");
-			return { status: 409, message: "Incorrect password" };
+			return { status: 409, message: "Email or password do not exist" };
 		}
 	}
 };
@@ -80,5 +80,5 @@ export const getMe = async (req: Request) => {
 			return { status: 401, message: "unauthorized" };
 		}
 	}
-	return { error: "Token doen't send with headres" };
+	return { error: "Token doesn't send with headerss" };
 };
