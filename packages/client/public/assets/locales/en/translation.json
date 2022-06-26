@@ -54,5 +54,12 @@
 			"accept": "Yes",
 			"decline": "Cancel"
 		}
+	},
+	"server": {
+		"signup": {
+			"email": "Email already exists",
+			"phone": "Phone already exists"
+		},
+		"login": "Email or password are incorrect"
 	}
 }

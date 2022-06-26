@@ -55,7 +55,7 @@ export const SignUp: React.FC = () => {
 							</IconButton>
 						}
 						severity='error'>
-						{error}
+						{t(`${error}`)}
 					</StyledAlert>
 				)}
 				<StyledBox>
