@@ -108,9 +108,9 @@ export const SignUp: React.FC = () => {
 									type='submit'
 								/>
 								<Typography variant='body1'>
-								{t('form.signin.text')}{' '}
-								<Link to='/'>{t('form.signin.link')}</Link>
-							</Typography>
+									{t('form.signin.text')}{' '}
+									<Link to='/'>{t('form.signin.link')}</Link>
+								</Typography>
 							</StyledForm>
 						</Formik>
 						

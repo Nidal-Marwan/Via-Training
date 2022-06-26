@@ -34,7 +34,7 @@ const cacheRtl = createCache({
 
 export const App = () => {
   const { i18n } = useTranslation();
-  const{userInfo} = useMe()
+  const{ userInfo } = useMe()
   document.body.dir = i18n.dir();
   return (
     <>
