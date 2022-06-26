@@ -1,8 +1,8 @@
 import * as express from "express";
 import {
-  getMe,
-  postLogin,
-  postUser,
+	getMe,
+	postLogin,
+	postUser,
 } from "../../controllers/auth/auth-controller";
 
 const router = express.Router();

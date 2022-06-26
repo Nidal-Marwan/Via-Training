@@ -18,7 +18,10 @@
 			"link":" SignIn"
 		},
 		"loginAlerts": {
-			"email": "Please enter a valid email",
+			"email": {
+				"invalid": "Please enter a valid email",
+				"required": "Email is required"
+			},
 			"password": {
 				"required": "Password is required",
 				"min": "Password is too short - should be at least 8 characters"

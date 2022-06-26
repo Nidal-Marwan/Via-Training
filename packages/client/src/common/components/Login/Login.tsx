@@ -8,7 +8,7 @@ import { StyledAlert, StyledBox, StyledForm } from './Login.styles';
 import { Link } from 'react-router-dom';
 import { CircularProgress, Stack, Typography, IconButton } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
-import * as Yup from 'yup';
+import loginSchema from './Login.schema';
 import { ModalContainer } from '../ModalContainer/ModalContainer';
 
 interface LoginResponse {
@@ -69,14 +69,7 @@ const Login = () => {
 					{isLoading ? <CircularProgress /> : (
 						<Formik
 							initialValues={initialValues}
-							validationSchema={Yup.object({
-								email: Yup.string()
-									.email(t('form.loginAlerts.email'))
-									.required(t('form.loginAlerts.email')),
-								password: Yup.string()
-									.required(t('form.loginAlerts.password.required'))
-									.min(8, t('form.loginAlerts.password.min')),
-							})}
+							validationSchema={loginSchema}
 							onSubmit={handleSubmit}
 							validateOnChange={false}
 						>

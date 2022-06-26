@@ -6,7 +6,7 @@ import { useState } from 'react';
 import { CustomButton } from '../Button/Button';
 import { useTranslation } from 'react-i18next';
 import { Link, useNavigate } from 'react-router-dom';
-import * as Yup from 'yup';
+import signupSchema from './SignUp.schema';
 import { CircularProgress, IconButton, Stack,Typography } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 
@@ -62,18 +62,7 @@ export const SignUp: React.FC = () => {
 					{isLoading ? <CircularProgress /> : (
 						<Formik
 							initialValues={{ name: '', email: '', phone: '', password: '' }}
-							validationSchema={Yup.object({
-								name: Yup.string().required(t('form.signupAlerts.name')),
-								phone: Yup.number()
-									.required(t('form.signupAlerts.phone.required'))
-									.min(10, t('form.signupAlerts.phone.min')),
-								email: Yup.string()
-									.email(t('form.signupAlerts.email.invalid'))
-									.required(t('form.signupAlerts.email.required')),
-								password: Yup.string()
-									.min(8, t('form.signupAlerts.password.min'))
-									.required(t('form.signupAlerts.password.required')),
-							})}
+							validationSchema={signupSchema}
 							onSubmit={(values) => handleSubmit(values)}
 						>
 							<StyledForm>

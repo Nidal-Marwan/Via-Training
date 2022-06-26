@@ -80,5 +80,5 @@ export const getMe = async (req: Request) => {
 			return { status: 401, message: "unauthorized" };
 		}
 	}
-	return { error: "Token doen't send with headres" };
+	return { error: "Token doesn't send with headerss" };
 };
