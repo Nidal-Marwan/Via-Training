@@ -17,6 +17,7 @@ import { customTheme } from "./common/utils/theme";
 
 import { ModalContainer } from "./common/components/ModalContainer/ModalContainer";
 import { FavLocation } from "./views/FavoriteLocation/FavLocation";
+import { useMe } from "./common/hooks/useMe.hook";
 
 
 const cacheLtr = createCache({
@@ -33,13 +34,14 @@ const cacheRtl = createCache({
 
 export const App = () => {
   const { i18n } = useTranslation();
+  const{userInfo} = useMe()
   document.body.dir = i18n.dir();
   return (
     <>
       <CacheProvider value={i18n.dir() === "rtl" ? cacheRtl : cacheLtr}>
         <ThemeProvider theme={{ ...customTheme, direction: i18n.dir() }}>
           <CssBaseline />
-          <NavBar />
+         {userInfo && <NavBar />}
           <Container maxWidth="xl">
             <Box>
               <Routes>
