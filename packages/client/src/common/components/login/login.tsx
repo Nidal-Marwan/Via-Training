@@ -1,14 +1,14 @@
-import { Formik, FormikProps } from 'formik';
-import { TextInput } from '../TextInput/TextInput';
-import { useTranslation } from 'react-i18next';
-import { CustomButton } from '../Button/Button';
-import { useState } from 'react';
-import { trainingClient } from '../../api/trainingClient';
-import { StyledForm } from './Login.styles';
-import { Link } from 'react-router-dom';
-import { Typography } from '@mui/material';
-import * as Yup from 'yup';
-import { ModalContainer } from '../ModalContainer/ModalContainer';
+import { Formik, FormikProps } from "formik";
+import { TextInput } from "../TextInput/TextInput";
+import { useTranslation } from "react-i18next";
+import { CustomButton } from "../Button/Button";
+import { useState } from "react";
+import { trainingClient } from "../../api/trainingClient";
+import { StyledForm } from "./Login.styles";
+import { Link } from "react-router-dom";
+import { Typography } from "@mui/material";
+import * as Yup from "yup";
+import { ModalContainer } from "../ModalContainer/ModalContainer";
 
 interface LoginResponse {
 	status: number;
@@ -24,17 +24,17 @@ const Login = () => {
 	const [error, setError] = useState<string | null>();
 
 	const initialValues = {
-		email: '',
-		password: '',
+		email: "",
+		password: "",
 	};
 	const handleSubmit = async (values: any) => {
 		setError(null);
 		const response = await trainingClient.post<LoginResponse>(
-			'/home/login',
+			"/home/login",
 			values
 		);
 		if (response.data.status === 200) {
-			window.localStorage.setItem('access_token', response.data.token);
+			window.localStorage.setItem("access_token", response.data.token);
 			setIsLoggedIn(true);
 			//navigate to home
 		} else {
@@ -48,39 +48,39 @@ const Login = () => {
 				initialValues={initialValues}
 				validationSchema={Yup.object({
 					email: Yup.string()
-						.email(t('form.loginAlerts.email'))
-						.required(t('form.loginAlerts.email')),
+						.email(t("form.loginAlerts.email"))
+						.required(t("form.loginAlerts.email")),
 					password: Yup.string()
-						.required(t('form.loginAlerts.password.required'))
-						.min(8, t('form.loginAlerts.password.min')),
+						.required(t("form.loginAlerts.password.required"))
+						.min(8, t("form.loginAlerts.password.min")),
 				})}
 				onSubmit={handleSubmit}
 				validateOnChange={false}
 			>
-				{({}: FormikProps<any>): React.ReactNode => {
+				{(): React.ReactNode => {
 					return (
 						<StyledForm>
 							<TextInput
 								name='email'
 								type='text'
 								id='outlined-basic'
-								label={t('form.email')}
+								label={t("form.email")}
 							/>
 							<TextInput
 								name='password'
 								type='password'
 								id='outlined-basic'
-								label={t('form.password')}
+								label={t("form.password")}
 							/>
 							<CustomButton
 								color='primary'
-								title={t('form.login')}
+								title={t("form.login")}
 								type='submit'
 							/>
 							{/* will become a link when routes are created so we can route the user to signup page*/}
 							<Typography variant='body1'>
-								{t('form.registration.text')}{' '}
-								<Link to='/signup'>{t('form.registration.link')}</Link>
+								{t("form.registration.text")}{" "}
+								<Link to='/signup'>{t("form.registration.link")}</Link>
 							</Typography>
 						</StyledForm>
 					);

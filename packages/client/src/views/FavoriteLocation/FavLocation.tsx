@@ -1,3 +1,3 @@
 export const FavLocation = () => {
-  return <p>FAV LOCATION PAGE</p>;
+	return <p>FAV LOCATION PAGE</p>;
 };

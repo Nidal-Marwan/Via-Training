@@ -1,12 +1,12 @@
-import { TextInput } from '../TextInput/TextInput';
-import { StyledBox, StyledForm, Title } from './SignUp.styles';
-import {  Formik } from 'formik';
-import { trainingClient } from '../../api/trainingClient';
-import { useState } from 'react';
-import { CustomButton } from '../Button/Button';
-import { useTranslation } from 'react-i18next';
-import { useNavigate } from 'react-router-dom';
-import * as Yup from 'yup';
+import { TextInput } from "../TextInput/TextInput";
+import { StyledBox, StyledForm, Title } from "./SignUp.styles";
+import {  Formik } from "formik";
+import { trainingClient } from "../../api/trainingClient";
+import { useState } from "react";
+import { CustomButton } from "../Button/Button";
+import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router-dom";
+import * as Yup from "yup";
 
 
 interface SignUpResponse {
@@ -21,29 +21,29 @@ export const SignUp: React.FC = () => {
 	const handleSubmit = async (values: any) => {
 		setError(null);
 		const response = await trainingClient.post<SignUpResponse>(
-			'/home/signup',
+			"/home/signup",
 			values
 		);
 		if (response.data.status === 201) {
-			navigate('/');
+			navigate("/");
 		} else {
 			setError(response.data.message);
 		}
 	};
 	return (
 		<Formik
-			initialValues={{ name: '', email: '', phone: '', password: '' }}
+			initialValues={{ name: "", email: "", phone: "", password: "" }}
 			validationSchema={Yup.object({
-				name: Yup.string().required(t('form.signupAlerts.name')),
+				name: Yup.string().required(t("form.signupAlerts.name")),
 				phone: Yup.number()
-					.required(t('form.signupAlerts.phone.required'))
-					.min(10, t('form.signupAlerts.phone.min')),
+					.required(t("form.signupAlerts.phone.required"))
+					.min(10, t("form.signupAlerts.phone.min")),
 				email: Yup.string()
-					.email(t('form.signupAlerts.email.invalid'))
-					.required(t('form.signupAlerts.email.required')),
+					.email(t("form.signupAlerts.email.invalid"))
+					.required(t("form.signupAlerts.email.required")),
 				password: Yup.string()
-					.min(8, t('form.signupAlerts.password.min'))
-					.required(t('form.signupAlerts.password.required')),
+					.min(8, t("form.signupAlerts.password.min"))
+					.required(t("form.signupAlerts.password.required")),
 			})}
 			onSubmit={(values) => handleSubmit(values)}
 		>
@@ -54,31 +54,32 @@ export const SignUp: React.FC = () => {
 						name='name'
 						type='text'
 						id='outlined-basic'
-						label={t('form.name')}
+						label={t("form.name")}
 					/>
 					<TextInput
 						name='email'
 						type='email'
 						id='outlined-basic'
-						label={t('form.email')}
+						label={t("form.email")}
 					/>
 					<TextInput
 						name='phone'
 						type='number'
 						id='outlined-basic'
-						label={t('form.phone')}
+						label={t("form.phone")}
 					/>
 					<TextInput
 						name='password'
 						type='password'
 						id='outlined-basic'
-						label={t('form.password')}
+						label={t("form.password")}
 					/>
 					<CustomButton
 						color='primary'
-						title={t('form.signup')}
+						title={t("form.signup")}
 						type='submit'
 					/>
+
 				</StyledForm>
 			</StyledBox>
 		</Formik>

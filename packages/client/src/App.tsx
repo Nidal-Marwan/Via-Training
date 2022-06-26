@@ -16,51 +16,47 @@ import { useEffect, useState } from "react";
 
 
 const cacheLtr = createCache({
-	key: 'muiltr',
+	key: "muiltr",
 });
 const cacheRtl = createCache({
-	key: 'muirtl',
+	key: "muirtl",
 	// prefixer is the only stylis plugin by default, so when
 	// overriding the plugins you need to include it explicitly
 	// if you want to retain the auto-prefixing behavior.
 	stylisPlugins: [prefixer, stylisRTLPlugin],
 });
 const checkIsLoggedIn = () => {
-  if(window.localStorage.getItem("access_token")){
-    return true;
-  }else
-    return false;
-}
+	return Boolean(window.localStorage.getItem("access_token"));
+};
 
 export const App = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(checkIsLoggedIn())
-  console.log(isLoggedIn)
-   useEffect(() => {
-    setIsLoggedIn(checkIsLoggedIn());
-  }, []);
-  const { i18n } = useTranslation();
-  document.body.dir = i18n.dir();
-  return (
-    <>
-      <CacheProvider value={i18n.dir() === "rtl" ? cacheRtl : cacheLtr}>
-        <ThemeProvider theme={{ ...customTheme, direction: i18n.dir() }}>
-          <CssBaseline />
-          <NavBar />
-          <Container maxWidth="xl">
-            <Box>
-              <Routes>
-                <Route path="/" element={<Home />} />
-                <Route path="signup" element={<SignUp />} />
-                <Route path="locations" element={isLoggedIn ? <FavLocation/> : <Navigate to="/" />} />
-                {/* <Route path="liveMap" element={ <Map/> } />
+	const [isLoggedIn, setIsLoggedIn] = useState(checkIsLoggedIn());
+	useEffect(() => {
+		setIsLoggedIn(checkIsLoggedIn());
+	}, []);
+	const { i18n } = useTranslation();
+	document.body.dir = i18n.dir();
+	return (
+		<>
+			<CacheProvider value={i18n.dir() === "rtl" ? cacheRtl : cacheLtr}>
+				<ThemeProvider theme={{ ...customTheme, direction: i18n.dir() }}>
+					<CssBaseline />
+					<NavBar />
+					<Container maxWidth="xl">
+						<Box>
+							<Routes>
+								<Route path="/" element={<Home />} />
+								<Route path="signup" element={<SignUp />} />
+								<Route path="locations" element={isLoggedIn ? <FavLocation/> : <Navigate to="/" />} />
+								{/* <Route path="liveMap" element={ <Map/> } />
                     <Route path="drivers" element={ <Drivers/> } />
                 */}
-              </Routes>
-            </Box>
-          </Container>
-        </ThemeProvider>
-      </CacheProvider>
-    </>
-  );
+							</Routes>
+						</Box>
+					</Container>
+				</ThemeProvider>
+			</CacheProvider>
+		</>
+	);
 
 };
