@@ -18,6 +18,8 @@ export const ModalContainer = () => {
   const onAccept = () => {
     handleClose();
     navigate("locations");
+    //for testing sign out, will remove later
+    // window.location.reload() 
     //Routing to favorite locations page
   };
   const onCancel = () => {

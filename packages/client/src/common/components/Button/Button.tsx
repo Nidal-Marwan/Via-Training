@@ -3,6 +3,7 @@ import Button from "@mui/material/Button";
 interface ButtonProps {
   title: string;
   onClick?: () => void;
+  style?: {};
   type: "button" | "submit" | "reset";
   color:
     | "error"
@@ -19,9 +20,10 @@ export const CustomButton: React.FC<ButtonProps> = ({
   onClick,
   type,
   color,
+  style,
 }: ButtonProps) => {
   return (
-    <Button color={color} variant="contained" type={type} onClick={onClick}>
+    <Button style={style} color={color} variant="contained" type={type} onClick={onClick}>
       {title}
     </Button>
   );

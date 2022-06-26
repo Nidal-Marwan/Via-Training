@@ -42,7 +42,8 @@
 	"nav": {
 		"map": "الخريطة",
 		"driver": "السائق",
-		"location": "الموقع"
+		"location": "الموقع",
+		"signout": "الخروج"
 	},
 	"modal": {
 		"favorites": {
