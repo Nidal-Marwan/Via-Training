@@ -3,20 +3,20 @@ import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 @Entity("Location")
 export class Location {
 	@PrimaryGeneratedColumn()
-	id: number;
+		id: number;
 
 	@Column()
-	name: string;
+		name: string;
 
 	@Column({ type: "float" })
-	lat: number;
+		lat: number;
 
 	@Column({ type: "float" })
-	long: number;
+		long: number;
 
 	@Column({ type: "timestamptz" })
-	date: Date;
-	
+		date: Date;
+
 	@Column()
-	user_id: number;
+		userid: number;
 }

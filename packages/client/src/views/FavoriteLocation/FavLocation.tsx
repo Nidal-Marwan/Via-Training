@@ -3,45 +3,105 @@ import { useEffect, useState } from "react";
 import { trainingClient } from "../../common/api/trainingClient";
 import { useMe } from "../../common/hooks/useMe.hook";
 
-
 interface LocationsData {
-  name: string;
-  id: number;
-  lat: number;
-  long: number;
-  date: Date;
-  user_id: number;
+	name: string;
+	id: number;
+	lat: number;
+	long: number;
+	date: Date;
+	user_id: number;
 }
+
+interface FetchLocationsResponse {
+	status: number;
+	message: string;
+	currentUserLocations: any[];
+}
+interface DefaultResponse {
+	status: number;
+	message: string;
+}
+
+
 export const FavLocation: React.FC = () => {
-  // const { userInfo } = useMe();
-  const userId = 2;
-  // console.log(userId)
-  const [locations, setLocations] = useState<LocationsData[]>([]);
+	const { userInfo } = useMe();
 
-  const getLocations = async (id: any) => {
-    console.log(id)
-    const response = await trainingClient.get(
-      '/locations',
-      id
-    );
-    setLocations(response.data.currentUserLocations);
-  };
+	const userId = userInfo?.user.userInfo.id;
 
-  useEffect(() => {
-    getLocations(userId);
-  }, [userId]);
+	const dummyData = { name: "Add Test", lat: 35.5, long: 35.5, userid: userId, date: new Date() };
+	const editedDummyData = { name: "Edited Test", lat: 1, long: 1, userid: userId, date: new Date() };
 
-  const addLocation = async (values: any) => {
-    const response = await trainingClient.post("/locations/add", values);
-  };
-  const dummyData = { name: "Add Test", lat: 35.5, long: 35.5, userId: 1, date: new Date() };
-  return (<>
-    <Button onClick={() => addLocation(dummyData)}> Add location </Button>
-    {/* <p>Welcome {userInfo?.user.userInfo.email}</p> */}
-    {locations.map((location) => (
-      <div>
-        {location.name}
-      </div>
-    ))}
-  </>);
+	const [locations, setLocations] = useState<LocationsData[]>([]);
+
+
+	const getLocations = async (id: any) => {
+		const token = window.localStorage.getItem('access_token');
+		const response = await trainingClient.post<FetchLocationsResponse>("/locations", { id: id }, {
+			headers: {
+				Authorization: `Bearer ${token}`
+			}
+		});
+		if (response.data.status === 201)
+			setLocations(response.data.currentUserLocations);
+		if (response.data.status === 204)
+			setLocations([]);
+	};
+
+	const addLocation = async (values: any) => {
+		const token = window.localStorage.getItem('access_token');
+		const response = await trainingClient.post<DefaultResponse>("/locations/add", values, {
+			headers: {
+				Authorization: `Bearer ${token}`
+			}
+		});
+		//console.log(response.data);
+	};
+	const deleteLocation = async (id: number) => {
+		const token = window.localStorage.getItem('access_token');
+		const response = await trainingClient.post<DefaultResponse>("/locations/delete", { id: id }, {
+			headers: {
+				Authorization: `Bearer ${token}`
+			}
+		});
+		//console.log(response.data);
+	};
+
+	const editLocation = async (values: any) => {
+		const token = window.localStorage.getItem('access_token');
+		const response = await trainingClient.put<DefaultResponse>("/locations/edit", values, {
+			headers: {
+				Authorization: `Bearer ${token}`
+			}
+		});
+		console.log(response.data);
+	};
+	const addHandleClick = async () => {
+		await addLocation(dummyData);
+		await getLocations(userId);
+	};
+
+	const deleteHandleClick = async (id: number) => {
+		await deleteLocation(id);
+		await getLocations(userId);
+	};
+	const editHandleClick = async (id: number, values: any) => {
+		await editLocation({ id: id, ...values });
+		await getLocations(userId);
+	};
+	useEffect(() => {
+		getLocations(userId);
+	}, [userId]);
+
+	return (<>
+		<p>Welcome {userInfo?.user.userInfo.email}</p>
+		{locations.length === 0 && <p>No rows </p>}
+		{locations.map((location) => (
+			<div key={location.id}>
+				<span>{location.name}</span>
+				<Button onClick={() => deleteHandleClick(location.id)}>Delete</Button>
+				<Button onClick={() => editHandleClick(location.id, editedDummyData)}>Edit</Button>
+			</div>
+		))}
+		<Button onClick={addHandleClick}> Add location </Button>
+	</>);
 };

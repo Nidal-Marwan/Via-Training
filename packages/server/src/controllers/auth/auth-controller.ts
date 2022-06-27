@@ -37,10 +37,10 @@ export const postLogin = async (req: Request, res: Response) => {
 };
 
 export const getMe = async (req: Request, res: Response) => {
-  try {
-    const response = await service.getMe(req);
-    return res.send({ user: response });
-  } catch (e) {
-    res.send({ error: e });
-  }
+	try {
+		const response = await service.getMe(req);
+		return res.send({ user: response });
+	} catch (e) {
+		res.send({ error: e });
+	}
 };
