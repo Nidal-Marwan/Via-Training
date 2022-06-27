@@ -32,7 +32,9 @@ const checkIsLoggedIn = () => {
 export const App = () => {
 	const [isLoggedIn, setIsLoggedIn] = useState(checkIsLoggedIn());
 	useEffect(() => {
-		setIsLoggedIn(checkIsLoggedIn());
+		window.addEventListener("storage",function(e){
+			setIsLoggedIn(checkIsLoggedIn());
+		});
 	}, []);
 	const { i18n } = useTranslation();
 	document.body.dir = i18n.dir();
