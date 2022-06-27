@@ -28,8 +28,8 @@ export const FavLocation: React.FC = () => {
 
 	const userId = userInfo?.user.userInfo.id;
 
-	const dummyData = { name: "Add Test", lat: 35.5, long: 35.5, userid: userId, date: new Date() };
-	const editedDummyData = { name: "Edited Test", lat: 1, long: 1, userid: userId, date: new Date() };
+	const dummyData = { name: "Add Test", lat: 35.5, long: 35.5, userId: userId, date: new Date() };
+	const editedDummyData = { name: "Edited Test", lat: 1, long: 1, userId: userId, date: new Date() };
 
 	const [locations, setLocations] = useState<LocationsData[]>([]);
 

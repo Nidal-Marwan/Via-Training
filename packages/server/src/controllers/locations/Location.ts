@@ -3,5 +3,5 @@ export interface LocationData {
   lat: number;
   long: number;
   date: Date;
-  userid: number;
+  userId: number;
 }

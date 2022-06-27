@@ -16,7 +16,7 @@ export const fetchUserLocations = async (req: Request, data: any) => {
 		);
 		if (decoded) {
 			const currentUserLocations = await locationRepository.find({
-				where: { userid: data.userid },
+				where: { userId: data.userId },
 			});
 			if (currentUserLocations.length === 0) {
 				return { status: 204, message: "No favorite locations for user" };
@@ -38,6 +38,7 @@ export const addLocation = async (req: Request, data: LocationData) => {
 		);
 		if (decoded) {
 			try {
+				console.log(data);
 				await locationRepository.save(data);
 				return { status: 201, message: "Location added successfully" };
 			} catch (err) {
@@ -78,7 +79,6 @@ export const editLocation = async (req: Request, data: any) => {
 		);
 		if (decoded) {
 			try {
-				console.log(data);
 				await locationRepository.save({
 					...data
 				});
