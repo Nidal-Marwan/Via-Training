@@ -38,7 +38,6 @@ export const addLocation = async (req: Request, data: LocationData) => {
 		);
 		if (decoded) {
 			try {
-				console.log(data);
 				await locationRepository.save(data);
 				return { status: 201, message: "Location added successfully" };
 			} catch (err) {
