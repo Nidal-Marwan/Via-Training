@@ -30,6 +30,6 @@ export const useMe = ()=>{
         }
         }
         getInfo();
-    },[userInfo])
+    },[])
      return {userInfo,error};
 }

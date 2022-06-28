@@ -1,39 +1,29 @@
-import { useState } from "react";
-import { useTranslation } from "react-i18next";
-import { useNavigate } from "react-router-dom";
-import { CustomButton } from "../Button/Button";
-import Modal from "../Modal/Modal";
+import { LocationModal } from "../Modal/LocationModal";
+import { LoginModal } from "../Modal/LoginModal";
+interface ModalProps{
+  page:string,
+  position?:{
+    lat:number,
+    lng:number
+  },
+    data?:{
+	id:number,
+	name:string,
+	lat:number,
+	long:number
+}
+}
 
-export const ModalContainer = () => {
-  const navigate = useNavigate();
-  const { t } = useTranslation();
-  const [showModal, setShowModal] = useState(true);
-
-  const handleOpen = () => {
-    setShowModal(true);
-  };
-  const handleClose = () => {
-    setShowModal(false);
-  };
-  const onAccept = () => {
-    handleClose();
-    navigate("locations");
-    //Routing to favorite locations page
-  };
-  const onCancel = () => {
-    handleClose();
-    //Routing to live page
-  };
-  return (
-    <>
-      <Modal
-        message={t("modal.favorites.message")}
-        acceptText={t("modal.favorites.accept")}
-        cancelText={t("modal.favorites.decline")}
-        open={showModal}
-        onAccept={onAccept}
-        onCancel={onCancel}
-      />
-    </>
-  );
+export const ModalContainer = ({page,position,data}:ModalProps) => {
+	let content;
+	if(page ==="login"){
+		content = <LoginModal/>;
+	} else if(page === 'location' && position){
+    content = <LocationModal data={data} position={position}/>
+  }
+	return (
+		<>
+			{content}
+		</>
+	);
 };

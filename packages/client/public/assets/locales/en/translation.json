@@ -56,6 +56,11 @@
 			"message": "Would you like to set-up favorite locations?",
 			"accept": "Yes",
 			"decline": "Cancel"
+		},
+		"location": {
+			"message": "Add the updated location by clicking on the map",
+			"accept": "Save",
+			"decline": "Cancle"
 		}
 	},
 	"server": {

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { DataGrid, GridColDef, arSD, enUS } from '@mui/x-data-grid';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
@@ -20,18 +20,22 @@ interface Data {
 	rows: any[];
 	checkbox?: boolean;
 	datepicker?: boolean;
+	height:number,
+	width:number
+	margin:number
 }
 
 function Table(props: Data) {
 	const { t, i18n } = useTranslation();
-
 	const columns: GridColDef[] = props.columns;
-
 	const [date, setDate] = useState<Date | null>(null);
 	const [rows, setRows] = useState(props.rows);
+	useEffect(()=>{
+		setRows(props.rows)
+	},[props.rows])
 
 	return (
-		<Box style={{ height: 400, width: 800, margin: 15 }}>
+		<Box style={{ height: props.height, width: props.width, margin: props.margin }}>
 			{props.datepicker && (
 				<Box
 					sx={{
