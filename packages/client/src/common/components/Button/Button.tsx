@@ -15,14 +15,14 @@ interface ButtonProps {
 }
 
 export const CustomButton: React.FC<ButtonProps> = ({
-  title,
-  onClick,
-  type,
-  color,
+	title,
+	onClick,
+	type,
+	color,
 }: ButtonProps) => {
-  return (
-    <Button color={color} variant="contained" type={type} onClick={onClick}>
-      {title}
-    </Button>
-  );
+	return (
+		<Button color={color} variant="contained" type={type} onClick={onClick}>
+			{title}
+		</Button>
+	);
 };
