@@ -9,8 +9,6 @@ import { Link, useNavigate } from "react-router-dom";
 import signupSchema from "./SignUp.schema";
 import { CircularProgress, IconButton, Stack, Typography } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
-
-
 interface SignUpResponse {
 	status: number;
 	message: string;
