@@ -19,16 +19,14 @@ export const FavLocation:React.FC = () => {
 		setPosition({...position,lat:cell.row.lat,lng:cell.row.long});
 		setSelectedData(cell.row);
 	};
-
 	const handleDelete = async(cell:GridCellParams) =>{
 		const response = await trainingClient.delete(`/locations/${cell.row.id}`,{
 			headers:{ Authorization: `Bearer ${token}`}
 		});
-		if(response.data.status === 200){
+		if( response.data.status === 200 ){
 			await trainingClient.get("locations");
 		}
 	};
-
 	const changeCursor =()=>{
 		setCursor("pointer");
 	};
@@ -76,7 +74,6 @@ export const FavLocation:React.FC = () => {
 			date: new Date("2022-6-12")
 		},
 	];
- 
 	return <>
 		<p>Welcome {userInfo?.user.userInfo.email} </p>
 		<Table height={400} width={800} margin={15} columns={headers} rows={data} />

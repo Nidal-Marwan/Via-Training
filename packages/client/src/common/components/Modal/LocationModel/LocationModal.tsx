@@ -6,8 +6,7 @@ import {Map} from "../../Map/Map";
 import Table from "../../Table/Table";
 import { trainingClient } from "../../../api/trainingClient";
 import { ModalBox,MapBox,ActionsBox } from "./LocationModal.styles";
-
-
+import { GridCellParams } from "@mui/x-data-grid";
 interface LocationProps{
     position:{
         lat:number,
@@ -34,21 +33,19 @@ export const LocationModal =({position,data}:LocationProps)=>{
 		long: locationInfo.lng,
        
 	}];
-	const column = [	{ field: "name", headerName: "Name",  headerAlign: "center", width: 150,align:"center",renderCell:(params:any)=>(
-       
-		<TextField
-			onChange={(e)=>setLocationName(e.target.value)}
-			autoFocus
-			defaultValue={params.row.name}
-			variant="standard"
-		/>
-    
-	)
-		,
-	},
-	{ field: "lat", headerName: "Latitude",headerAlign: "center", type: "number", width: 100 , align:"center"},
-	{ field: "long", headerName: "Longitude",headerAlign: "center", type: "number", width: 100, align:"center" },];
-	
+	const column = [	
+		{ field: "name", headerName: "Name",  headerAlign: "center", width: 150,align:"center",renderCell:(params:GridCellParams )=>(
+			<TextField
+				onChange={(e)=>setLocationName(e.target.value)}
+				autoFocus
+				defaultValue={params.row.name}
+				variant="standard"
+			/>
+		),
+		},
+		{ field: "lat", headerName: "Latitude",headerAlign: "center", type: "number", width: 100 , align:"center"},
+		{ field: "long", headerName: "Longitude",headerAlign: "center", type: "number", width: 100, align:"center" }
+	];
 	const handleClose = () => {
 		setShowModal(false);
 	};
@@ -57,7 +54,7 @@ export const LocationModal =({position,data}:LocationProps)=>{
 		const response = await trainingClient.put("/locations",payload,{
 			headers:{ Authorization: `Bearer ${token}`}
 		});
-		if(response.data.status===200){
+		if( response.data.status===200 ){
 			handleClose();
 			await trainingClient.get("/locations");
 		}
@@ -66,14 +63,11 @@ export const LocationModal =({position,data}:LocationProps)=>{
 		handleClose();
         
 	};
-
 	const handleCallback = (lat:number,lng:number) =>{
 		console.log(lat,lng);
 		console.log(locationInfo);
 		setLocationInfo({lat,lng});
 	};
-
-	console.log(locationName);
 	return 	<Modal
 	
 		open={showModal}

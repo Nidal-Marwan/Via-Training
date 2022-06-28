@@ -18,7 +18,7 @@ export const ModalContainer = ({page,position,data}:ModalProps) => {
 	let content;
 	if(page ==="login"){
 		content = <LoginModal/>;
-	} else if(page === "location" && position){
+	} else if( page === "location" && position ){
 		content = <LocationModal data={data} position={position}/>;
 	}
 	return (

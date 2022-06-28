@@ -9,10 +9,6 @@ export const LoginModal = () =>{
 	const navigate = useNavigate();
 	const { t } = useTranslation();
 	const [showModal, setShowModal] = useState(true);
-
-	const handleOpen = () => {
-		setShowModal(true);
-	};
 	const handleClose = () => {
 		setShowModal(false);
 	};

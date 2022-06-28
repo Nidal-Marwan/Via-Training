@@ -1,4 +1,3 @@
-import { Box } from "@mui/material";
 import { GoogleMap, Marker, useJsApiLoader } from "@react-google-maps/api";
 import { useState, useCallback } from "react";
 interface MapProps{
@@ -8,6 +7,7 @@ interface MapProps{
 	},
 	modalCallback:(lat:number,lng:number)=>void
 }
+
 export const Map = ({position,modalCallback}:MapProps)=>{
 	const [markerPosition,setMarkerPostion] = useState(position);
 	const { isLoaded } = useJsApiLoader({
@@ -23,9 +23,8 @@ export const Map = ({position,modalCallback}:MapProps)=>{
 		},
 		[position]
 	);
-	
 	const handleNewPosition = (event?:google.maps.LatLngLiteral)=>{
-		if(event){
+		if( event ){
 			const lat = event.lat;
 			const lng = event.lng;
 			modalCallback(lat,lng);
@@ -34,7 +33,6 @@ export const Map = ({position,modalCallback}:MapProps)=>{
 		}
 	};
 	return isLoaded ? (
-	
 		<GoogleMap
 			mapContainerStyle={{width:"600px",height:"600px"}}
 			zoom={10}

@@ -22,7 +22,7 @@ export const useMe = ()=>{
 				const userInfo = await trainingClient.get<UserInfo>("/home/user",{headers: {
 					Authorization: `Bearer ${token}`
 				}});
-				if(userInfo.data.user.status === 200){
+				if( userInfo.data.user.status === 200 ){
 					setUserInfo(userInfo.data);
 				}
 			}catch(e:any){
