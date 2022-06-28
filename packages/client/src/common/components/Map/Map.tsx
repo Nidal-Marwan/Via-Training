@@ -1,15 +1,15 @@
 import { GoogleMap, Marker, useJsApiLoader } from "@react-google-maps/api";
 import { useState, useCallback } from "react";
-interface MapProps{
-	position:{
-    lat:number,
-    lng:number
+interface MapProps {
+	position: {
+		lat: number,
+		lng: number
 	},
-	modalCallback:(lat:number,lng:number)=>void
+	modalCallback: (lat: number, lng: number) => void
 }
 
-export const Map = ({position,modalCallback}:MapProps)=>{
-	const [markerPosition,setMarkerPostion] = useState(position);
+export const Map = ({ position, modalCallback }: MapProps) => {
+	const [markerPosition, setMarkerPostion] = useState(position);
 	const { isLoaded } = useJsApiLoader({
 		id: "google-map-script",
 		googleMapsApiKey: "",
@@ -23,26 +23,26 @@ export const Map = ({position,modalCallback}:MapProps)=>{
 		},
 		[position]
 	);
-	const handleNewPosition = (event?:google.maps.LatLngLiteral)=>{
-		if( event ){
+	const handleNewPosition = (event?: google.maps.LatLngLiteral) => {
+		if (event) {
 			const lat = event.lat;
 			const lng = event.lng;
-			modalCallback(lat,lng);
-			setMarkerPostion({lat:+lat,lng:+lng});
-	
+			modalCallback(lat, lng);
+			setMarkerPostion({ lat: +lat, lng: +lng });
+
 		}
 	};
 	return isLoaded ? (
 		<GoogleMap
-			mapContainerStyle={{width:"600px",height:"600px"}}
+			mapContainerStyle={{ width: "600px", height: "600px" }}
 			zoom={10}
 			onLoad={onLoad}
 			center={position}
-			onClick={(e)=>handleNewPosition(e.latLng?.toJSON())}
+			onClick={(e) => handleNewPosition(e.latLng?.toJSON())}
 		>
-			<Marker position={markerPosition}/>
+			<Marker position={markerPosition} />
 		</GoogleMap>
-	
+
 	) : (
 		<></>
 	);

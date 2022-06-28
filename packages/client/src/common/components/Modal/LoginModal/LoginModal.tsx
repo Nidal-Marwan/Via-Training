@@ -5,7 +5,7 @@ import Modal from "../Modal";
 import { Button, Divider, Typography } from "@mui/material";
 import { ModalBox, ActionsBox } from "./LoginModal.styles";
 
-export const LoginModal = () =>{
+export const LoginModal = () => {
 	const navigate = useNavigate();
 	const { t } = useTranslation();
 	const [showModal, setShowModal] = useState(true);
@@ -18,9 +18,9 @@ export const LoginModal = () =>{
 	};
 	const onCancel = () => {
 		handleClose();
-		
+
 	};
-	return 	<Modal
+	return <Modal
 		open={showModal}
 		onAccept={onAccept}
 		onCancel={onCancel}

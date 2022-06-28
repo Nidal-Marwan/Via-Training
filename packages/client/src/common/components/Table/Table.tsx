@@ -1,28 +1,23 @@
 import { useEffect, useState } from "react";
-
 import { DataGrid, GridColDef, arSD, enUS } from "@mui/x-data-grid";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
-
 import TextField from "@mui/material/TextField";
 import IconButton from "@mui/material/IconButton";
 import RestartAltIcon from "@mui/icons-material/RestartAlt";
-
 import { useTranslation } from "react-i18next";
-
 import enLocale from "date-fns/locale/en-GB";
 import arLocale from "date-fns/locale/ar-SA";
 import { Box } from "@mui/material";
-
 interface Data {
 	columns: any[];
 	rows: any[];
 	checkbox?: boolean;
 	datepicker?: boolean;
-	height:number,
-	width:number
-	margin:number
+	height: number,
+	width: number
+	margin: number
 }
 
 function Table(props: Data) {
@@ -30,9 +25,9 @@ function Table(props: Data) {
 	const columns: GridColDef[] = props.columns;
 	const [date, setDate] = useState<Date | null>(null);
 	const [rows, setRows] = useState(props.rows);
-	useEffect(()=>{
+	useEffect(() => {
 		setRows(props.rows);
-	},[props.rows]);
+	}, [props.rows]);
 
 	return (
 		<Box style={{ height: props.height, width: props.width, margin: props.margin }}>
