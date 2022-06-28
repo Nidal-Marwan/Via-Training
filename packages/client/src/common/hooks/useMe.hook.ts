@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react"
-import { trainingClient } from "../api/trainingClient"
+import { useEffect, useState } from "react";
+import { trainingClient } from "../api/trainingClient";
 
 interface UserInfo {
     user:{
