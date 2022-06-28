@@ -4,22 +4,22 @@ import { User } from "./User.model";
 @Entity("Location")
 export class Location {
 	@PrimaryGeneratedColumn()
-	id: number;
+		id: number;
 
 	@Column()
-	name: string;
+		name: string;
 
 	@Column({ type: "float" })
-	lat: number;
+		lat: number;
 
 	@Column({ type: "float" })
-	long: number;
+		long: number;
 
 	@Column({ type: "timestamptz" })
-	date: Date;
+		date: Date;
 
 	//@ManyToOne(() => User, user => user.locations)
 	//user: User;
 	@Column()
-	userId: number;
+		userId: number;
 }

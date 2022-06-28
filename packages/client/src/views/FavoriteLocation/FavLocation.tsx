@@ -38,12 +38,7 @@ export const FavLocation: React.FC = () => {
 		if (id === undefined) {
 			return;
 		}
-		const token = window.localStorage.getItem('access_token');
-		const response = await trainingClient.get<FetchLocationsResponse>(`/locations/${id}`, {
-			headers: {
-				Authorization: `Bearer ${token}`
-			}
-		});
+		const response = await trainingClient.get<FetchLocationsResponse>(`/locations/${id}`);
 		if (response.data.status === 201)
 			setLocations(response.data.currentUserLocations);
 		if (response.data.status === 204)
@@ -51,31 +46,16 @@ export const FavLocation: React.FC = () => {
 	};
 
 	const addLocation = async (values: any) => {
-		const token = window.localStorage.getItem('access_token');
-		const response = await trainingClient.post<DefaultResponse>("/locations", values, {
-			headers: {
-				Authorization: `Bearer ${token}`
-			}
-		});
+		const response = await trainingClient.post<DefaultResponse>("/locations", values);
 		//console.log(response.data);
 	};
 	const deleteLocation = async (id: number) => {
-		const token = window.localStorage.getItem('access_token');
-		const response = await trainingClient.delete<DefaultResponse>(`/locations/${id}`, {
-			headers: {
-				Authorization: `Bearer ${token}`
-			}
-		});
+		const response = await trainingClient.delete<DefaultResponse>(`/locations/${id}`);
 		//console.log(response.data);
 	};
 
 	const editLocation = async (values: any) => {
-		const token = window.localStorage.getItem('access_token');
-		const response = await trainingClient.put<DefaultResponse>("/locations", values, {
-			headers: {
-				Authorization: `Bearer ${token}`
-			}
-		});
+		const response = await trainingClient.put<DefaultResponse>("/locations", values);
 		//console.log(response.data);
 	};
 
