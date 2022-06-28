@@ -5,11 +5,11 @@ import {
 	Typography,
 	MenuItem,
 	Menu,
-} from '@mui/material';
-import { StyledToolBar, StyledBox } from './NavBar.style';
-import { useTranslation } from 'react-i18next';
-import { Link } from 'react-router-dom';
-import LanguageSelector from '../LanguageSelector/LanguageSelector';
+} from "@mui/material";
+import { StyledToolBar, StyledBox } from "./NavBar.style";
+import { useTranslation } from "react-i18next";
+import { Link } from "react-router-dom";
+import LanguageSelector from "../LanguageSelector/LanguageSelector";
 
 export const NavBar: React.FC = () => {
 	const { t } = useTranslation();
@@ -20,17 +20,17 @@ export const NavBar: React.FC = () => {
 					<StyledBox>
 						<MenuItem>
 							<Typography variant='h6' component='div'>
-								<Link to='liveMap'>{t('nav.map')}</Link>
+								<Link to='liveMap'>{t("nav.map")}</Link>
 							</Typography>
 						</MenuItem>
 						<MenuItem>
 							<Typography variant='h6' component='div'>
-								<Link to='drivers'> {t('nav.driver')}</Link>
+								<Link to='drivers'> {t("nav.driver")}</Link>
 							</Typography>
 						</MenuItem>
 						<MenuItem>
 							<Typography variant='h6' component='div'>
-								<Link to='locations'> {t('nav.location')}</Link>
+								<Link to='locations'> {t("nav.location")}</Link>
 							</Typography>
 						</MenuItem>
 					</StyledBox>
