@@ -60,7 +60,7 @@
 		"location": {
 			"message": "Add the updated location by clicking on the map",
 			"accept": "Save",
-			"decline": "Cancle"
+			"decline": "Cancel"
 		}
 	},
 	"server": {

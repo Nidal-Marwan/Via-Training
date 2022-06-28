@@ -1,5 +1,5 @@
-import { LocationModal } from "../Modal/LocationModal";
-import { LoginModal } from "../Modal/LoginModal";
+import { LocationModal } from "../Modal/LocationModel/LocationModal";
+import { LoginModal } from "../Modal/LoginModal/LoginModal";
 interface ModalProps{
   page:string,
   position?:{
@@ -18,9 +18,9 @@ export const ModalContainer = ({page,position,data}:ModalProps) => {
 	let content;
 	if(page ==="login"){
 		content = <LoginModal/>;
-	} else if(page === 'location' && position){
-    content = <LocationModal data={data} position={position}/>
-  }
+	} else if(page === "location" && position){
+		content = <LocationModal data={data} position={position}/>;
+	}
 	return (
 		<>
 			{content}

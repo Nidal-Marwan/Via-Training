@@ -26,13 +26,13 @@ export const Map = ({position,modalCallback}:MapProps)=>{
 	
 	const handleNewPosition = (event?:google.maps.LatLngLiteral)=>{
 		if(event){
-		const lat = event.lat
-		const lng = event.lng
-		modalCallback(lat,lng)
-		setMarkerPostion({lat:+lat,lng:+lng})
+			const lat = event.lat;
+			const lng = event.lng;
+			modalCallback(lat,lng);
+			setMarkerPostion({lat:+lat,lng:+lng});
 	
-	}
-}
+		}
+	};
 	return isLoaded ? (
 	
 		<GoogleMap

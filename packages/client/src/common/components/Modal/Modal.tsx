@@ -1,4 +1,4 @@
-import {Modal as MuiModal} from '@mui/material';
+import {Modal as MuiModal} from "@mui/material";
 interface ModalProps {
 	open: boolean;
 	onAccept: () => void;

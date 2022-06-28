@@ -1,19 +1,19 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from "react";
 
-import { DataGrid, GridColDef, arSD, enUS } from '@mui/x-data-grid';
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
+import { DataGrid, GridColDef, arSD, enUS } from "@mui/x-data-grid";
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 
-import TextField from '@mui/material/TextField';
-import IconButton from '@mui/material/IconButton';
-import RestartAltIcon from '@mui/icons-material/RestartAlt';
+import TextField from "@mui/material/TextField";
+import IconButton from "@mui/material/IconButton";
+import RestartAltIcon from "@mui/icons-material/RestartAlt";
 
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from "react-i18next";
 
-import enLocale from 'date-fns/locale/en-GB';
-import arLocale from 'date-fns/locale/ar-SA';
-import { Box } from '@mui/material';
+import enLocale from "date-fns/locale/en-GB";
+import arLocale from "date-fns/locale/ar-SA";
+import { Box } from "@mui/material";
 
 interface Data {
 	columns: any[];
@@ -31,8 +31,8 @@ function Table(props: Data) {
 	const [date, setDate] = useState<Date | null>(null);
 	const [rows, setRows] = useState(props.rows);
 	useEffect(()=>{
-		setRows(props.rows)
-	},[props.rows])
+		setRows(props.rows);
+	},[props.rows]);
 
 	return (
 		<Box style={{ height: props.height, width: props.width, margin: props.margin }}>
@@ -45,18 +45,18 @@ function Table(props: Data) {
 				>
 					<LocalizationProvider
 						dateAdapter={AdapterDateFns}
-						adapterLocale={i18n.language === 'ar' ? arLocale : enLocale}
+						adapterLocale={i18n.language === "ar" ? arLocale : enLocale}
 					>
 						<DatePicker
 							value={date}
-							views={['year', 'month', 'day']}
+							views={["year", "month", "day"]}
 							inputFormat='dd/MM/yyyy'
-							label={t('table.datepicker')}
+							label={t("table.datepicker")}
 							onChange={(newValue) => {
 								setDate(newValue);
 								setRows(
 									props.rows.filter((row) => {
-										let rowDate = new Date(row.date);
+										const rowDate = new Date(row.date);
 										rowDate.setHours(0, 0, 0, 0);
 										newValue?.setHours(0, 0, 0, 0);
 										return newValue?.valueOf() === rowDate.valueOf();
@@ -77,8 +77,8 @@ function Table(props: Data) {
 						<RestartAltIcon
 							fontSize='inherit'
 							sx={{
-								...(i18n.dir() === 'rtl' && {
-									transform: 'scaleX(-1)',
+								...(i18n.dir() === "rtl" && {
+									transform: "scaleX(-1)",
 								}),
 							}}
 						/>
@@ -87,7 +87,7 @@ function Table(props: Data) {
 			)}
 			<DataGrid
 				localeText={
-					i18n.language === 'ar'
+					i18n.language === "ar"
 						? arSD.components.MuiDataGrid.defaultProps.localeText
 						: enUS.components.MuiDataGrid.defaultProps.localeText
 				}

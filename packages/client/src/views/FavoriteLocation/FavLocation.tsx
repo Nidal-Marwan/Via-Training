@@ -9,7 +9,7 @@ import { trainingClient } from "../../common/api/trainingClient";
 
 export const FavLocation:React.FC = () => {
 	const {userInfo} = useMe();
-	const token = window.localStorage.getItem('access_token');
+	const token = window.localStorage.getItem("access_token");
 	const [cursor,setCursor] = useState("auto");
 	const [openMap,setOpenMap] = useState(false);
 	const [position,setPosition] = useState({lat:0,lng:0});
@@ -17,15 +17,15 @@ export const FavLocation:React.FC = () => {
 	const handleEdit = (cell:GridCellParams)=>{
 		setOpenMap(!openMap);
 		setPosition({...position,lat:cell.row.lat,lng:cell.row.long});
-		setSelectedData(cell.row)
+		setSelectedData(cell.row);
 	};
 
 	const handleDelete = async(cell:GridCellParams) =>{
 		const response = await trainingClient.delete(`/locations/${cell.row.id}`,{
-            headers:{ Authorization: `Bearer ${token}`}
-        })
+			headers:{ Authorization: `Bearer ${token}`}
+		});
 		if(response.data.status === 200){
-		await trainingClient.get('locations');
+			await trainingClient.get("locations");
 		}
 	};
 
