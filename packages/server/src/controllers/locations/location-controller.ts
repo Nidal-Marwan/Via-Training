@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import * as service from "../../service/location/location-service";
 
 export const getLocations = async (req: Request, res: Response) => {
-	const userId: number = req.body.id;
+	const userId: string = req.params.id;
 	if (!userId) {
 		return res.send({ error: "Invalid input" });
 	}
@@ -28,13 +28,13 @@ export const postLocation = async (req: Request, res: Response) => {
 		date,
 		userId
 	};
-	
+
 	const response = await service.addLocation(req, data);
 	return res.send(response);
 };
 
 export const deleteLocation = async (req: Request, res: Response) => {
-	const userId: number = req.body.id;
+	const userId: string = req.params.id;
 	if (!userId) {
 		return res.send({ error: "Invalid input" });
 	}

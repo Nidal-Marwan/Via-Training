@@ -3,9 +3,9 @@ import { getLocations, postLocation, deleteLocation, putLocation } from "../../c
 
 const router = express.Router();
 
-router.post("/", getLocations);
-router.post("/add", postLocation);
-router.post("/delete", deleteLocation);
-router.put("/edit", putLocation);
+router.get("/:id", getLocations);
+router.post("/", postLocation);
+router.delete("/:id", deleteLocation);
+router.put("/", putLocation);
 
 export = router;

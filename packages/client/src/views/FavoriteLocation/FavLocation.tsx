@@ -35,8 +35,11 @@ export const FavLocation: React.FC = () => {
 
 
 	const getLocations = async (id: any) => {
+		if (id === undefined) {
+			return;
+		}
 		const token = window.localStorage.getItem('access_token');
-		const response = await trainingClient.post<FetchLocationsResponse>("/locations", { id: id }, {
+		const response = await trainingClient.get<FetchLocationsResponse>(`/locations/${id}`, {
 			headers: {
 				Authorization: `Bearer ${token}`
 			}
@@ -49,7 +52,7 @@ export const FavLocation: React.FC = () => {
 
 	const addLocation = async (values: any) => {
 		const token = window.localStorage.getItem('access_token');
-		const response = await trainingClient.post<DefaultResponse>("/locations/add", values, {
+		const response = await trainingClient.post<DefaultResponse>("/locations", values, {
 			headers: {
 				Authorization: `Bearer ${token}`
 			}
@@ -58,7 +61,7 @@ export const FavLocation: React.FC = () => {
 	};
 	const deleteLocation = async (id: number) => {
 		const token = window.localStorage.getItem('access_token');
-		const response = await trainingClient.post<DefaultResponse>("/locations/delete", { id: id }, {
+		const response = await trainingClient.delete<DefaultResponse>(`/locations/${id}`, {
 			headers: {
 				Authorization: `Bearer ${token}`
 			}
@@ -68,13 +71,14 @@ export const FavLocation: React.FC = () => {
 
 	const editLocation = async (values: any) => {
 		const token = window.localStorage.getItem('access_token');
-		const response = await trainingClient.put<DefaultResponse>("/locations/edit", values, {
+		const response = await trainingClient.put<DefaultResponse>("/locations", values, {
 			headers: {
 				Authorization: `Bearer ${token}`
 			}
 		});
-		console.log(response.data);
+		//console.log(response.data);
 	};
+
 	const addHandleClick = async () => {
 		await addLocation(dummyData);
 		await getLocations(userId);

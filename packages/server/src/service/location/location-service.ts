@@ -16,7 +16,7 @@ export const fetchUserLocations = async (req: Request, data: any) => {
 		);
 		if (decoded) {
 			const currentUserLocations = await locationRepository.find({
-				where: { userId: data.userId },
+				where: { userId: parseInt(data.userId) },
 			});
 			if (currentUserLocations.length === 0) {
 				return { status: 204, message: "No favorite locations for user" };
@@ -59,7 +59,7 @@ export const deleteLocation = async (req: Request, data: any) => {
 		);
 		if (decoded) {
 			try {
-				await locationRepository.delete(data);
+				await locationRepository.delete(parseInt(data));
 				return { status: 201, message: "Location deleted successfully" };
 			} catch (err) {
 				return { error: err };
