@@ -2,16 +2,17 @@ import { useEffect, useState } from "react";
 import { trainingClient } from "../api/trainingClient";
 
 interface UserInfo {
-    user:{
-    status:number,
-    userInfo: {
-        id:number,
-        email:string,
-        username:string,
-        phone:string
-    }
+	user: {
+		status: number,
+		userInfo: {
+			id: number,
+			email: string,
+			username: string,
+			phone: string;
+		};
+	};
 }
-}
+
 
 export const useMe = ()=>{
 	const [userInfo,setUserInfo] = useState<UserInfo>();
@@ -26,11 +27,17 @@ export const useMe = ()=>{
 				if( userInfo.data.user.status === 200 ){
 					setUserInfo(userInfo.data);
 				}
-			}catch(e:any){
+			} catch (e: any) {
 				setError(e);
 			}
 		};
 		getInfo();
+<<<<<<< HEAD
 	},[]);
 	return {userInfo,error};
 };
+=======
+	}, []);
+	return { userInfo, error };
+};
+>>>>>>> main
