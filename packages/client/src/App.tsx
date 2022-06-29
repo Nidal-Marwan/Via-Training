@@ -1,4 +1,6 @@
 import { Home } from "./views/Home/Home";
+import Drivers from "./views/Drivers/Drivers";
+
 import { useTranslation } from "react-i18next";
 import stylisRTLPlugin from "stylis-plugin-rtl";
 import { prefixer } from "stylis";
@@ -32,7 +34,7 @@ const cacheRtl = createCache({
 
 export const App = () => {
 	const { i18n } = useTranslation();
-	const{ userInfo } = useMe();
+	const { userInfo } = useMe();
 	return (
 		<>
 			<CacheProvider value={i18n.dir() === "rtl" ? cacheRtl : cacheLtr}>
@@ -45,9 +47,8 @@ export const App = () => {
 								<Route path="/" element={<Home />} />
 								<Route path="signup" element={<SignUp />} />
 								<Route path="locations" element={<FavLocation />} />
-								{/* <Route path="liveMap" element={ <Map/> } />
-      <Route path="drivers" element={ <Drivers/> } />
-   */}
+								<Route path="drivers" element={<Drivers />} />
+								{/* <Route path="liveMap" element={ <Map/> } />*/}
 							</Routes>
 						</Box>
 					</Container>
