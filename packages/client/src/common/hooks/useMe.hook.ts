@@ -32,12 +32,6 @@ export const useMe = ()=>{
 			}
 		};
 		getInfo();
-<<<<<<< HEAD
 	},[]);
 	return {userInfo,error};
 };
-=======
-	}, []);
-	return { userInfo, error };
-};
->>>>>>> main
