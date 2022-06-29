@@ -1,46 +1,52 @@
+import { Formik, FormikProps } from "formik";
 import { TextInput } from "../TextInput/TextInput";
-import { StyledBox, StyledForm, Title, ContainerBox, StyledAlert } from "./SignUp.styles";
-import { Formik } from "formik";
-import { trainingClient } from "../../api/trainingClient";
-import { useState } from "react";
-import { CustomButton } from "../Button/Button";
 import { useTranslation } from "react-i18next";
-import { Link, useNavigate } from "react-router-dom";
-import signupSchema from "./SignUp.schema";
-import { CircularProgress, IconButton, Stack,Typography } from "@mui/material";
+import { CustomButton } from "../Button/Button";
+import { useState } from "react";
+import { trainingClient } from "../../api/trainingClient";
+import { StyledAlert, StyledBox, StyledForm } from "./Login.styles";
+import { Link } from "react-router-dom";
+import { CircularProgress, Stack, Typography, IconButton } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
+import loginSchema from "./Login.schema";
+import { ModalContainer } from "../ModalContainer/ModalContainer";
 
-
-interface SignUpResponse {
+interface LoginResponse {
 	status: number;
 	message: string;
+	token: string;
 }
 
-export const SignUp: React.FC = () => {
-	const navigate = useNavigate();
+const Login = () => {
 	const { t } = useTranslation();
-	const [error, setError] = useState<string | null>();
+	const [isLoggedIn, setIsLoggedIn] = useState(false);
 	const [isLoading, setIsLoading] = useState(false);
+	const [error, setError] = useState<string | null>();
 
+	const initialValues = {
+		email: "",
+		password: "",
+	};
 	const handleSubmit = async (values: any) => {
 		const transformedValues = { ...values, email: values.email.toLowerCase() };
-
 		setIsLoading(true);
 		setError(null);
-		const response = await trainingClient.post<SignUpResponse>(
-			"/home/signup",
+		const response = await trainingClient.post<LoginResponse>(
+			"/home/login",
 			transformedValues
 		);
-		if (response.data.status === 201) {
+		if (response.data.status === 200) {
+			window.localStorage.setItem("access_token", response.data.token);
 			setIsLoading(false);
-			navigate("/");
+			setIsLoggedIn(true);
+
 		} else {
 			setIsLoading(false);
 			setError(response.data.message);
 		}
 	};
 	return (
-		<ContainerBox>
+		<>
 			<Stack spacing={2} sx={{ position: "relative" }}>
 				{error && (
 					<StyledAlert
@@ -63,29 +69,18 @@ export const SignUp: React.FC = () => {
 				<StyledBox>
 					{isLoading ? <CircularProgress /> : (
 						<Formik
-							initialValues={{ name: "", email: "", phone: "", password: "" }}
-							validationSchema={signupSchema}
+							initialValues={initialValues}
+							validationSchema={loginSchema}
 							onSubmit={(values) => handleSubmit(values)}
+							validateOnChange={false}
 						>
 							<StyledForm>
-								<Title variant='h3'>Signup</Title>
-								<TextInput
-									name='name'
-									type='text'
-									id='outlined-basic'
-									label={t("form.name")}
-								/>
 								<TextInput
 									name='email'
-									type='email'
+									type='text'
 									id='outlined-basic'
 									label={t("form.email")}
-								/>
-								<TextInput
-									name='phone'
-									type='number'
-									id='outlined-basic'
-									label={t("form.phone")}
+
 								/>
 								<TextInput
 									name='password'
@@ -95,20 +90,21 @@ export const SignUp: React.FC = () => {
 								/>
 								<CustomButton
 									color='primary'
-									title={t("form.signup")}
+									title={t("form.login")}
 									type='submit'
 								/>
+								{/* will become a link when routes are created so we can route the user to signup page*/}
 								<Typography variant='body1'>
-									{t("form.signin.text")}{" "}
-									<Link to='/'>{t("form.signin.link")}</Link>
+									{t("form.registration.text")}{" "}
+									<Link to='/signup'>{t("form.registration.link")}</Link>
 								</Typography>
 							</StyledForm>
 						</Formik>
-						
 					)}
-					
 				</StyledBox>
 			</Stack>
-		</ContainerBox>
+			{isLoggedIn && <ModalContainer />}
+		</>
 	);
 };
+export default Login;

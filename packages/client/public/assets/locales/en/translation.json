@@ -13,8 +13,15 @@
 			"text": "Not a member?",
 			"link": "Join us"
 		},
+		"signin":{
+			"text":"Already have account ?",
+			"link":" SignIn"
+		},
 		"loginAlerts": {
-			"email": "Please enter a valid email",
+			"email": {
+				"invalid": "Please enter a valid email",
+				"required": "Email is required"
+			},
 			"password": {
 				"required": "Password is required",
 				"min": "Password is too short - should be at least 8 characters"
@@ -50,5 +57,12 @@
 			"accept": "Yes",
 			"decline": "Cancel"
 		}
+	},
+	"server": {
+		"signup": {
+			"email": "Email already exists",
+			"phone": "Phone already exists"
+		},
+		"login": "Email or password are incorrect"
 	}
 }
