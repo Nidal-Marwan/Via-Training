@@ -6,7 +6,7 @@ import * as cors from "cors";
 import logger from "./src/utils/logger";
 
 
-const PORT = 3002; 
+const PORT = process.env.PORT || 3001; 
 AppDataSource.initialize()
 	.then(async () => {
 		const app = express();

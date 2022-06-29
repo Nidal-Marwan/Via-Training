@@ -36,6 +36,7 @@ const Login = () => {
 		if (response.data.status === 200) {
 			window.localStorage.setItem("access_token", response.data.token);
 			setIsLoggedIn(true);
+			window.dispatchEvent(new Event("storage"));
 			//navigate to home
 		} else {
 			setError(response.data.message);

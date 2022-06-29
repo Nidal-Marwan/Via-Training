@@ -14,7 +14,6 @@ import { ModalContainer } from "./common/components/ModalContainer/ModalContaine
 import { FavLocation } from "./views/FavoriteLocation/FavLocation";
 import { useEffect, useState } from "react";
 
-
 const cacheLtr = createCache({
 	key: "muiltr",
 });
@@ -36,6 +35,7 @@ export const App = () => {
 			setIsLoggedIn(checkIsLoggedIn());
 		});
 	}, []);
+	
 	const { i18n } = useTranslation();
 	document.body.dir = i18n.dir();
 	return (
@@ -48,8 +48,8 @@ export const App = () => {
 						<Box>
 							<Routes>
 								<Route path="/" element={<Home />} />
-								<Route path="signup" element={<SignUp />} />
-								<Route path="locations" element={isLoggedIn ? <FavLocation/> : <Navigate to="/" />} />
+								<Route path="/signup" element={<SignUp />} />
+								<Route path="/locations" element={isLoggedIn ? <FavLocation/> : <Navigate to="/" />} />
 								{/* <Route path="liveMap" element={ <Map/> } />
                     <Route path="drivers" element={ <Drivers/> } />
                 */}
@@ -58,6 +58,7 @@ export const App = () => {
 					</Container>
 				</ThemeProvider>
 			</CacheProvider>
+
 		</>
 	);
 
