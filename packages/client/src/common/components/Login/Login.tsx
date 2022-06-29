@@ -28,11 +28,12 @@ const Login = () => {
 		password: "",
 	};
 	const handleSubmit = async (values: any) => {
+		const transformedValues = { ...values, email: values.email.toLowerCase() };
 		setIsLoading(true);
 		setError(null);
 		const response = await trainingClient.post<LoginResponse>(
 			"/home/login",
-			values
+			transformedValues
 		);
 		if (response.data.status === 200) {
 			window.localStorage.setItem("access_token", response.data.token);
@@ -70,7 +71,7 @@ const Login = () => {
 						<Formik
 							initialValues={initialValues}
 							validationSchema={loginSchema}
-							onSubmit={handleSubmit}
+							onSubmit={(values) => handleSubmit(values)}
 							validateOnChange={false}
 						>
 							<StyledForm>
@@ -79,6 +80,7 @@ const Login = () => {
 									type='text'
 									id='outlined-basic'
 									label={t("form.email")}
+
 								/>
 								<TextInput
 									name='password'
