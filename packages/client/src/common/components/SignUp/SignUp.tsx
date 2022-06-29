@@ -23,11 +23,13 @@ export const SignUp: React.FC = () => {
 	const [isLoading, setIsLoading] = useState(false);
 
 	const handleSubmit = async (values: any) => {
+		const transformedValues = { ...values, email: values.email.toLowerCase() };
+
 		setIsLoading(true);
 		setError(null);
 		const response = await trainingClient.post<SignUpResponse>(
 			"/home/signup",
-			values
+			transformedValues
 		);
 		if (response.data.status === 201) {
 			setIsLoading(false);
