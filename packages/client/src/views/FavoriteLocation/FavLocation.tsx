@@ -6,25 +6,26 @@ import { useState } from "react";
 import { GridCellParams } from "@mui/x-data-grid";
 import { ModalContainer } from "../../common/components/ModalContainer/ModalContainer";
 import { trainingClient } from "../../common/api/trainingClient";
+import { useGetLocations } from "../../common/hooks/useGetLocations.hook";
+import { CircularProgress } from "@mui/material";
 
 export const FavLocation: React.FC = () => {
 	const { userInfo } = useMe();
-	const token = window.localStorage.getItem("access_token");
 	const [cursor, setCursor] = useState("auto");
 	const [openMap, setOpenMap] = useState(false);
 	const [position, setPosition] = useState({ lat: 0, lng: 0 });
 	const [selectedData, setSelectedData] = useState<any>();
+	const { rowData, isLoading } = useGetLocations(userInfo?.user.userInfo.id);
 	const handleEdit = (cell: GridCellParams) => {
 		setOpenMap(!openMap);
 		setPosition({ ...position, lat: cell.row.lat, lng: cell.row.long });
 		setSelectedData(cell.row);
 	};
 	const handleDelete = async (cell: GridCellParams) => {
-		const response = await trainingClient.delete(`/locations/${cell.row.id}`, {
-			headers: { Authorization: `Bearer ${token}` }
-		});
+		const cellId = +cell.row.id;
+		const response = await trainingClient.delete(`/locations/${cellId}`);
 		if (response.data.status === 200) {
-			await trainingClient.get("locations");
+			await trainingClient.get(`/locations/${userInfo?.user.userInfo.id}`);
 		}
 	};
 	const changeCursor = () => {
@@ -49,39 +50,9 @@ export const FavLocation: React.FC = () => {
 		},
 
 	];
-	const data = [
-		{
-			id: 1,
-			name: "London",
-			lat: 35.3,
-			long: 35.3,
-			date: new Date("2022-6-10")
-		},
-		{
-			id: 4,
-			name: "London",
-			lat: 35.3,
-			long: 35.3,
-			date: new Date("2022-6-10")
-		},
-		{
-			id: 2,
-			name: "London",
-			lat: 33.3,
-			long: 35.3,
-			date: new Date("2022-6-9")
-		},
-		{
-			id: 3,
-			name: "London",
-			lat: 34.3,
-			long: 35.3,
-			date: new Date("2022-6-12")
-		},
-	];
 	return <>
 		<p>Welcome {userInfo?.user.userInfo.email} </p>
-		<Table height={400} width={800} margin={15} columns={headers} rows={data} />
+		{isLoading ? <CircularProgress /> : <Table height={400} width={800} margin={15} columns={headers} rows={rowData ? rowData : []} />}
 		{openMap && <ModalContainer data={selectedData} position={{ lat: position.lat, lng: position.lng }} page='location' />}
 
 	</>;

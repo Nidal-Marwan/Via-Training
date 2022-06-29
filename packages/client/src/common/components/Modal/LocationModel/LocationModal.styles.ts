@@ -6,7 +6,7 @@ export const ModalBox = styled(Box)({
 	top: "50%",
 	left: "50%",
 	transform: "translate(-50%, -50%)",
-	width:800,
+	width:"93%",
 	height:"100%",
 	backgroundColor: "#fff",
 	boder: "2px solid #000",
@@ -17,7 +17,7 @@ export const ModalBox = styled(Box)({
 	borderRadius: "2px",
 });
 export const ActionsBox = styled(Box)({
-	marginTop: 30,
+	
 	display: "flex",
 	justifyContent: "center",
 	gap: "10px",
@@ -27,9 +27,9 @@ export const ActionsBox = styled(Box)({
 });
 export const MapBox = styled(Box)({
 	display:"flex",
-	justifyContent:"center",
+	justifyContent:"space-around",
 	alignItems:"center",
-	flexDirection:"column",
+	flexDirection:"row",
 	marginTop:"10px"
 
 });

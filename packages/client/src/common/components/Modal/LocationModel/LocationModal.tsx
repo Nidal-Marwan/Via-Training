@@ -1,12 +1,13 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import Modal from "../Modal";
-import { Button, Divider, TextField, Typography } from "@mui/material";
+import { Box, Button, Divider, TextField, Typography } from "@mui/material";
 import { Map } from "../../Map/Map";
 import Table from "../../Table/Table";
 import { trainingClient } from "../../../api/trainingClient";
 import { ModalBox, MapBox, ActionsBox } from "./LocationModal.styles";
 import { GridCellParams } from "@mui/x-data-grid";
+import { useMe } from "../../../hooks/useMe.hook";
 interface LocationProps {
 	position: {
 		lat: number,
@@ -17,11 +18,12 @@ interface LocationProps {
 		name: string,
 		lat: number,
 		long: number
+		date: Date
 	}
 }
 
 export const LocationModal = ({ position, data }: LocationProps) => {
-	const token = window.localStorage.getItem("access_token");
+	const { userInfo } = useMe();
 	const { t } = useTranslation();
 	const [showModal, setShowModal] = useState(true);
 	const [locationInfo, setLocationInfo] = useState({ lat: data?.lat, lng: data?.long });
@@ -51,13 +53,11 @@ export const LocationModal = ({ position, data }: LocationProps) => {
 		setShowModal(false);
 	};
 	const onAccept = async () => {
-		const payload = { id: data?.id, name: locationName, lat: locationInfo.lat, long: locationInfo.lng };
-		const response = await trainingClient.put("/locations", payload, {
-			headers: { Authorization: `Bearer ${token}` }
-		});
+		const payload = { id: data?.id, name: locationName, lat: locationInfo.lat, long: locationInfo.lng, date: data?.date, userId: userInfo?.user.userInfo.id };
+		const response = await trainingClient.put("/locations", payload);
 		if (response.data.status === 200) {
+			await trainingClient.get(`/locations/${userInfo?.user.userInfo.id}`);
 			handleClose();
-			await trainingClient.get("/locations");
 		}
 	};
 	const onCancel = () => {
@@ -65,8 +65,6 @@ export const LocationModal = ({ position, data }: LocationProps) => {
 
 	};
 	const handleCallback = (lat: number, lng: number) => {
-		console.log(lat, lng);
-		console.log(locationInfo);
 		setLocationInfo({ lat, lng });
 	};
 	return <Modal
@@ -82,17 +80,21 @@ export const LocationModal = ({ position, data }: LocationProps) => {
 			<Divider />
 			<MapBox>
 				<Map modalCallback={handleCallback} position={position} />
-				<Table height={170} width={400} margin={15} columns={column} rows={row} />
+				<Box>
+					<Table height={170} width={400} margin={15} columns={column} rows={row} />
+					<ActionsBox>
+						<Button variant='contained' onClick={onAccept}>
+							{t("modal.loaction.accept")}
+						</Button>
+						<Button variant='outlined' onClick={onCancel}>
+							{t("modal.location.decline")}
+						</Button>
+					</ActionsBox>
+				</Box>
+
 			</MapBox>
 
-			<ActionsBox>
-				<Button variant='contained' onClick={onAccept}>
-					{t("modal.loaction.accept")}
-				</Button>
-				<Button variant='outlined' onClick={onCancel}>
-					{t("modal.location.decline")}
-				</Button>
-			</ActionsBox>
+
 		</ModalBox>
 	</Modal>;
 };

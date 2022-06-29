@@ -11,6 +11,7 @@ interface ModalProps {
 		name: string,
 		lat: number,
 		long: number
+		date: Date
 	}
 }
 
