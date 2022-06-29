@@ -1,4 +1,6 @@
 import { Home } from "./views/Home/Home";
+import Drivers from "./views/Drivers/Drivers";
+
 import { useTranslation } from "react-i18next";
 import stylisRTLPlugin from "stylis-plugin-rtl";
 import { prefixer } from "stylis";
@@ -14,9 +16,8 @@ import { Routes, Route } from "react-router-dom";
 import { NavBar } from "./common/components/NavBar/NavBar";
 import { SignUp } from "./common/components/SignUp/SignUp";
 import { customTheme } from "./common/utils/theme";
-
-import { ModalContainer } from "./common/components/ModalContainer/ModalContainer";
 import { FavLocation } from "./views/FavoriteLocation/FavLocation";
+import { useMe } from "./common/hooks/useMe.hook";
 
 
 const cacheLtr = createCache({
@@ -33,22 +34,21 @@ const cacheRtl = createCache({
 
 export const App = () => {
 	const { i18n } = useTranslation();
-	document.body.dir = i18n.dir();
+	const { userInfo } = useMe();
 	return (
 		<>
 			<CacheProvider value={i18n.dir() === "rtl" ? cacheRtl : cacheLtr}>
 				<ThemeProvider theme={{ ...customTheme, direction: i18n.dir() }}>
 					<CssBaseline />
-					<NavBar />
+					{userInfo && <NavBar />}
 					<Container maxWidth="xl">
 						<Box>
 							<Routes>
 								<Route path="/" element={<Home />} />
 								<Route path="signup" element={<SignUp />} />
 								<Route path="locations" element={<FavLocation />} />
-								{/* <Route path="liveMap" element={ <Map/> } />
-      <Route path="drivers" element={ <Drivers/> } />
-   */}
+								<Route path="drivers" element={<Drivers />} />
+								{/* <Route path="liveMap" element={ <Map/> } />*/}
 							</Routes>
 						</Box>
 					</Container>

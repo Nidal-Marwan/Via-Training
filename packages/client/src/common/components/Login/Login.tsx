@@ -8,7 +8,7 @@ import { StyledAlert, StyledBox, StyledForm } from "./Login.styles";
 import { Link } from "react-router-dom";
 import { CircularProgress, Stack, Typography, IconButton } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
-import * as Yup from "yup";
+import loginSchema from "./Login.schema";
 import { ModalContainer } from "../ModalContainer/ModalContainer";
 
 interface LoginResponse {
@@ -19,7 +19,7 @@ interface LoginResponse {
 
 const Login = () => {
 	const { t } = useTranslation();
-	const [isLoggedIn,setIsLoggedIn] = useState(false);
+	const [isLoggedIn, setIsLoggedIn] = useState(false);
 	const [isLoading, setIsLoading] = useState(false);
 	const [error, setError] = useState<string | null>();
 
@@ -28,17 +28,18 @@ const Login = () => {
 		password: "",
 	};
 	const handleSubmit = async (values: any) => {
+		const transformedValues = { ...values, email: values.email.toLowerCase() };
 		setIsLoading(true);
 		setError(null);
 		const response = await trainingClient.post<LoginResponse>(
 			"/home/login",
-			values
+			transformedValues
 		);
 		if (response.data.status === 200) {
 			window.localStorage.setItem("access_token", response.data.token);
 			setIsLoading(false);
 			setIsLoggedIn(true);
-			
+
 		} else {
 			setIsLoading(false);
 			setError(response.data.message);
@@ -62,22 +63,15 @@ const Login = () => {
 							</IconButton>
 						}
 						severity='error'>
-						{error}
+						{t(`${error}`)}
 					</StyledAlert>
 				)}
 				<StyledBox>
 					{isLoading ? <CircularProgress /> : (
 						<Formik
 							initialValues={initialValues}
-							validationSchema={Yup.object({
-								email: Yup.string()
-									.email(t("form.loginAlerts.email"))
-									.required(t("form.loginAlerts.email")),
-								password: Yup.string()
-									.required(t("form.loginAlerts.password.required"))
-									.min(8, t("form.loginAlerts.password.min")),
-							})}
-							onSubmit={handleSubmit}
+							validationSchema={loginSchema}
+							onSubmit={(values) => handleSubmit(values)}
 							validateOnChange={false}
 						>
 							<StyledForm>
@@ -108,7 +102,7 @@ const Login = () => {
 					)}
 				</StyledBox>
 			</Stack>
-			{isLoggedIn && <ModalContainer/>}
+			{isLoggedIn && <ModalContainer />}
 		</>
 	);
 };
