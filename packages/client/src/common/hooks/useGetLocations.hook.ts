@@ -7,6 +7,7 @@ interface LocationResponse {
 }
 interface LocationsData {
 	data: {
+		id:number;
 		name: string;
 		lat: number;
 		long: number;
@@ -40,5 +41,5 @@ export const useGetLocations = (id?: number) => {
 		getLocations();
 	}, [id]);
 
-	return { rowData, isLoading, error };
+	return { rowData, isLoading, error,setRowData };
 };

@@ -13,14 +13,15 @@ interface ModalProps {
 		long: number
 		date: Date
 	}
+	callBackData?: any
 }
 
-export const ModalContainer = ({ page, position, data }: ModalProps) => {
+export const ModalContainer = ({ page, position, data, callBackData }: ModalProps) => {
 	let content;
 	if (page === "login") {
 		content = <LoginModal />;
 	} else if (page === "location" && position) {
-		content = <LocationModal data={data} position={position} />;
+		content = <LocationModal callBackData={callBackData} data={data} position={position} />;
 	}
 	return (
 		<>
