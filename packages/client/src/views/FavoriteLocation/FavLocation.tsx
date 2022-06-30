@@ -15,7 +15,7 @@ export const FavLocation: React.FC = () => {
 	const [openMap, setOpenMap] = useState(false);
 	const [position, setPosition] = useState({ lat: 0, lng: 0 });
 	const [selectedData, setSelectedData] = useState<any>();
-	const { rowData, isLoading } = useGetLocations(userInfo?.user.userInfo.id);
+	const { rowData, isLoading, setRowData } = useGetLocations(userInfo?.user.userInfo.id);
 	const handleEdit = (cell: GridCellParams) => {
 		setOpenMap(!openMap);
 		setPosition({ ...position, lat: cell.row.lat, lng: cell.row.long });
@@ -25,7 +25,10 @@ export const FavLocation: React.FC = () => {
 		const cellId = +cell.row.id;
 		const response = await trainingClient.delete(`/locations/${cellId}`);
 		if (response.data.status === 200) {
-			await trainingClient.get(`/locations/${userInfo?.user.userInfo.id}`);
+			const response = await trainingClient.get(`/locations/${userInfo?.user.userInfo.id}`);
+			if (response.data.status === 200) {
+				setRowData(response.data.data);
+			}
 		}
 	};
 	const changeCursor = () => {
@@ -53,7 +56,7 @@ export const FavLocation: React.FC = () => {
 	return <>
 		<p>Welcome {userInfo?.user.userInfo.email} </p>
 		{isLoading ? <CircularProgress /> : <Table height={400} width={800} margin={15} columns={headers} rows={rowData ? rowData : []} />}
-		{openMap && <ModalContainer data={selectedData} position={{ lat: position.lat, lng: position.lng }} page='location' />}
+		{openMap && <ModalContainer callBackData={setRowData} data={selectedData} position={{ lat: position.lat, lng: position.lng }} page='location' />}
 
 	</>;
 };

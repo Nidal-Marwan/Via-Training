@@ -20,9 +20,10 @@ interface LocationProps {
 		long: number
 		date: Date
 	}
+	callBackData: any
 }
 
-export const LocationModal = ({ position, data }: LocationProps) => {
+export const LocationModal = ({ position, data, callBackData }: LocationProps) => {
 	const { userInfo } = useMe();
 	const { t } = useTranslation();
 	const [showModal, setShowModal] = useState(true);
@@ -56,7 +57,10 @@ export const LocationModal = ({ position, data }: LocationProps) => {
 		const payload = { id: data?.id, name: locationName, lat: locationInfo.lat, long: locationInfo.lng, date: data?.date, userId: userInfo?.user.userInfo.id };
 		const response = await trainingClient.put("/locations", payload);
 		if (response.data.status === 200) {
-			await trainingClient.get(`/locations/${userInfo?.user.userInfo.id}`);
+			const response = await trainingClient.get(`/locations/${userInfo?.user.userInfo.id}`);
+			if (response.data.status === 200) {
+				callBackData(response.data.data);
+			}
 			handleClose();
 		}
 	};
