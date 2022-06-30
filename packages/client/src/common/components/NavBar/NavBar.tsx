@@ -1,10 +1,8 @@
 import {
 	Box,
 	AppBar,
-	Toolbar,
 	Typography,
-	MenuItem,
-	Menu
+	MenuItem
 } from "@mui/material";
 import { StyledToolBar, StyledBox } from "./NavBar.style";
 import { useTranslation } from "react-i18next";

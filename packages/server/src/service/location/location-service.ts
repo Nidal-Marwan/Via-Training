@@ -21,7 +21,7 @@ export const fetchUserLocations = async (req: Request, data: any) => {
 			if (currentUserLocations.length === 0) {
 				return { status: 204, message: "No favorite locations for user" };
 			}
-			return { status: 201, message: "Locations fetched", currentUserLocations };
+			return { status: 200, message: "Locations fetched", data:currentUserLocations };
 		} else {
 			return { status: 401, message: "unauthorized" };
 		}
@@ -39,7 +39,7 @@ export const addLocation = async (req: Request, data: LocationData) => {
 		if (decoded) {
 			try {
 				await locationRepository.save(data);
-				return { status: 201, message: "Location added successfully" };
+				return { status: 200, message: "Location added successfully" };
 			} catch (err) {
 				return { error: err };
 			}
@@ -60,7 +60,7 @@ export const deleteLocation = async (req: Request, data: any) => {
 		if (decoded) {
 			try {
 				await locationRepository.delete(parseInt(data));
-				return { status: 201, message: "Location deleted successfully" };
+				return { status: 200, message: "Location deleted successfully" };
 			} catch (err) {
 				return { error: err };
 			}
@@ -81,7 +81,7 @@ export const editLocation = async (req: Request, data: any) => {
 				await locationRepository.save({
 					...data
 				});
-				return { status: 201, message: "Location edited successfully" };
+				return { status: 200, message: "Location edited successfully" };
 			} catch (err) {
 				return { error: err };
 			}

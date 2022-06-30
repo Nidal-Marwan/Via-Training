@@ -12,14 +12,19 @@ interface UserInfo {
 		};
 	};
 }
-export const useMe = () => {
-	const [userInfo, setUserInfo] = useState<UserInfo>();
-	const [error, setError] = useState("");
-	useEffect(() => {
-		const getInfo = async () => {
-			try {
-				const userInfo = await trainingClient.get<UserInfo>("/home/user");
-				if (userInfo.data.user.status === 200) {
+
+
+export const useMe = ()=>{
+	const [userInfo,setUserInfo] = useState<UserInfo>();
+	const [error,setError] = useState("");
+	useEffect(()=>{
+		const getInfo = async()=>{
+			const token = window.localStorage.getItem("access_token");
+			try{
+				const userInfo = await trainingClient.get<UserInfo>("/home/user",{headers: {
+					Authorization: `Bearer ${token}`
+				}});
+				if( userInfo.data.user.status === 200 ){
 					setUserInfo(userInfo.data);
 				}
 			} catch (e: any) {
@@ -27,6 +32,6 @@ export const useMe = () => {
 			}
 		};
 		getInfo();
-	}, []);
-	return { userInfo, error };
+	},[]);
+	return {userInfo,error};
 };

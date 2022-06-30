@@ -6,13 +6,13 @@ interface ButtonProps {
   style?: object;
   type: "button" | "submit" | "reset";
   color:
-    | "error"
-    | "inherit"
-    | "primary"
-    | "secondary"
-    | "success"
-    | "info"
-    | "warning";
+  | "error"
+  | "inherit"
+  | "primary"
+  | "secondary"
+  | "success"
+  | "info"
+  | "warning";
 }
 
 export const CustomButton: React.FC<ButtonProps> = ({

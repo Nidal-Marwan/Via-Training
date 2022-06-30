@@ -7,10 +7,8 @@ import { CustomButton } from "../Button/Button";
 import { useTranslation } from "react-i18next";
 import { Link, useNavigate } from "react-router-dom";
 import signupSchema from "./SignUp.schema";
-import { CircularProgress, IconButton, Stack,Typography } from "@mui/material";
+import { CircularProgress, IconButton, Stack, Typography } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
-
-
 interface SignUpResponse {
 	status: number;
 	message: string;
@@ -104,9 +102,9 @@ export const SignUp: React.FC = () => {
 								</Typography>
 							</StyledForm>
 						</Formik>
-						
+
 					)}
-					
+
 				</StyledBox>
 			</Stack>
 		</ContainerBox>
