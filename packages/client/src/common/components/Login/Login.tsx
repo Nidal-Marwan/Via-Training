@@ -1,4 +1,4 @@
-import { Formik, FormikProps } from "formik";
+import { Formik } from "formik";
 import { TextInput } from "../TextInput/TextInput";
 import { useTranslation } from "react-i18next";
 import { CustomButton } from "../Button/Button";
@@ -103,7 +103,7 @@ const Login = () => {
 					)}
 				</StyledBox>
 			</Stack>
-			{isLoggedIn && <ModalContainer />}
+			{isLoggedIn && <ModalContainer page='login' />}
 		</>
 	);
 };

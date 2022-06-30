@@ -1,91 +1,59 @@
-import { Button } from "@mui/material";
-import { useEffect, useState } from "react";
-import { trainingClient } from "../../common/api/trainingClient";
+import Table from "../../common/components/Table/Table";
 import { useMe } from "../../common/hooks/useMe.hook";
-
-interface LocationsData {
-	name: string;
-	id: number;
-	lat: number;
-	long: number;
-	date: Date;
-	user_id: number;
-}
-
-interface FetchLocationsResponse {
-	status: number;
-	message: string;
-	currentUserLocations: any[];
-}
-interface DefaultResponse {
-	status: number;
-	message: string;
-}
-
+import EditIcon from "@mui/icons-material/Edit";
+import DeleteIcon from "@mui/icons-material/Delete";
+import { useState } from "react";
+import { GridCellParams } from "@mui/x-data-grid";
+import { ModalContainer } from "../../common/components/ModalContainer/ModalContainer";
+import { trainingClient } from "../../common/api/trainingClient";
+import { useGetLocations } from "../../common/hooks/useGetLocations.hook";
+import { CircularProgress } from "@mui/material";
 
 export const FavLocation: React.FC = () => {
 	const { userInfo } = useMe();
-
-	const userId = userInfo?.user.userInfo.id;
-
-	const dummyData = { name: "Add Test", lat: 35.5, long: 35.5, userId: userId, date: new Date() };
-	const editedDummyData = { name: "Edited Test", lat: 1, long: 1, userId: userId, date: new Date() };
-
-	const [locations, setLocations] = useState<LocationsData[]>([]);
-
-
-	const getLocations = async (id: any) => {
-		if (id === undefined) {
-			return;
+	const [cursor, setCursor] = useState("auto");
+	const [openMap, setOpenMap] = useState(false);
+	const [position, setPosition] = useState({ lat: 0, lng: 0 });
+	const [selectedData, setSelectedData] = useState<any>();
+	const { rowData, isLoading } = useGetLocations(userInfo?.user.userInfo.id);
+	const handleEdit = (cell: GridCellParams) => {
+		setOpenMap(!openMap);
+		setPosition({ ...position, lat: cell.row.lat, lng: cell.row.long });
+		setSelectedData(cell.row);
+	};
+	const handleDelete = async (cell: GridCellParams) => {
+		const cellId = +cell.row.id;
+		const response = await trainingClient.delete(`/locations/${cellId}`);
+		if (response.data.status === 200) {
+			await trainingClient.get(`/locations/${userInfo?.user.userInfo.id}`);
 		}
-		const response = await trainingClient.get<FetchLocationsResponse>(`/locations/${id}`);
-		if (response.data.status === 201)
-			setLocations(response.data.currentUserLocations);
-		if (response.data.status === 204)
-			setLocations([]);
 	};
+	const changeCursor = () => {
+		setCursor("pointer");
+	};
+	const headers = [
+		{
+			field: "name", headerName: "Name", headerAlign: "center", width: 150, align: "center",
+		},
+		{ field: "lat", editable: true, headerName: "Latitude", headerAlign: "center", type: "number", width: 100, align: "center" },
+		{ field: "long", headerName: "Longitude", headerAlign: "center", type: "number", width: 100, align: "center" },
+		{ field: "date", headerName: "Date", headerAlign: "center", type: "date", width: 100, align: "center" },
+		{
+			field: "edit", headerName: "Edit", headerAlign: "center", align: "center", renderCell: (param: GridCellParams) => {
+				return <EditIcon sx={{ cursor: `${cursor}` }} onMouseEnter={changeCursor} onClick={() => handleEdit(param)} />;
+			}
+		},
+		{
+			field: "delete", headerName: "Delete", headerAlign: "center", align: "center", renderCell: (param: GridCellParams) => {
+				return <DeleteIcon sx={{ cursor: `${cursor}` }} onMouseEnter={changeCursor} onClick={() => handleDelete(param)} />;
+			}
+		},
 
-	const addLocation = async (values: any) => {
-		const response = await trainingClient.post<DefaultResponse>("/locations", values);
-		//console.log(response.data);
-	};
-	const deleteLocation = async (id: number) => {
-		const response = await trainingClient.delete<DefaultResponse>(`/locations/${id}`);
-		//console.log(response.data);
-	};
+	];
+	return <>
+		<p>Welcome {userInfo?.user.userInfo.email} </p>
+		{isLoading ? <CircularProgress /> : <Table height={400} width={800} margin={15} columns={headers} rows={rowData ? rowData : []} />}
+		{openMap && <ModalContainer data={selectedData} position={{ lat: position.lat, lng: position.lng }} page='location' />}
 
-	const editLocation = async (values: any) => {
-		const response = await trainingClient.put<DefaultResponse>("/locations", values);
-		//console.log(response.data);
-	};
-
-	const addHandleClick = async () => {
-		await addLocation(dummyData);
-		await getLocations(userId);
-	};
-
-	const deleteHandleClick = async (id: number) => {
-		await deleteLocation(id);
-		await getLocations(userId);
-	};
-	const editHandleClick = async (id: number, values: any) => {
-		await editLocation({ id: id, ...values });
-		await getLocations(userId);
-	};
-	useEffect(() => {
-		getLocations(userId);
-	}, [userId]);
-
-	return (<>
-		<p>Welcome {userInfo?.user.userInfo.email}</p>
-		{locations.length === 0 && <p>No rows </p>}
-		{locations.map((location) => (
-			<div key={location.id}>
-				<span>{location.name}</span>
-				<Button onClick={() => deleteHandleClick(location.id)}>Delete</Button>
-				<Button onClick={() => editHandleClick(location.id, editedDummyData)}>Edit</Button>
-			</div>
-		))}
-		<Button onClick={addHandleClick}> Add location </Button>
-	</>);
+	</>;
 };
