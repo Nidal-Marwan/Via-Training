@@ -48,7 +48,7 @@ export const App = () => {
 			<CacheProvider value={i18n.dir() === "rtl" ? cacheRtl : cacheLtr}>
 				<ThemeProvider theme={{ ...customTheme, direction: i18n.dir() }}>
 					<CssBaseline />
-					{userInfo && <NavBar />}
+					{userInfo && isLoggedIn && <NavBar />}
 					<Container maxWidth="xl">
 						<Box>
 							<Routes>

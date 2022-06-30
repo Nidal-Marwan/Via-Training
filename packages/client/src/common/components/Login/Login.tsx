@@ -37,6 +37,7 @@ const Login = () => {
 		);
 		if (response.data.status === 200) {
 			window.localStorage.setItem("access_token", response.data.token);
+			window.dispatchEvent(new Event("storage"));
 			setIsLoading(false);
 			setIsLoggedIn(true);
 
