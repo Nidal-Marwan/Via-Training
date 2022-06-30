@@ -14,6 +14,7 @@ import { CustomButton } from "../Button/Button";
 const handleLogout = () => {
 	if(window.localStorage.getItem("access_token")){
 		window.localStorage.removeItem("access_token");
+		window.dispatchEvent(new Event("storage"));
 	}else{
 		return;
 	}
