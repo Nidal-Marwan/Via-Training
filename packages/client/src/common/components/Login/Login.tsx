@@ -80,7 +80,6 @@ const Login = () => {
 									type='text'
 									id='outlined-basic'
 									label={t("form.email")}
-
 								/>
 								<TextInput
 									name='password'

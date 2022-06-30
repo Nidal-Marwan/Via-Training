@@ -49,7 +49,8 @@
 	"nav": {
 		"map": "Map",
 		"driver": "Driver",
-		"location": "Location"
+		"location": "Location",
+		"signout": "Sign Out"
 	},
 	"modal": {
 		"favorites": {
