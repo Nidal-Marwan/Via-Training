@@ -23,11 +23,12 @@ export const FavLocation: React.FC = () => {
 	};
 	const handleDelete = async (cell: GridCellParams) => {
 		const cellId = +cell.row.id;
-		const newData = rowData?.filter((location: any) => location.id != cellId);
 		const response = await trainingClient.delete(`/locations/${cellId}`);
 		if (response.data.status === 200) {
-			setRowData(newData);
-			await trainingClient.get(`/locations/${userInfo?.user.userInfo.id}`);
+			const response = await trainingClient.get(`/locations/${userInfo?.user.userInfo.id}`);
+			if (response.data.status === 200) {
+				setRowData(response.data.data);
+			}
 		}
 	};
 	const changeCursor = () => {
