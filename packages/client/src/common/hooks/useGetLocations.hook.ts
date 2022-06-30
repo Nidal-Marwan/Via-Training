@@ -41,5 +41,5 @@ export const useGetLocations = (id?: number) => {
 		getLocations();
 	}, [id]);
 
-	return { rowData, isLoading, error,setRowData };
+	return { rowData, isLoading, error, setRowData };
 };
