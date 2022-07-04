@@ -32,6 +32,9 @@ export const FavLocation: React.FC = () => {
 			if (response.data.status === 200) {
 				setRowData(response.data.data);
 			}
+			if (response.data.status === 204) {
+				setRowData([]);
+			}
 		}
 	};
 	const changeCursor = () => {

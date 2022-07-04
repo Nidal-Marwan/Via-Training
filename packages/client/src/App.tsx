@@ -56,11 +56,11 @@ export const App = () => {
 								<Route path="locations" element={isLoggedIn ? <FavLocation /> : <Navigate to="/" />} />
 								<Route path="drivers" element={isLoggedIn ? <Drivers /> : <Navigate to="/" />} />
 								{/* <Route path="liveMap" element={ <Map/> } />*/}
-							</Routes>
-						</Box>
-					</Container>
-				</ThemeProvider>
-			</CacheProvider>
+							</Routes >
+						</Box >
+					</Container >
+				</ThemeProvider >
+			</CacheProvider >
 		</>
 	);
 
