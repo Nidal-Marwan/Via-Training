@@ -72,9 +72,7 @@ export const LocationModal = ({ position, data, callBackData }: LocationProps) =
 		setLocationInfo({ lat, lng });
 	};
 	return <Modal
-
 		open={showModal}
-		onAccept={onAccept}
 		onCancel={onCancel}
 	>
 		<ModalBox>

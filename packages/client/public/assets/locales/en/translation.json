@@ -13,9 +13,9 @@
 			"text": "Not a member?",
 			"link": "Join us"
 		},
-		"signin":{
-			"text":"Already have account ?",
-			"link":" SignIn"
+		"signin": {
+			"text": "Already have account ?",
+			"link": " SignIn"
 		},
 		"loginAlerts": {
 			"email": {
@@ -70,5 +70,31 @@
 			"phone": "Phone already exists"
 		},
 		"login": "Email or password are incorrect"
+	},
+	"drivers": {
+		"modal": {
+			"title": "Add a New Driver",
+			"form": {
+				"name": "Name",
+				"phone": "Phone",
+				"car_model": "Car Model",
+				"license_plate": "License Plate",
+				"location": "Location"
+			},
+			"errors": {
+				"name": "Name is required",
+				"phone": {
+					"required": "Phone is required",
+					"min": "Invalid phone number"
+				},
+				"car_model": "Car model is required",
+				"license_plate": "License plate is required",
+				"location": "Location is required"
+			},
+			"actions": {
+				"submit": "Submit",
+				"cancel": "Cancel"
+			}
+		}
 	}
 }
