@@ -21,7 +21,7 @@ export const TextInput: React.FC<TextInputProps> = ({ label, ...props }) => {
 				inputProps={field}
 				label={label}
 				type={props.type}
-				helperText={meta.touched ? t(`${meta.error}`) : ""}
+				helperText={meta.touched && meta.error ? t(`${meta.error}`) : ""}
 				error={meta.touched && meta.error ? true : false}
 			/>
 		</>

@@ -34,8 +34,8 @@ export const Map = ({ position, modalCallback }: MapProps) => {
 	};
 	return isLoaded ? (
 		<GoogleMap
-			mapContainerStyle={{ width: "600px", height: "600px" }}
-			zoom={10}
+			mapContainerStyle={{ width: "700px", height: "700px" }}
+			zoom={5}
 			onLoad={onLoad}
 			center={position}
 			onClick={(e) => handleNewPosition(e.latLng?.toJSON())}

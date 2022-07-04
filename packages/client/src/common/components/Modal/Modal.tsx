@@ -1,7 +1,6 @@
 import { Modal as MuiModal } from "@mui/material";
 interface ModalProps {
 	open: boolean;
-	onAccept: () => void;
 	onCancel: () => void;
 	children: React.ReactElement;
 }
