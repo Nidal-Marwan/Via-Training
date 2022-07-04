@@ -59,7 +59,8 @@
 			"decline": "Cancel"
 		},
 		"location": {
-			"message": "Add the updated location by clicking on the map",
+			"addMessage": "Add a new Location by clicking on the map",
+			"updateMessage": "Add the updated location by clicking on the map",
 			"accept": "Save",
 			"decline": "Cancel"
 		}
