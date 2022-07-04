@@ -1,6 +1,5 @@
 import { Home } from "./views/Home/Home";
-import { Drivers } from "./views/Drivers/Drivers";
-
+import Drivers from "./views/Drivers/Drivers";
 import { useTranslation } from "react-i18next";
 import stylisRTLPlugin from "stylis-plugin-rtl";
 import { prefixer } from "stylis";
