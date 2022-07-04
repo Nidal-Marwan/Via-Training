@@ -52,6 +52,7 @@ export const App = () => {
 							<Routes>
 								<Route path="/" element={isLoggedIn ? <Navigate to="/locations" /> : <Home />} />
 								<Route path="signup" element={isLoggedIn ? <Navigate to="/locations" /> : <SignUp />} />
+
 								<Route path="locations" element={isLoggedIn ? <FavLocation /> : <Navigate to="/" />} />
 								<Route path="drivers" element={isLoggedIn ? <Drivers /> : <Navigate to="/" />} />
 								{/* <Route path="liveMap" element={ <Map/> } />*/}

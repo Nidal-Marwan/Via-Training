@@ -2,6 +2,7 @@ import * as express from "express";
 import * as path from "path";
 import * as authRouter from "./src/routes/auth/auth-route";
 import * as locationRouter from "./src/routes/location/location-router";
+import * as driversRouter from "./src/routes/drivers/driver-routes";
 import { AppDataSource } from "./src/utils/data-source";
 import * as cors from "cors";
 import logger from "./src/utils/logger";
@@ -17,6 +18,7 @@ AppDataSource.initialize()
 		app.use(express.json());
 		app.use("/api/home", authRouter);
 		app.use("/api/locations", locationRouter);
+		app.use("/api/drivers", driversRouter);
 
 		app.listen(PORT, () => {
 			logger.info(`Server started and running on http://localhost:${PORT}`);
