@@ -34,7 +34,7 @@ export default function DriverModal(props: DriverModalProps) {
 	};
 	const handleSubmit = (values: any) => {
 		//Submission logic
-		console.log("values:" + JSON.stringify(values));
+		//console.log("values:" + JSON.stringify(values));
 		handleClose();
 	};
 
