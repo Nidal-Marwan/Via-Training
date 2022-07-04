@@ -1,6 +1,4 @@
 import { NextFunction, Request, Response } from "express";
-
-// eslint-disable-next-line @typescript-eslint/no-var-requires
 import * as jwt from "jsonwebtoken";
 
 module.exports = (req: Request, res: Response, next: NextFunction) => {
