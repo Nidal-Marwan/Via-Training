@@ -12,26 +12,30 @@ export const getDrivers = async (req: Request, res: Response) => {
 };
 export const postDriver = async (req: Request, res: Response) => {
 	const { name, lat, lng, phone, carModel, licensePlate, date, locationId, userId } = req.body;
+	const error = {};
 	if (!name) {
-		return res.send({ error: "Name is required" });
+		error["nameError"] = "Name is required";
 	}
 	if (!phone) {
-		return res.send({ error: "Phone is required" });
+		error["phoneError"] = "phone is required";
 	}
 	if (!carModel) {
-		return res.send({ error: "Car-Model is required" });
+		error["carModelError"] = "Car-Model is required";
 	}
 	if (!licensePlate) {
-		return res.send({ error: "License-Plate is required" });
+		error["licenseError"] = "License-Plate is required";
 	}
 	if (!date) {
-		return res.send({ error: "Date is required" });
+		error["dateError"] = "Date is required";
 	}
 	if (!locationId) {
-		return res.send({ error: "Location is required" });
+		error["locationIdError"] = "Location-Id is required";
 	}
 	if (!userId) {
-		return res.send({ error: "User-Id is required" });
+		error["userIdError"] = "UserId is required";
+	}
+	if (Object.keys(error).length != 0) {
+		return res.send({ status: 400, error });
 	}
 	const data = {
 		name,
@@ -58,26 +62,30 @@ export const deleteDriver = async (req: Request, res: Response) => {
 };
 export const putDriver = async (req: Request, res: Response) => {
 	const { name, lat, lng, phone, carModel, licensePlate, date, locationId, userId } = req.body;
+	const error = {};
 	if (!name) {
-		return res.send({ error: "Name is required" });
+		error["nameError"] = "Name is required";
 	}
 	if (!phone) {
-		return res.send({ error: "Phone is required" });
+		error["phoneError"] = "phone is required";
 	}
 	if (!carModel) {
-		return res.send({ error: "Car-Model is required" });
+		error["carModelError"] = "Car-Model is required";
 	}
 	if (!licensePlate) {
-		return res.send({ error: "License-Plate is required" });
+		error["licenseError"] = "License-Plate is required";
 	}
 	if (!date) {
-		return res.send({ error: "Date is required" });
+		error["dateError"] = "Date is required";
 	}
 	if (!locationId) {
-		return res.send({ error: "Location is required" });
+		error["locationIdError"] = "Location-Id is required";
 	}
 	if (!userId) {
-		return res.send({ error: "User-Id is required" });
+		error["userIdError"] = "UserId is required";
+	}
+	if (Object.keys(error).length != 0) {
+		return res.send({ status: 400, error });
 	}
 	const data = {
 		name,
