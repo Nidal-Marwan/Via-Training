@@ -1,20 +1,25 @@
 /* eslint-disable no-mixed-spaces-and-tabs */
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Location } from "./Location.model";
 
 @Entity("User")
 export class User {
-  @PrimaryGeneratedColumn()
-  	id: number;
+	@PrimaryGeneratedColumn()
+		id: number;
 
-  @Column({ unique: true })
-  	email: string;
+	@Column({ unique: true })
+		email: string;
 
-  @Column()
-  	username: string;
+	@Column()
+		username: string;
 
-  @Column({ unique: true })
-  	phone: string;
+	@Column({ unique: true })
+		phone: string;
 
-  @Column()
-  	password: string;
+	@Column()
+		password: string;
+
+	//@OneToMany(() => Location, location => location.user)
+	//	locations: Location[];
+	
 }

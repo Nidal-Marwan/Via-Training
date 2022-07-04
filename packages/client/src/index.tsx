@@ -8,29 +8,29 @@ import { App } from "./App";
 import { BrowserRouter } from "react-router-dom";
 
 i18next
-  .use(HttpApi)
-  .use(LanguageDetector)
-  .use(initReactI18next)
-  .init({
-    supportedLngs: languages.map(({ code }) => code),
-    fallbackLng: "en",
-    debug: false,
-    // Options for language detector
-    detection: {
-      order: ["path", "cookie", "htmlTag"],
-      caches: ["cookie"],
-    },
-    //react: { useSuspense: false },
-    backend: {
-      loadPath: "/assets/locales/{{lng}}/translation.json",
-    },
-  });
+	.use(HttpApi)
+	.use(LanguageDetector)
+	.use(initReactI18next)
+	.init({
+		supportedLngs: languages.map(({ code }) => code),
+		fallbackLng: "en",
+		debug: false,
+		// Options for language detector
+		detection: {
+			order: ["path", "cookie", "htmlTag"],
+			caches: ["cookie"],
+		},
+		//react: { useSuspense: false },
+		backend: {
+			loadPath: "/assets/locales/{{lng}}/translation.json",
+		},
+	});
 
 const root = ReactDOM.createRoot(
-  document.getElementById("root") as HTMLElement
+	document.getElementById("root") as HTMLElement
 );
 root.render(
-  <BrowserRouter>
-    <App />
-  </BrowserRouter>
+	<BrowserRouter>
+		<App />
+	</BrowserRouter>
 );
