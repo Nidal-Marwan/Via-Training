@@ -9,7 +9,6 @@ import { trainingClient } from "../../common/api/trainingClient";
 import { useGetLocations } from "../../common/hooks/useGetLocations.hook";
 import { CircularProgress } from "@mui/material";
 import { CustomButton } from "../../common/components/Button/Button";
-import { LocationModal } from "../../common/components/Modal/LocationModel/LocationModal";
 import { AddLocationModal } from "../../common/components/Modal/LocationModel/AddLocationModal";
 
 export const FavLocation: React.FC = () => {
