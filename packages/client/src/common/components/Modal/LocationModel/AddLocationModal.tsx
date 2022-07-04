@@ -8,32 +8,29 @@ import { trainingClient } from "../../../api/trainingClient";
 import { ModalBox, MapBox, ActionsBox } from "./LocationModal.styles";
 import { GridCellParams } from "@mui/x-data-grid";
 import { useMe } from "../../../hooks/useMe.hook";
+import { format } from "date-fns";
 interface LocationProps {
 	position: {
 		lat: number,
 		lng: number
 	},
-	data?: {
-		id: number,
-		name: string,
-		lat: number,
-		long: number
-		date: Date
-	}
 	callBackData: any
+
 }
 
-export const LocationModal = ({ position, data, callBackData }: LocationProps) => {
+export const AddLocationModal = ({ position, callBackData }: LocationProps) => {
 	const { userInfo } = useMe();
 	const { t } = useTranslation();
 	const [showModal, setShowModal] = useState(true);
-	const [locationInfo, setLocationInfo] = useState({ lat: data?.lat, lng: data?.long });
-	const [locationName, setLocationName] = useState(data?.name);
+	const [locationInfo, setLocationInfo] = useState({ lat: position.lat, lng: position.lng });
+	const [locationName, setLocationName] = useState("");
+	const date = new Date();
+	const formattedDate = format(date, "yyyy-MM-dd H:mm:ss");
 	const row = [{
-		id: data?.id,
-		name: data?.name,
+		id: 1,
+		name: locationName,
 		lat: locationInfo.lat,
-		long: locationInfo.lng,
+		lng: locationInfo.lng,
 
 	}];
 	const column = [
@@ -48,21 +45,21 @@ export const LocationModal = ({ position, data, callBackData }: LocationProps) =
 			),
 		},
 		{ field: "lat", headerName: "Latitude", headerAlign: "center", type: "number", width: 100, align: "center" },
-		{ field: "long", headerName: "Longitude", headerAlign: "center", type: "number", width: 100, align: "center" }
+		{ field: "lng", headerName: "Longitude", headerAlign: "center", type: "number", width: 100, align: "center" }
 	];
 	const handleClose = () => {
 		setShowModal(false);
 	};
 	const onAccept = async () => {
-		const payload = { id: data?.id, name: locationName, lat: locationInfo.lat, long: locationInfo.lng, date: data?.date, userId: userInfo?.user.userInfo.id };
-		const response = await trainingClient.put("/locations", payload);
+		const payload = { name: locationName, lat: locationInfo.lat, long: locationInfo.lng, date: formattedDate, userId: userInfo?.user.userInfo.id };
+		const response = await trainingClient.post("/locations", payload);
 		if (response.data.status === 200) {
 			const response = await trainingClient.get(`/locations/${userInfo?.user.userInfo.id}`);
 			if (response.data.status === 200) {
 				callBackData(response.data.data);
 			}
-			handleClose();
 		}
+		handleClose();
 	};
 	const onCancel = () => {
 		handleClose();
@@ -73,11 +70,12 @@ export const LocationModal = ({ position, data, callBackData }: LocationProps) =
 	};
 	return <Modal
 		open={showModal}
+		onAccept={onAccept}
 		onCancel={onCancel}
 	>
 		<ModalBox>
 			<Typography sx={{ textAlign: "center" }} id='modal-modal-title' variant='h6' component='h2'>
-				{t("modal.location.updateMessage")}
+				{t("modal.location.addMessage")}
 			</Typography>
 			<Divider />
 			<MapBox>

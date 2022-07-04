@@ -1,6 +1,5 @@
 import { Home } from "./views/Home/Home";
 import Drivers from "./views/Drivers/Drivers";
-
 import { useTranslation } from "react-i18next";
 import stylisRTLPlugin from "stylis-plugin-rtl";
 import { prefixer } from "stylis";
@@ -12,7 +11,6 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import { NavBar } from "./common/components/NavBar/NavBar";
 import { SignUp } from "./common/components/SignUp/SignUp";
 import { customTheme } from "./common/utils/theme";
-import { ModalContainer } from "./common/components/ModalContainer/ModalContainer";
 import { FavLocation } from "./views/FavoriteLocation/FavLocation";
 import { useEffect, useState } from "react";
 import { useMe } from "./common/hooks/useMe.hook";
@@ -52,8 +50,9 @@ export const App = () => {
 					<Container maxWidth="xl">
 						<Box>
 							<Routes>
-								<Route path="/" element={<Home />} />
-								<Route path="signup" element={<SignUp />} />
+								<Route path="/" element={isLoggedIn ? <Navigate to="/locations" /> : <Home />} />
+								<Route path="signup" element={isLoggedIn ? <Navigate to="/locations" /> : <SignUp />} />
+
 								<Route path="locations" element={isLoggedIn ? <FavLocation /> : <Navigate to="/" />} />
 								<Route path="drivers" element={isLoggedIn ? <Drivers /> : <Navigate to="/" />} />
 								{/* <Route path="liveMap" element={ <Map/> } />*/}

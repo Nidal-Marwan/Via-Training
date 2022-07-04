@@ -22,7 +22,6 @@ export const LoginModal = () => {
 	};
 	return <Modal
 		open={showModal}
-		onAccept={onAccept}
 		onCancel={onCancel}
 	>
 		<ModalBox>
