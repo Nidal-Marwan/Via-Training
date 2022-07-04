@@ -1,25 +1,36 @@
+/* eslint-disable no-mixed-spaces-and-tabs */
+
 import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity("Driver")
 export class Driver {
     @PrimaryGeneratedColumn()
-    id: number;
+    	id: number;
+
     @Column()
-    name: string;
+    	name: string;
+
     @Column({ type: "float", nullable: true })
-    lat: number | null;
+    	lat: number | null;
+
     @Column({ type: "float", nullable: true })
-    lng: number | null;
+    	lng: number | null;
+
     @Column({ type: "timestamptz" })
-    date: Date;
+    	date: Date;
+
     @Column({ unique: true })
-    phone: string;
+    	phone: string;
+
     @Column()
-    carModel: string;
+    	carModel: string;
+
     @Column()
-    licensePlate: string;
+    	licensePlate: string;
+
     @Column()
-    locationId: number;
+    	locationId: number;
+
     @Column()
-    userId: number;
+    	userId: number;
 }

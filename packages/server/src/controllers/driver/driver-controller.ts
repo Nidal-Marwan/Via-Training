@@ -3,30 +3,35 @@ import * as service from "../../service/driver/driver-service";
 
 export const getDrivers = async (req: Request, res: Response) => {
 	const userId = req.params.id;
-	if (userId) {
+	if (!userId) {
+		return res.send({ error: "Invalid input" });
+	} else {
 		const response = await service.getUserDrivers(req, userId);
 		return res.send(response);
-	} else {
-		return res.send({ error: "Invalid input" });
 	}
 };
 export const postDriver = async (req: Request, res: Response) => {
-	const name: string = req.body.name;
-	let lat: number = req.body.lat;
-	let lng: number = req.body.lng;
-	const phone: string = req.body.phone;
-	const carModel: string = req.body.carModel;
-	const licensePlate: string = req.body.licensePlate;
-	const date: Date = req.body.date;
-	const locationId: number = req.body.locationId;
-	const userId: number = req.body.userId;
-
-	if (!name || !phone || !carModel || !licensePlate || !date || !locationId || !userId) {
-		return res.send({ error: "Invalid input" });
+	const { name, lat, lng, phone, carModel, licensePlate, date, locationId, userId } = req.body;
+	if (!name) {
+		return res.send({ error: "Name is required" });
 	}
-	if (!lat || !lng) {
-		lat = null;
-		lng = null;
+	if (!phone) {
+		return res.send({ error: "Phone is required" });
+	}
+	if (!carModel) {
+		return res.send({ error: "Car-Model is required" });
+	}
+	if (!licensePlate) {
+		return res.send({ error: "License-Plate is required" });
+	}
+	if (!date) {
+		return res.send({ error: "Date is required" });
+	}
+	if (!locationId) {
+		return res.send({ error: "Location is required" });
+	}
+	if (!userId) {
+		return res.send({ error: "User-Id is required" });
 	}
 	const data = {
 		name,
@@ -52,22 +57,27 @@ export const deleteDriver = async (req: Request, res: Response) => {
 	return res.send(response);
 };
 export const putDriver = async (req: Request, res: Response) => {
-	const name: string = req.body.name;
-	let lat: number = req.body.lat;
-	let lng: number = req.body.lng;
-	const phone: number = req.body.phone;
-	const carModel: string = req.body.carModel;
-	const licensePlate: string = req.body.licensePlate;
-	const date: Date = req.body.date;
-	const locationId: number = req.body.locationId;
-	const userId: number = req.body.userId;
-
-	if (!name || !phone || !carModel || !licensePlate || !date || !locationId || !userId) {
-		return res.send({ error: "Invalid input" });
+	const { name, lat, lng, phone, carModel, licensePlate, date, locationId, userId } = req.body;
+	if (!name) {
+		return res.send({ error: "Name is required" });
 	}
-	if (!lat || !lng) {
-		lat = 0;
-		lng = 0;
+	if (!phone) {
+		return res.send({ error: "Phone is required" });
+	}
+	if (!carModel) {
+		return res.send({ error: "Car-Model is required" });
+	}
+	if (!licensePlate) {
+		return res.send({ error: "License-Plate is required" });
+	}
+	if (!date) {
+		return res.send({ error: "Date is required" });
+	}
+	if (!locationId) {
+		return res.send({ error: "Location is required" });
+	}
+	if (!userId) {
+		return res.send({ error: "User-Id is required" });
 	}
 	const data = {
 		name,
