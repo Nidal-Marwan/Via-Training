@@ -49,12 +49,19 @@
 	"nav": {
 		"map": "Map",
 		"driver": "Driver",
-		"location": "Location"
+		"location": "Location",
+		"signout": "Sign Out"
 	},
 	"modal": {
 		"favorites": {
 			"message": "Would you like to set-up favorite locations?",
 			"accept": "Yes",
+			"decline": "Cancel"
+		},
+		"location": {
+			"addMessage": "Add a new Location by clicking on the map",
+			"updateMessage": "Add the updated location by clicking on the map",
+			"accept": "Save",
 			"decline": "Cancel"
 		}
 	},

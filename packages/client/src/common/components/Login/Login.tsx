@@ -1,4 +1,4 @@
-import { Formik, FormikProps } from "formik";
+import { Formik } from "formik";
 import { TextInput } from "../TextInput/TextInput";
 import { useTranslation } from "react-i18next";
 import { CustomButton } from "../Button/Button";
@@ -28,14 +28,16 @@ const Login = () => {
 		password: "",
 	};
 	const handleSubmit = async (values: any) => {
+		const transformedValues = { ...values, email: values.email.toLowerCase() };
 		setIsLoading(true);
 		setError(null);
 		const response = await trainingClient.post<LoginResponse>(
 			"/home/login",
-			values
+			transformedValues
 		);
 		if (response.data.status === 200) {
 			window.localStorage.setItem("access_token", response.data.token);
+			window.dispatchEvent(new Event("storage"));
 			setIsLoading(false);
 			setIsLoggedIn(true);
 
@@ -70,7 +72,7 @@ const Login = () => {
 						<Formik
 							initialValues={initialValues}
 							validationSchema={loginSchema}
-							onSubmit={handleSubmit}
+							onSubmit={(values) => handleSubmit(values)}
 							validateOnChange={false}
 						>
 							<StyledForm>
@@ -101,7 +103,7 @@ const Login = () => {
 					)}
 				</StyledBox>
 			</Stack>
-			{isLoggedIn && <ModalContainer />}
+			{isLoggedIn && <ModalContainer page='login' />}
 		</>
 	);
 };

@@ -1,117 +1,49 @@
-import React, { useState } from "react";
-import { GoogleMap, useJsApiLoader } from "@react-google-maps/api";
-import { Box, Button, Divider, Modal, styled, TextField, Typography } from "@mui/material";
-import { ActionsBox, MapBox, ModalBox } from "./Map.styles";
+import { GoogleMap, Marker, useJsApiLoader } from "@react-google-maps/api";
+import { useState, useCallback } from "react";
+interface MapProps {
+	position: {
+		lat: number,
+		lng: number
+	},
+	modalCallback: (lat: number, lng: number) => void
+}
 
-const center = {
-	"lat": 19.7683,
-	"lng": 20.2137
-};
-const zoomLevel = 5;
-
-
-const containerStyle = {
-	width: "100%",
-	height: "100%"
-};
-
-//this is only for testing purposes
-const TestModal = (props: any) => {
-	return (
-		<div>
-			<Modal
-				open={props.isOpen}
-				onClose={props.handleOnCancel}
-				aria-labelledby='modal-modal-title'
-			>
-				<ModalBox>
-					<Typography id='modal-modal-title' variant='h6' component='h2'>
-						Add Location
-					</Typography>
-					<Divider />
-					<TextField value={props.lat}/>
-					<TextField value={props.lng}/>
-					<ActionsBox>
-						<Button variant='contained' onClick={props.handleOnAccept}>
-							Save
-						</Button>
-						<Button variant='outlined' onClick={props.handleOnCancel}>
-							Cancel
-						</Button>
-					</ActionsBox>
-				</ModalBox>
-			</Modal>
-		</div>
-	);
-};
-
-const CustomMap = () => {
-	const [isMapOpen, setIsMapOpen] = useState(false);
-	const [isAddLocationOpen, setIsAddLocationOpen] = useState(false);
-	const [lat, setLat] = useState<number | undefined>(0);
-	const [lng, setLng] = useState<number | undefined>(0);
-	
-	const handleOnCancel = () => {
-		setIsAddLocationOpen(false);
-	};
-	const handleOnAccept = () => {
-		const position = {lat, lng};
-		console.log("position: ", {position});
-	};
-
-	const handleCloseMap = () => {
-		setIsMapOpen(false);
-	};
+export const Map = ({ position, modalCallback }: MapProps) => {
+	const [markerPosition, setMarkerPostion] = useState(position);
 	const { isLoaded } = useJsApiLoader({
 		id: "google-map-script",
 		googleMapsApiKey: "",
 	});
+	const [map, setMap] = useState<google.maps.Map | null>(null);
+	const onLoad = useCallback(
+		(map: google.maps.Map) => {
+			const bounds = new window.google.maps.LatLngBounds(position);
+			map.fitBounds(bounds);
+			setMap(map);
+		},
+		[position]
+	);
+	const handleNewPosition = (event?: google.maps.LatLngLiteral) => {
+		if (event) {
+			const lat = event.lat;
+			const lng = event.lng;
+			modalCallback(lat, lng);
+			setMarkerPostion({ lat: +lat, lng: +lng });
 
-	const [map, setMap] = useState(null);
+		}
+	};
+	return isLoaded ? (
+		<GoogleMap
+			mapContainerStyle={{ width: "700px", height: "700px" }}
+			zoom={5}
+			onLoad={onLoad}
+			center={position}
+			onClick={(e) => handleNewPosition(e.latLng?.toJSON())}
+		>
+			<Marker position={markerPosition} />
+		</GoogleMap>
 
-	const onLoad = React.useCallback(function callback(map: any) {
-		setMap(map);
-	}, []);
-
-	const onUnmount = React.useCallback(function callback(map: any) {
-		setMap(null);
-	}, []);
-    
-	return ( 
-		<>
-			{isLoaded ? (
-				<Modal
-					open={true}
-					onClose={handleCloseMap}
-				>
-					<MapBox>
-						<GoogleMap
-							mapContainerStyle={containerStyle}
-							center={center}
-							zoom={zoomLevel}
-							onLoad={onLoad}
-							onUnmount={onUnmount}
-							onClick={(e)=>{
-								setIsAddLocationOpen(true);
-								setLat(e.latLng?.lat());
-								setLng(e.latLng?.lng());
-							}}
-						>
-							<></>
-						</GoogleMap>
-						<TestModal isOpen={isAddLocationOpen}
-							handleOnAccept={handleOnAccept}
-							handleOnCancel={handleOnCancel}
-							lat={lat}
-							lng={lng}
-						/>
-					</MapBox>
-				</Modal>
-			) : (
-				<></>
-			)}
-		</>
+	) : (
+		<></>
 	);
 };
-
-export default CustomMap;

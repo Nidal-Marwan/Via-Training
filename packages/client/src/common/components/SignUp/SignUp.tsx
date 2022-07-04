@@ -1,16 +1,14 @@
-import { TextInput } from '../TextInput/TextInput';
-import { StyledBox, StyledForm, Title, ContainerBox, StyledAlert } from './SignUp.styles';
-import { Formik } from 'formik';
-import { trainingClient } from '../../api/trainingClient';
-import { useState } from 'react';
-import { CustomButton } from '../Button/Button';
-import { useTranslation } from 'react-i18next';
-import { Link, useNavigate } from 'react-router-dom';
-import signupSchema from './SignUp.schema';
-import { CircularProgress, IconButton, Stack,Typography } from '@mui/material';
-import CloseIcon from '@mui/icons-material/Close';
-
-
+import { TextInput } from "../TextInput/TextInput";
+import { StyledBox, StyledForm, Title, ContainerBox, StyledAlert } from "./SignUp.styles";
+import { Formik } from "formik";
+import { trainingClient } from "../../api/trainingClient";
+import { useState } from "react";
+import { CustomButton } from "../Button/Button";
+import { useTranslation } from "react-i18next";
+import { Link, useNavigate } from "react-router-dom";
+import signupSchema from "./SignUp.schema";
+import { CircularProgress, IconButton, Stack, Typography } from "@mui/material";
+import CloseIcon from "@mui/icons-material/Close";
 interface SignUpResponse {
 	status: number;
 	message: string;
@@ -23,15 +21,17 @@ export const SignUp: React.FC = () => {
 	const [isLoading, setIsLoading] = useState(false);
 
 	const handleSubmit = async (values: any) => {
+		const transformedValues = { ...values, email: values.email.toLowerCase() };
+
 		setIsLoading(true);
 		setError(null);
 		const response = await trainingClient.post<SignUpResponse>(
-			'/home/signup',
-			values
+			"/home/signup",
+			transformedValues
 		);
 		if (response.data.status === 201) {
 			setIsLoading(false);
-			navigate('/');
+			navigate("/");
 		} else {
 			setIsLoading(false);
 			setError(response.data.message);
@@ -39,7 +39,7 @@ export const SignUp: React.FC = () => {
 	};
 	return (
 		<ContainerBox>
-			<Stack spacing={2} sx={{ position: 'relative' }}>
+			<Stack spacing={2} sx={{ position: "relative" }}>
 				{error && (
 					<StyledAlert
 						action={
@@ -61,7 +61,7 @@ export const SignUp: React.FC = () => {
 				<StyledBox>
 					{isLoading ? <CircularProgress /> : (
 						<Formik
-							initialValues={{ name: '', email: '', phone: '', password: '' }}
+							initialValues={{ name: "", email: "", phone: "", password: "" }}
 							validationSchema={signupSchema}
 							onSubmit={(values) => handleSubmit(values)}
 						>
@@ -71,40 +71,40 @@ export const SignUp: React.FC = () => {
 									name='name'
 									type='text'
 									id='outlined-basic'
-									label={t('form.name')}
+									label={t("form.name")}
 								/>
 								<TextInput
 									name='email'
 									type='email'
 									id='outlined-basic'
-									label={t('form.email')}
+									label={t("form.email")}
 								/>
 								<TextInput
 									name='phone'
 									type='number'
 									id='outlined-basic'
-									label={t('form.phone')}
+									label={t("form.phone")}
 								/>
 								<TextInput
 									name='password'
 									type='password'
 									id='outlined-basic'
-									label={t('form.password')}
+									label={t("form.password")}
 								/>
 								<CustomButton
 									color='primary'
-									title={t('form.signup')}
+									title={t("form.signup")}
 									type='submit'
 								/>
 								<Typography variant='body1'>
-									{t('form.signin.text')}{' '}
-									<Link to='/'>{t('form.signin.link')}</Link>
+									{t("form.signin.text")}{" "}
+									<Link to='/'>{t("form.signin.link")}</Link>
 								</Typography>
 							</StyledForm>
 						</Formik>
-						
+
 					)}
-					
+
 				</StyledBox>
 			</Stack>
 		</ContainerBox>
