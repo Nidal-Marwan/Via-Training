@@ -3,8 +3,6 @@ import { DriverData } from "../../controllers/driver/Driver";
 import { Driver } from "../../models/Driver.model";
 import { Location } from "../../models/Location.model";
 import { AppDataSource } from "../../utils/data-source";
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const jwt = require("jsonwebtoken");
 
 const driverRepository = AppDataSource.getRepository(Driver);
 const locationRepo = AppDataSource.getRepository(Location);
@@ -19,11 +17,13 @@ export const getUserDrivers = async (req: Request, userId: string) => {
 		}
 		else {
 			const locations = currentUserDrivers.map(async driver => {
-				const driverLocation = await locationRepo.find({ where: { id: driver.locationId } });
-				return { status: 200, message: "Drivers fetched", data: { currentUserDrivers, driverLocation } };
+				return await locationRepo.find({ where: { id: driver.locationId } });
+
 			});
+			console.log(locations);
 			const data = await Promise.all(locations);
-			return data;
+			const driversWithLocations = { driversInfo: currentUserDrivers, locationsInfo: data };
+			return { status: 200, message: "Drivers fetched", drivers: driversWithLocations };
 		}
 	} catch (err) {
 		return { status: 400, error: "invalid request" };
@@ -32,6 +32,10 @@ export const getUserDrivers = async (req: Request, userId: string) => {
 
 export const addDriver = async (req: Request, data: DriverData) => {
 	try {
+		const existingDriver = await driverRepository.findOne({ where: { phone: data.phone } });
+		if (existingDriver) {
+			return { status: 409, message: "Phone already exist" };
+		}
 		await driverRepository.save(data);
 		return { status: 200, message: "Driver added successfully" };
 	} catch (err) {

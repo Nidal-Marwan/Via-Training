@@ -3,10 +3,15 @@ import { ActionsBox, ModalBox, StyledForm } from "./DriverModal.styles";
 import { Formik, } from "formik";
 import driverSchema from "./DriverModal.schema";
 import { TextInput } from "../../TextInput/TextInput";
-import { Button, Divider, MenuItem, Typography } from "@mui/material";
+import { Button, Divider, MenuItem, Typography, IconButton, Alert } from "@mui/material";
 import { SelectInput } from "../../SelectInput/SelectInput";
 import { CustomButton } from "../../Button/Button";
 import { useTranslation } from "react-i18next";
+import { trainingClient } from "../../../api/trainingClient";
+import { useMe } from "../../../hooks/useMe.hook";
+import CloseIcon from "@mui/icons-material/Close";
+import { useState } from "react";
+
 
 interface DriverModalProps {
 	data: any[];
@@ -15,6 +20,8 @@ interface DriverModalProps {
 }
 export default function DriverModal({data, open, setOpen }: DriverModalProps) {
 	const { t } = useTranslation();
+	const { userInfo } = useMe();
+	const [error, setError] = useState<string | null>(null);
 
 	const handleClose = () => {
 		setOpen(false);
@@ -30,10 +37,15 @@ export default function DriverModal({data, open, setOpen }: DriverModalProps) {
 		licensePlate: "",
 		location: "",
 	};
-	const handleSubmit = (values: any) => {
-		//Submission logic
-		//console.log("values:" + JSON.stringify(values));
-		handleClose();
+	const handleSubmit = async (values: any) => {
+		const payload = { ...values, locationId: location, userId: userInfo?.user.userInfo.id };
+		const response = await trainingClient.post("/drivers", payload);
+		if (response.data.status === 409) {
+			setError(response.data.message);
+		}
+		if (response.data.status === 200) {
+			handleClose();
+		}
 	};
 	
 	return (
@@ -48,6 +60,24 @@ export default function DriverModal({data, open, setOpen }: DriverModalProps) {
 					validateOnChange={false}
 				>
 					<StyledForm>
+						{error && (
+							<Alert
+								action={
+									<IconButton
+										aria-label="close"
+										color="inherit"
+										size="small"
+										onClick={() => {
+											setError(null);
+										}}
+									>
+										<CloseIcon fontSize="inherit" />
+									</IconButton>
+								}
+								severity='error'>
+								{t(`${error}`)}
+							</Alert>
+						)}
 						<TextInput
 							name="name"
 							type="text"
@@ -89,9 +119,7 @@ export default function DriverModal({data, open, setOpen }: DriverModalProps) {
 							<Button variant="outlined" onClick={onCancel}>{t("drivers.modal.actions.cancel")}</Button>
 						</ActionsBox>
 					</StyledForm>
-
 				</Formik>
-
 			</ModalBox>
 		</Modal >
 	);

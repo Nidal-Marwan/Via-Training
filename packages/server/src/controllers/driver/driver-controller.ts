@@ -25,9 +25,7 @@ export const postDriver = async (req: Request, res: Response) => {
 	if (!licensePlate) {
 		error["licenseError"] = "License-Plate is required";
 	}
-	if (!date) {
-		error["dateError"] = "Date is required";
-	}
+
 	if (!locationId) {
 		error["locationIdError"] = "Location-Id is required";
 	}

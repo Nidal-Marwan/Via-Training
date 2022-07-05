@@ -16,7 +16,7 @@ export class Driver {
     @Column({ type: "float", nullable: true })
     	lng: number | null;
 
-    @Column({ type: "timestamptz" })
+    @Column({ type: "timestamptz", default: () => "CURRENT_TIMESTAMP" })
     	date: Date;
 
     @Column({ unique: true })
