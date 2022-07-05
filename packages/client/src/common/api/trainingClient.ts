@@ -5,9 +5,11 @@ export const trainingClient = axios.create({
 });
 
 trainingClient.interceptors.request.use(async (config: AxiosRequestConfig) => {
-	if (config.url?.includes("user") || config.url?.includes("locations")) {
-		const token = window.localStorage.getItem("access_token");
-		config.headers!.Authorization = `Bearer ${token}`;
+	const token = window.localStorage.getItem("access_token");
+	if (token) {
+		config.headers = {
+			Authorization: `Bearer ${token}`
+		};
 	}
 	return config;
 }, error => Promise.reject(error));
