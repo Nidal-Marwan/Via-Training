@@ -19,7 +19,7 @@ export default function Drivers() {
 				:
 				<Button onClick={handleClick}>Add new driver</Button>
 			}
-			{openModal && <ModalContainer data={rowData} page="drivers" setOpen={setOpenModal} />}
+			<ModalContainer data={rowData} page="drivers" open={openModal} setOpen={setOpenModal} />
 		</>
 	);
 }

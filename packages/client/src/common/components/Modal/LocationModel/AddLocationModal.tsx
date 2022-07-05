@@ -12,16 +12,16 @@ import { format } from "date-fns";
 interface LocationProps {
 	position: {
 		lat: number,
-		lng: number
+		lng: number;
 	},
-	callBackData: any
-
+	callBackData: any;
+	open: boolean;
+	setOpen: (state: boolean) => void;
 }
 
-export const AddLocationModal = ({ position, callBackData }: LocationProps) => {
+export const AddLocationModal = ({ position, callBackData, open, setOpen }: LocationProps) => {
 	const { userInfo } = useMe();
 	const { t } = useTranslation();
-	const [showModal, setShowModal] = useState(true);
 	const [locationInfo, setLocationInfo] = useState({ lat: position.lat, lng: position.lng });
 	const [locationName, setLocationName] = useState("");
 	const date = new Date();
@@ -48,7 +48,7 @@ export const AddLocationModal = ({ position, callBackData }: LocationProps) => {
 		{ field: "lng", headerName: "Longitude", headerAlign: "center", type: "number", width: 100, align: "center" }
 	];
 	const handleClose = () => {
-		setShowModal(false);
+		setOpen(false);
 	};
 	const onAccept = async () => {
 		const payload = { name: locationName, lat: locationInfo.lat, long: locationInfo.lng, date: formattedDate, userId: userInfo?.user.userInfo.id };
@@ -69,8 +69,7 @@ export const AddLocationModal = ({ position, callBackData }: LocationProps) => {
 		setLocationInfo({ lat, lng });
 	};
 	return <Modal
-		open={showModal}
-		onAccept={onAccept}
+		open={open}
 		onCancel={onCancel}
 	>
 		<ModalBox>
@@ -91,10 +90,7 @@ export const AddLocationModal = ({ position, callBackData }: LocationProps) => {
 						</Button>
 					</ActionsBox>
 				</Box>
-
 			</MapBox>
-
-
 		</ModalBox>
 	</Modal>;
 };

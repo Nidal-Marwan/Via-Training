@@ -1,4 +1,3 @@
-import { useState } from "react";
 import Modal from "../Modal";
 import { ActionsBox, ModalBox, StyledForm } from "./DriverModal.styles";
 import { Formik, } from "formik";
@@ -11,15 +10,14 @@ import { useTranslation } from "react-i18next";
 
 interface DriverModalProps {
 	data: any[];
-	setOpen: any;
+	open: boolean;
+	setOpen: (state: boolean) => void;
 }
-export default function DriverModal(props: DriverModalProps) {
+export default function DriverModal({data, open, setOpen }: DriverModalProps) {
 	const { t } = useTranslation();
-	const [showModal, setShowModal] = useState(true);
 
 	const handleClose = () => {
-		setShowModal(false);
-		props.setOpen(false);
+		setOpen(false);
 	};
 	const onCancel = () => {
 		handleClose();
@@ -37,9 +35,9 @@ export default function DriverModal(props: DriverModalProps) {
 		//console.log("values:" + JSON.stringify(values));
 		handleClose();
 	};
-
+	
 	return (
-		<Modal open={showModal} onCancel={onCancel}>
+		<Modal open={open} onCancel={onCancel}>
 			<ModalBox>
 				<Typography variant="h4" >{t("drivers.modal.title")}</Typography>
 				<Divider style={{ width: "90%" }} />
@@ -78,9 +76,9 @@ export default function DriverModal(props: DriverModalProps) {
 							name="location"
 							label={t("drivers.modal.form.location")}
 						>
-							{props.data.map((item: { id: number, name: string; }) => (
+							{/*{data.map((item: { id: number, name: string; }) => (
 								<MenuItem key={item.id} value={item.id}>{item.name}</MenuItem>
-							))}
+							))}*/}
 						</SelectInput>
 						<ActionsBox>
 							<CustomButton

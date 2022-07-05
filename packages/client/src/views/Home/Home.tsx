@@ -2,8 +2,10 @@ import { Box, Typography } from "@mui/material";
 import Container from "@mui/material/Container";
 import MapImg from "../../assets/images/maps.png";
 import Login from "../../common/components/Login/Login";
-
-export const Home: React.FC = () => {
+interface Props {
+	setShownModal: (state: boolean) => void;
+}
+export const Home = ({ setShownModal }: Props) => {
 	return (
 		<Container
 			sx={{
@@ -33,7 +35,7 @@ export const Home: React.FC = () => {
 					</Typography>
 				</Box>
 			</Box>
-			<Login />
+			<Login setShownModal={setShownModal} />
 		</Container>
 	);
 };
