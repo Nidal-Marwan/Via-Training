@@ -70,7 +70,6 @@ export const AddLocationModal = ({ position, callBackData }: LocationProps) => {
 	};
 	return <Modal
 		open={showModal}
-		onAccept={onAccept}
 		onCancel={onCancel}
 	>
 		<ModalBox>

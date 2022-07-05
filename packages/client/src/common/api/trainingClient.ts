@@ -5,7 +5,7 @@ export const trainingClient = axios.create({
 });
 
 trainingClient.interceptors.request.use(async (config: AxiosRequestConfig) => {
-	if (config.url?.includes("user") || config.url?.includes("locations")) {
+	if (config.url?.includes("user") || config.url?.includes("locations") || config.url?.includes("drivers")) {
 		const token = window.localStorage.getItem("access_token");
 		config.headers!.Authorization = `Bearer ${token}`;
 	}
