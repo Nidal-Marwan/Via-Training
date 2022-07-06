@@ -1,4 +1,5 @@
 import DriverModal from "../Modal/DriverModal/DriverModal";
+import { AddLocationModal } from "../Modal/LocationModel/AddLocationModal";
 import { LocationModal } from "../Modal/LocationModel/LocationModal";
 import { LoginModal } from "../Modal/LoginModal/LoginModal";
 interface ModalProps {
@@ -15,17 +16,21 @@ interface ModalProps {
 		date: Date;
 	} | any;
 	callBackData?: any;
-	setOpen?: any;
+	open: boolean;
+	setOpen: (state: boolean) => void;
+	setShownModal?: any;
 }
 
-export const ModalContainer = ({ page, position, data, callBackData, setOpen }: ModalProps) => {
+export const ModalContainer = ({ page, position, data, callBackData, open, setOpen, setShownModal }: ModalProps) => {
 	let content;
 	if (page === "login") {
-		content = <LoginModal />;
+		content = <LoginModal open={open} setOpen={setOpen} setShownModal={setShownModal} />;
 	} else if (page === "location" && position) {
-		content = <LocationModal callBackData={callBackData} data={data} position={position} />;
+		content = <LocationModal callBackData={callBackData} data={data} position={position} open={open} setOpen={setOpen} />;
 	} else if (page === "drivers") {
-		content = <DriverModal data={data} setOpen={setOpen} />;
+		content = <DriverModal data={data} open={open} setOpen={setOpen} />;
+	} else if (page === "addLocation" && position) {
+		content = <AddLocationModal callBackData={callBackData} position={position} open={open} setOpen={setOpen} />;
 	}
 	return (
 		<>

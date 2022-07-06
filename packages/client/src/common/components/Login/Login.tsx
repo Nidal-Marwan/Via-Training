@@ -17,7 +17,11 @@ interface LoginResponse {
 	token: string;
 }
 
-const Login = () => {
+interface Props {
+	setShownModal: (state: boolean) => void;
+}
+const Login = ({ setShownModal }: Props) => {
+
 	const { t } = useTranslation();
 	const [isLoggedIn, setIsLoggedIn] = useState(false);
 	const [isLoading, setIsLoading] = useState(false);
@@ -103,7 +107,7 @@ const Login = () => {
 					)}
 				</StyledBox>
 			</Stack>
-			{isLoggedIn && <ModalContainer page='login' />}
+			<ModalContainer page='login' open={isLoggedIn} setOpen={setIsLoggedIn} setShownModal={setShownModal} />
 		</>
 	);
 };

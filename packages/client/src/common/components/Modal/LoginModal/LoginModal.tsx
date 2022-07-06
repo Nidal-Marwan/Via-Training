@@ -5,23 +5,29 @@ import Modal from "../Modal";
 import { Button, Divider, Typography } from "@mui/material";
 import { ModalBox, ActionsBox } from "./LoginModal.styles";
 
-export const LoginModal = () => {
+interface LoginModalProps {
+	open: boolean;
+	setOpen: (state: boolean) => void;
+	setShownModal: (state: boolean) => void;
+}
+export const LoginModal = ({ open, setOpen, setShownModal }: LoginModalProps) => {
 	const navigate = useNavigate();
 	const { t } = useTranslation();
-	const [showModal, setShowModal] = useState(true);
+
 	const handleClose = () => {
-		setShowModal(false);
+		setOpen(false);
+		setShownModal(true);
 	};
 	const onAccept = () => {
-		handleClose();
 		navigate("locations");
+		handleClose();
 	};
 	const onCancel = () => {
+		navigate("drivers");// Temporarily until we have live map
 		handleClose();
-
 	};
 	return <Modal
-		open={showModal}
+		open={open}
 		onCancel={onCancel}
 	>
 		<ModalBox>

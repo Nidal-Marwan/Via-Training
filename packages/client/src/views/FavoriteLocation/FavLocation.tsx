@@ -9,7 +9,6 @@ import { trainingClient } from "../../common/api/trainingClient";
 import { useGetLocations } from "../../common/hooks/useGetLocations.hook";
 import { CircularProgress } from "@mui/material";
 import { CustomButton } from "../../common/components/Button/Button";
-import { AddLocationModal } from "../../common/components/Modal/LocationModel/AddLocationModal";
 
 export const FavLocation: React.FC = () => {
 	const { userInfo } = useMe();
@@ -61,10 +60,10 @@ export const FavLocation: React.FC = () => {
 	];
 	return <>
 		<p>Welcome {userInfo?.user.userInfo.email} </p>
-		<CustomButton title={"Add Location"} type={"button"} color={"inherit"} onClick={()=>{setOpenAddLocation(true);}}/>
+		<CustomButton title={"Add Location"} type={"button"} color={"inherit"} onClick={() => { setOpenAddLocation(true); }} />
 		{isLoading ? <CircularProgress /> : <Table height={400} width={800} margin={15} columns={headers} rows={rowData ? rowData : []} />}
-		{openMap && <ModalContainer callBackData={setRowData} data={selectedData} position={{ lat: position.lat, lng: position.lng }} page='location' />}
-		{openAddLocation && <AddLocationModal callBackData={setRowData} position={{lat: 0, lng: 0}}/>}
+		<ModalContainer callBackData={setRowData} data={selectedData} position={{ lat: position.lat, lng: position.lng }} open={openMap} setOpen={setOpenMap} page='location' />
+		<ModalContainer callBackData={setRowData} position={{ lat: 0, lng: 0 }} open={openAddLocation} setOpen={setOpenAddLocation} page="addLocation" />
 
 	</>;
 };
