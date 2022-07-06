@@ -11,21 +11,30 @@ import { useTranslation } from "react-i18next";
 import { trainingClient } from "../../../api/trainingClient";
 import { useMe } from "../../../hooks/useMe.hook";
 import CloseIcon from "@mui/icons-material/Close";
-
-
+import { format } from "date-fns";
+import { useGetDrivers } from "../../../hooks/useGetDrivers.hook";
 interface DriverModalProps {
-	data: any[];
+	data?: {
+		id: number,
+		name: string,
+		phone: number,
+		carModel: string,
+		licensePlate: string,
+		locationId: number
+	};
 	setOpen: any;
+	callBackData: any;
+	locationData: any;
+	buttonType: any;
 }
-export default function DriverModal(props: DriverModalProps) {
+export default function DriverModal({ data, setOpen, callBackData, locationData, buttonType }: DriverModalProps) {
 	const { t } = useTranslation();
 	const { userInfo } = useMe();
 	const [error, setError] = useState<string | null>(null);
 	const [showModal, setShowModal] = useState(true);
-
 	const handleClose = () => {
 		setShowModal(false);
-		props.setOpen(false);
+		setOpen(false);
 	};
 	const onCancel = () => {
 		handleClose();
@@ -36,27 +45,50 @@ export default function DriverModal(props: DriverModalProps) {
 		phone: "",
 		carModel: "",
 		licensePlate: "",
-		location: "",
-	};
-	const handleSubmit = async (values: any) => {
-		const payload = { ...values, locationId: location, userId: userInfo?.user.userInfo.id };
-		const response = await trainingClient.post("/drivers", payload);
-		if (response.data.status === 409) {
-			setError(response.data.message);
-		}
-		if (response.data.status === 200) {
-			handleClose();
-		}
+		locationId: "",
+	}; 
+	
+	const editValues = {
+		name: data?.name,
+		phone: data?.phone,
+		carModel: data?.carModel,
+		licensePlate: data?.licensePlate,
+		locationId: data?.locationId,
 	};
 
+	const handleSubmit = async(values: any) => {
+		const payload = { ...values, userId: userInfo?.user.userInfo.id, id: data?.id };
+		if(buttonType === "button"){
+			const response = await trainingClient.put("/drivers", payload);
+			if (response.data.status === 200) {
+				const response = await trainingClient.get(`/drivers/${userInfo?.user.userInfo.id}`);
+				if (response.data.status === 200) {
+					callBackData(response.data.drivers.driversInfo);
+				}
+				handleClose();
+			}
+		}else{
+			const response = await trainingClient.post("/drivers", payload);
+			if (response.data.status === 200) {
+				const response = await trainingClient.get(`/drivers/${userInfo?.user.userInfo.id}`);
+				if (response.data.status === 200) {
+					callBackData(response.data.drivers.driversInfo);
+				}
+				handleClose();
+			}
+		}
+		
+		
+	};
 	return (
 
 		<Modal open={showModal} onCancel={onCancel}>
 			<ModalBox>
-				<Typography variant="h4" >{t("drivers.modal.title")}</Typography>
+				{buttonType === "button" ? <Typography variant="h4" >{t("drivers.modal.editTitle")}</Typography> : <Typography variant="h4" >{t("drivers.modal.addTitle")}</Typography>}
+				
 				<Divider style={{ width: "90%" }} />
 				<Formik
-					initialValues={initialValues}
+					initialValues={ buttonType === "button" ? editValues : initialValues}
 					validationSchema={driverSchema}
 					onSubmit={handleSubmit}
 					validateOnChange={false}
@@ -105,10 +137,11 @@ export default function DriverModal(props: DriverModalProps) {
 							label={t("drivers.modal.form.license_plate")}
 						/>
 						<SelectInput
-							name="location"
+							name="locationId"
 							label={t("drivers.modal.form.location")}
 						>
-							{props.data.map((item: { id: number, name: string; }) => (
+							<MenuItem key={0} value={0}>{"No location"}</MenuItem>
+							{locationData.map((item: { id: number, name: string; }) => (
 								<MenuItem key={item.id} value={item.id}>{item.name}</MenuItem>
 							))}
 						</SelectInput>
@@ -116,7 +149,7 @@ export default function DriverModal(props: DriverModalProps) {
 							<CustomButton
 								color='primary'
 								title={t("drivers.modal.actions.submit")}
-								type='submit'
+								type={"submit"}
 							/>
 							<Button variant="outlined" onClick={onCancel}>{t("drivers.modal.actions.cancel")}</Button>
 						</ActionsBox>

@@ -60,7 +60,7 @@
 		},
 		"location": {
 			"addMessage": "Add a new Location by clicking on the map",
-			"updateMessage": "Add the updated location by clicking on the map",
+			"editMessage": "Add the updated location by clicking on the map",
 			"accept": "Save",
 			"decline": "Cancel"
 		}
@@ -74,7 +74,9 @@
 	},
 	"drivers": {
 		"modal": {
-			"title": "Add a New Driver",
+			"addDriverButton": "ADD DRIVER",
+			"addTitle": "Add a New Driver",
+			"editTitle": "Edit Driver",
 			"form": {
 				"name": "Name",
 				"phone": "Phone",

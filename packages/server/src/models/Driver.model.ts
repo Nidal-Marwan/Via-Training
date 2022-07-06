@@ -28,6 +28,9 @@ export class Driver {
     @Column()
     	licensePlate: string;
 
+    @Column({ nullable: true })
+    	locationName: string | null;
+
     @Column()
     	locationId: number;
 
