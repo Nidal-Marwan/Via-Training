@@ -77,7 +77,7 @@ export const Drivers = () => {
 		<p>Welcome {userInfo?.user.userInfo.email} </p>
 		<CustomButton title={t("drivers.modal.addDriverButton")} type={"button"} color={"inherit"} onClick={handleClick}/>
 		<Table datepicker={true} height={400} width={950} margin={15} columns={headers} rows={rowData ? rowData : []} />
-		{openModal && <ModalContainer callBackData={setRowData} buttonType={buttonType} data={selectedData} locationData={locationData} page="drivers" setOpen={setOpenModal} />}
+		<ModalContainer callBackData={setRowData} buttonType={buttonType} data={selectedData} locationData={locationData} page="drivers" open={openModal} setOpen={setOpenModal} />
 
 	</>;
 };

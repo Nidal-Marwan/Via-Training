@@ -11,8 +11,7 @@ import { useTranslation } from "react-i18next";
 import { trainingClient } from "../../../api/trainingClient";
 import { useMe } from "../../../hooks/useMe.hook";
 import CloseIcon from "@mui/icons-material/Close";
-import { format } from "date-fns";
-import { useGetDrivers } from "../../../hooks/useGetDrivers.hook";
+
 interface DriverModalProps {
 	data?: {
 		id: number,
@@ -22,12 +21,13 @@ interface DriverModalProps {
 		licensePlate: string,
 		locationId: number
 	};
-	setOpen: any;
+	open: boolean;
+	setOpen: (state: boolean) => void;
 	callBackData: any;
 	locationData: any;
 	buttonType: any;
 }
-export default function DriverModal({ data, setOpen, callBackData, locationData, buttonType }: DriverModalProps) {
+export default function DriverModal({ data, open, setOpen, callBackData, locationData, buttonType }: DriverModalProps) {
 	const { t } = useTranslation();
 	const { userInfo } = useMe();
 	const [error, setError] = useState<string | null>(null);
@@ -77,12 +77,11 @@ export default function DriverModal({ data, setOpen, callBackData, locationData,
 				handleClose();
 			}
 		}
-		
-		
 	};
-	return (
 
-		<Modal open={showModal} onCancel={onCancel}>
+	console.log(locationData);
+	return (
+		<Modal open={open} onCancel={onCancel}>
 			<ModalBox>
 				{buttonType === "button" ? <Typography variant="h4" >{t("drivers.modal.editTitle")}</Typography> : <Typography variant="h4" >{t("drivers.modal.addTitle")}</Typography>}
 				
@@ -141,7 +140,7 @@ export default function DriverModal({ data, setOpen, callBackData, locationData,
 							label={t("drivers.modal.form.location")}
 						>
 							<MenuItem key={0} value={0}>{"No location"}</MenuItem>
-							{locationData.map((item: { id: number, name: string; }) => (
+							{locationData?.map((item: { id: number, name: string; }) => (
 								<MenuItem key={item.id} value={item.id}>{item.name}</MenuItem>
 							))}
 						</SelectInput>
@@ -154,9 +153,7 @@ export default function DriverModal({ data, setOpen, callBackData, locationData,
 							<Button variant="outlined" onClick={onCancel}>{t("drivers.modal.actions.cancel")}</Button>
 						</ActionsBox>
 					</StyledForm>
-
 				</Formik>
-
 			</ModalBox>
 		</Modal >
 	);

@@ -11,22 +11,23 @@ import { useMe } from "../../../hooks/useMe.hook";
 interface LocationProps {
 	position: {
 		lat: number,
-		lng: number
+		lng: number;
 	},
 	data?: {
 		id: number,
 		name: string,
 		lat: number,
-		long: number
-		date: Date
-	}
-	callBackData: any
+		long: number;
+		date: Date;
+	};
+	callBackData: any;
+	open: boolean;
+	setOpen: (state: boolean) => void;
 }
 
-export const LocationModal = ({ position, data, callBackData }: LocationProps) => {
+export const LocationModal = ({ position, data, callBackData, open, setOpen }: LocationProps) => {
 	const { userInfo } = useMe();
 	const { t } = useTranslation();
-	const [showModal, setShowModal] = useState(true);
 	const [locationInfo, setLocationInfo] = useState({ lat: data?.lat, lng: data?.long });
 	const [locationName, setLocationName] = useState(data?.name);
 	const row = [{
@@ -51,7 +52,7 @@ export const LocationModal = ({ position, data, callBackData }: LocationProps) =
 		{ field: "long", headerName: "Longitude", headerAlign: "center", type: "number", width: 100, align: "center" }
 	];
 	const handleClose = () => {
-		setShowModal(false);
+		setOpen(false);
 	};
 	const onAccept = async () => {
 		const payload = { id: data?.id, name: locationName, lat: locationInfo.lat, long: locationInfo.lng, date: data?.date, userId: userInfo?.user.userInfo.id };
@@ -72,7 +73,7 @@ export const LocationModal = ({ position, data, callBackData }: LocationProps) =
 		setLocationInfo({ lat, lng });
 	};
 	return <Modal
-		open={showModal}
+		open={open}
 		onCancel={onCancel}
 	>
 		<ModalBox>

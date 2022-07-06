@@ -32,9 +32,11 @@ const checkIsLoggedIn = () => {
 
 export const App = () => {
 	const [isLoggedIn, setIsLoggedIn] = useState(checkIsLoggedIn());
+	const [shownModal, setShownModal] = useState(false);
 	useEffect(() => {
 		window.addEventListener("storage", function (e) {
 			setIsLoggedIn(checkIsLoggedIn());
+			setShownModal(false);
 		});
 	}, []);
 
@@ -50,7 +52,7 @@ export const App = () => {
 					<Container maxWidth="xl">
 						<Box>
 							<Routes>
-								<Route path="/" element={isLoggedIn ? <Navigate to="/locations" /> : <Home />} />
+								<Route path="/" element={isLoggedIn && shownModal ? <Navigate to="/locations" /> : <Home setShownModal={setShownModal} />} />
 								<Route path="signup" element={isLoggedIn ? <Navigate to="/locations" /> : <SignUp />} />
 
 								<Route path="locations" element={isLoggedIn ? <FavLocation /> : <Navigate to="/" />} />
