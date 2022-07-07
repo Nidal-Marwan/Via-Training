@@ -11,7 +11,7 @@ export const getDrivers = async (req: Request, res: Response) => {
 	}
 };
 export const postDriver = async (req: Request, res: Response) => {
-	const { name, lat, lng, phone, carModel, licensePlate, date, locationId, userId } = req.body;
+	const { name, lat, lng, phone, carModel, licensePlate, date, locationName, locationId, userId } = req.body;
 	const error = {};
 	if (!name) {
 		error["nameError"] = "Name is required";
@@ -43,6 +43,7 @@ export const postDriver = async (req: Request, res: Response) => {
 		carModel,
 		licensePlate,
 		date,
+		locationName,
 		locationId,
 		userId
 	};
@@ -59,7 +60,7 @@ export const deleteDriver = async (req: Request, res: Response) => {
 	return res.send(response);
 };
 export const putDriver = async (req: Request, res: Response) => {
-	const { name, lat, lng, phone, carModel, licensePlate, date, locationId, userId } = req.body;
+	const { name, lat, lng, phone, carModel, licensePlate, date, locationName, locationId, userId } = req.body;
 	const error = {};
 	if (!name) {
 		error["nameError"] = "Name is required";
@@ -72,9 +73,6 @@ export const putDriver = async (req: Request, res: Response) => {
 	}
 	if (!licensePlate) {
 		error["licenseError"] = "License-Plate is required";
-	}
-	if (!date) {
-		error["dateError"] = "Date is required";
 	}
 	if (!locationId) {
 		error["locationIdError"] = "Location-Id is required";
@@ -93,6 +91,7 @@ export const putDriver = async (req: Request, res: Response) => {
 		carModel,
 		licensePlate,
 		date,
+		locationName,
 		locationId,
 		userId
 	};

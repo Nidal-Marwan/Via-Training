@@ -40,9 +40,7 @@ export const userLogin = async (data: LoginData) => {
 	} else {
 		const hashedPassword = existingEmail.password;
 		if (await bcrypt.compare(data.password, hashedPassword)) {
-			//console.log("Login Successful");
 			logger.info("Login Succesful");
-			//console.log("Generating accessToken");
 			logger.info("Generating Access Token");
 			const token = generateAccessToken({
 				email: data.email,

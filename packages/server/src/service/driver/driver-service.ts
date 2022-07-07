@@ -20,7 +20,6 @@ export const getUserDrivers = async (req: Request, userId: string) => {
 				return await locationRepo.find({ where: { id: driver.locationId } });
 
 			});
-			console.log(locations);
 			const data = await Promise.all(locations);
 			const driversWithLocations = { driversInfo: currentUserDrivers, locationsInfo: data };
 			return { status: 200, message: "Drivers fetched", drivers: driversWithLocations };

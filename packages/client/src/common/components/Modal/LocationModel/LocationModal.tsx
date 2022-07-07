@@ -78,7 +78,7 @@ export const LocationModal = ({ position, data, callBackData, open, setOpen }: L
 	>
 		<ModalBox>
 			<Typography sx={{ textAlign: "center" }} id='modal-modal-title' variant='h6' component='h2'>
-				{t("modal.location.updateMessage")}
+				{t("modal.location.editMessage")}
 			</Typography>
 			<Divider />
 			<MapBox>

@@ -60,8 +60,8 @@ export const FavLocation: React.FC = () => {
 	];
 	return <>
 		<p>Welcome {userInfo?.user.userInfo.email} </p>
-		<CustomButton title={"Add Location"} type={"button"} color={"inherit"} onClick={() => { setOpenAddLocation(true); }} />
-		{isLoading ? <CircularProgress /> : <Table height={400} width={800} margin={15} columns={headers} rows={rowData ? rowData : []} />}
+		<CustomButton title={"Add Location"} type={"button"} color={"inherit"} onClick={()=>{setOpenAddLocation(true);}}/>
+		{isLoading ? <CircularProgress /> : <Table datepicker={true} height={400} width={800} margin={15} columns={headers} rows={rowData ? rowData : []} />}		
 		<ModalContainer callBackData={setRowData} data={selectedData} position={{ lat: position.lat, lng: position.lng }} open={openMap} setOpen={setOpenMap} page='location' />
 		<ModalContainer callBackData={setRowData} position={{ lat: 0, lng: 0 }} open={openAddLocation} setOpen={setOpenAddLocation} page="addLocation" />
 
