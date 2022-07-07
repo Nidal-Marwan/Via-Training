@@ -31,9 +31,7 @@ export default function DriverModal({ data, open, setOpen, callBackData, locatio
 	const { t } = useTranslation();
 	const { userInfo } = useMe();
 	const [error, setError] = useState<string | null>(null);
-	const [showModal, setShowModal] = useState(true);
 	const handleClose = () => {
-		setShowModal(false);
 		setOpen(false);
 	};
 	const onCancel = () => {
