@@ -7,7 +7,7 @@ import Table from "../../Table/Table";
 import { trainingClient } from "../../../api/trainingClient";
 import { ModalBox, MapBox, ActionsBox } from "./LocationModal.styles";
 import { GridCellParams } from "@mui/x-data-grid";
-import { userSelector } from "../../../../redux/Reducers/reducers";
+import { userSelector } from "../../../../redux/Actions/User/user.selector";
 
 interface LocationProps {
 	position: {

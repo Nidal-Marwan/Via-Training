@@ -10,7 +10,7 @@ import { CustomButton } from "../../Button/Button";
 import { useTranslation } from "react-i18next";
 import { trainingClient } from "../../../api/trainingClient";
 import CloseIcon from "@mui/icons-material/Close";
-import { userSelector } from "../../../../redux/Reducers/reducers";
+import {userSelector} from "../../../../redux/Actions/User/user.selector";
 
 interface DriverModalProps {
 	data?: {

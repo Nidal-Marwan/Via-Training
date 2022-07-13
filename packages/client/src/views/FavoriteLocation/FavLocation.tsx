@@ -8,7 +8,7 @@ import { trainingClient } from "../../common/api/trainingClient";
 import { useGetLocations } from "../../common/hooks/useGetLocations.hook";
 import { CircularProgress } from "@mui/material";
 import { CustomButton } from "../../common/components/Button/Button";
-import {  userSelector } from "../../redux/Reducers/reducers";
+import {userSelector} from "../../redux/Actions/User/user.selector";
 
 export const FavLocation: React.FC = () => {
 	const user = userSelector();

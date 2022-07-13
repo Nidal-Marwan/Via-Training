@@ -10,9 +10,3 @@ export type AppDispatch = typeof store.dispatch;
 export const useAppDispatch: () => AppDispatch = useDispatch;
 export type RootState = ReturnType<typeof store.getState>
 export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
-export const userSelector = ()=>{
-	return useSelector((state:State)=>state.user);
-};
-export const modalSelector = ()=>{
-	return useSelector((state:State)=>state.modal);
-};
