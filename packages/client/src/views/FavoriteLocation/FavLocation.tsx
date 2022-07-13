@@ -8,10 +8,10 @@ import { trainingClient } from "../../common/api/trainingClient";
 import { useGetLocations } from "../../common/hooks/useGetLocations.hook";
 import { CircularProgress } from "@mui/material";
 import { CustomButton } from "../../common/components/Button/Button";
-import { useAppSelector, State } from "../../redux/Reducers/reducers";
+import {  userSelector } from "../../redux/Reducers/reducers";
 
 export const FavLocation: React.FC = () => {
-	const user = useAppSelector((state:State)=>state.user);
+	const user = userSelector();
 	const [cursor, setCursor] = useState("auto");
 	const [openMap, setOpenMap] = useState(false);
 	const [openAddLocation, setOpenAddLocation] = useState(false);

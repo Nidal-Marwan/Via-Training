@@ -8,7 +8,7 @@ import { trainingClient } from "../../../api/trainingClient";
 import { ModalBox, MapBox, ActionsBox } from "./LocationModal.styles";
 import { GridCellParams } from "@mui/x-data-grid";
 import { format } from "date-fns";
-import { useAppSelector, State } from "../../../../redux/Reducers/reducers";
+import { userSelector } from "../../../../redux/Reducers/reducers";
 interface LocationProps {
 	position: {
 		lat: number,
@@ -20,7 +20,7 @@ interface LocationProps {
 }
 
 export const AddLocationModal = ({ position, callBackData, open, setOpen }: LocationProps) => {
-	const user = useAppSelector((state:State)=>state.user);
+	const user = userSelector();
 	const { t } = useTranslation();
 	const [locationInfo, setLocationInfo] = useState({ lat: position.lat, lng: position.lng });
 	const [locationName, setLocationName] = useState("");

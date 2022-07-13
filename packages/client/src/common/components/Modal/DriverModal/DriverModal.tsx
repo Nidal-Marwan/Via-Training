@@ -10,7 +10,7 @@ import { CustomButton } from "../../Button/Button";
 import { useTranslation } from "react-i18next";
 import { trainingClient } from "../../../api/trainingClient";
 import CloseIcon from "@mui/icons-material/Close";
-import { useAppSelector, State } from "../../../../redux/Reducers/reducers";
+import { userSelector } from "../../../../redux/Reducers/reducers";
 
 interface DriverModalProps {
 	data?: {
@@ -29,7 +29,7 @@ interface DriverModalProps {
 }
 export default function DriverModal({ data, open, setOpen, callBackData, locationData, buttonType }: DriverModalProps) {
 	const { t } = useTranslation();
-	const user = useAppSelector((state:State)=>state.user);
+	const user = userSelector();
 	const [error, setError] = useState<string | null>(null);
 	const handleClose = () => {
 		setOpen(false);

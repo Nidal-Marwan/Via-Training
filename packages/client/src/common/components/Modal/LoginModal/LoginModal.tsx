@@ -19,6 +19,7 @@ export const LoginModal = ({ open, setOpen }: LoginModalProps) => {
 
 	const handleClose = () => {
 		setOpen(false);
+		dispatch(setClose());
 	};
 	const onAccept = () => {
 		navigate("locations");
