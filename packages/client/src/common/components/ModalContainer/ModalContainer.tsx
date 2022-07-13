@@ -16,18 +16,20 @@ interface ModalProps {
 		date: Date;
 	} | any;
 	callBackData?: any;
+	locationData?: any;
+	buttonType?: any;
 	open: boolean;
 	setOpen: (state: boolean) => void;
 }
 
-export const ModalContainer = ({ page, position, data, callBackData, open, setOpen }: ModalProps) => {
+export const ModalContainer = ({ page, position, data, callBackData, open, setOpen, buttonType, locationData }: ModalProps) => {
 	let content;
 	if (page === "login") {
 		content = <LoginModal open={open} setOpen={setOpen} />;
 	} else if (page === "location" && position) {
 		content = <LocationModal callBackData={callBackData} data={data} position={position} open={open} setOpen={setOpen} />;
 	} else if (page === "drivers") {
-		content = <DriverModal data={data} open={open} setOpen={setOpen} />;
+		content = <DriverModal buttonType={buttonType} callBackData={callBackData} data={data} locationData={locationData} setOpen={setOpen} open={open} />;
 	} else if (page === "addLocation" && position) {
 		content = <AddLocationModal callBackData={callBackData} position={position} open={open} setOpen={setOpen} />;
 	}

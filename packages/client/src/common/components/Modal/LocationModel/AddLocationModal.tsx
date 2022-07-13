@@ -35,11 +35,10 @@ export const AddLocationModal = ({ position, callBackData, open, setOpen }: Loca
 	}];
 	const column = [
 		{
-			field: "name", headerName: "Name", headerAlign: "center", width: 150, align: "center", renderCell: (params: GridCellParams) => (
+			field: "name", headerName: "Name", headerAlign: "center", width: 150, align: "center", renderCell: () => (
 				<TextField
 					onChange={(e) => setLocationName(e.target.value)}
 					autoFocus
-					defaultValue={params.row.name}
 					variant="standard"
 				/>
 			),

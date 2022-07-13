@@ -17,8 +17,7 @@ export const FavLocation: React.FC = () => {
 	const [openAddLocation, setOpenAddLocation] = useState(false);
 	const [position, setPosition] = useState({ lat: 0, lng: 0 });
 	const [selectedData, setSelectedData] = useState<any>();
-	
-	const { rowData, isLoading, setRowData } = useGetLocations(user.id);
+	const { locationData, isLoading, setLocationData } = useGetLocations(user.id);
 	const handleEdit = (cell: GridCellParams) => {
 		setOpenMap(!openMap);
 		setPosition({ ...position, lat: cell.row.lat, lng: cell.row.long });
@@ -30,10 +29,10 @@ export const FavLocation: React.FC = () => {
 		if (response.data.status === 200) {
 			const response = await trainingClient.get(`/locations/${user.id}`);
 			if (response.data.status === 200) {
-				setRowData(response.data.data);
+				setLocationData(response.data.data);
 			}
 			if (response.data.status === 204) {
-				setRowData([]);
+				setLocationData([]);
 			}
 		}
 	};
@@ -61,10 +60,10 @@ export const FavLocation: React.FC = () => {
 	];
 	return <>
 		<p>Welcome {user.email} </p>
-		<CustomButton title={"Add Location"} type={"button"} color={"inherit"} onClick={() => { setOpenAddLocation(true); }} />
-		{isLoading ? <CircularProgress /> : <Table height={400} width={800} margin={15} columns={headers} rows={rowData ? rowData : []} />}
-		<ModalContainer callBackData={setRowData} data={selectedData} position={{ lat: position.lat, lng: position.lng }} open={openMap} setOpen={setOpenMap} page='location' />
-		<ModalContainer callBackData={setRowData} position={{ lat: 0, lng: 0 }} open={openAddLocation} setOpen={setOpenAddLocation} page="addLocation" />
+		<CustomButton title={"Add Location"} type={"button"} color={"inherit"} onClick={()=>{setOpenAddLocation(true);}}/>
+		{isLoading ? <CircularProgress /> : <Table datepicker={true} height={400} width={800} margin={15} columns={headers} rows={locationData ? locationData : []} />}		
+		<ModalContainer callBackData={setLocationData} data={selectedData} position={{ lat: position.lat, lng: position.lng }} open={openMap} setOpen={setOpenMap} page='location' />
+		<ModalContainer callBackData={setLocationData} position={{ lat: 0, lng: 0 }} open={openAddLocation} setOpen={setOpenAddLocation} page="addLocation" />
 
 	</>;
 };

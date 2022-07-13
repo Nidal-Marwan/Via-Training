@@ -17,9 +17,8 @@ interface LocationsData {
 }
 
 
-export const useGetLocations = (id: number) => {
-	console.log("id is ", id);
-	const [rowData, setRowData] = useState<LocationsData[]>();
+export const useGetLocations = (id?: number) => {
+	const [locationData, setLocationData] = useState<LocationsData[]>();
 	const [isLoading, setIsLoading] = useState(false);
 	const [error, setError] = useState("");
 	useEffect(() => {
@@ -31,7 +30,7 @@ export const useGetLocations = (id: number) => {
 				setIsLoading(true);
 				const locations = await trainingClient.get<LocationResponse>(`locations/${id}`);
 				if (locations.data.status === 200) {
-					setRowData(locations.data.data);
+					setLocationData(locations.data.data);
 					setIsLoading(false);
 				}
 				setIsLoading(false);
@@ -42,5 +41,5 @@ export const useGetLocations = (id: number) => {
 		getLocations();
 	}, [id]);
 
-	return { rowData, isLoading, error, setRowData };
+	return { locationData, isLoading, error, setLocationData };
 };
