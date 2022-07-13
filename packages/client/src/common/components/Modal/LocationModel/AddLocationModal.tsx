@@ -7,8 +7,8 @@ import Table from "../../Table/Table";
 import { trainingClient } from "../../../api/trainingClient";
 import { ModalBox, MapBox, ActionsBox } from "./LocationModal.styles";
 import { GridCellParams } from "@mui/x-data-grid";
-import { useMe } from "../../../hooks/useMe.hook";
 import { format } from "date-fns";
+import { useAppSelector, State } from "../../../../redux/Reducers/reducers";
 interface LocationProps {
 	position: {
 		lat: number,
@@ -20,7 +20,7 @@ interface LocationProps {
 }
 
 export const AddLocationModal = ({ position, callBackData, open, setOpen }: LocationProps) => {
-	const { userInfo } = useMe();
+	const user = useAppSelector((state:State)=>state.user);
 	const { t } = useTranslation();
 	const [locationInfo, setLocationInfo] = useState({ lat: position.lat, lng: position.lng });
 	const [locationName, setLocationName] = useState("");
@@ -51,10 +51,10 @@ export const AddLocationModal = ({ position, callBackData, open, setOpen }: Loca
 		setOpen(false);
 	};
 	const onAccept = async () => {
-		const payload = { name: locationName, lat: locationInfo.lat, long: locationInfo.lng, date: formattedDate, userId: userInfo?.user.userInfo.id };
+		const payload = { name: locationName, lat: locationInfo.lat, long: locationInfo.lng, date: formattedDate, userId: user.id };
 		const response = await trainingClient.post("/locations", payload);
 		if (response.data.status === 200) {
-			const response = await trainingClient.get(`/locations/${userInfo?.user.userInfo.id}`);
+			const response = await trainingClient.get(`/locations/${user.id}`);
 			if (response.data.status === 200) {
 				callBackData(response.data.data);
 			}

@@ -8,10 +8,9 @@ import { SelectInput } from "../../SelectInput/SelectInput";
 import { CustomButton } from "../../Button/Button";
 import { useTranslation } from "react-i18next";
 import { trainingClient } from "../../../api/trainingClient";
-import { useMe } from "../../../hooks/useMe.hook";
 import CloseIcon from "@mui/icons-material/Close";
 import { useState } from "react";
-
+import { useAppSelector, State } from "../../../../redux/Reducers/reducers";
 
 interface DriverModalProps {
 	data: any[];
@@ -20,7 +19,7 @@ interface DriverModalProps {
 }
 export default function DriverModal({data, open, setOpen }: DriverModalProps) {
 	const { t } = useTranslation();
-	const { userInfo } = useMe();
+	const user = useAppSelector((state:State)=>state.user);
 	const [error, setError] = useState<string | null>(null);
 
 	const handleClose = () => {
@@ -38,7 +37,7 @@ export default function DriverModal({data, open, setOpen }: DriverModalProps) {
 		location: "",
 	};
 	const handleSubmit = async (values: any) => {
-		const payload = { ...values, locationId: location, userId: userInfo?.user.userInfo.id };
+		const payload = { ...values, locationId: location, userId: user.id };
 		const response = await trainingClient.post("/drivers", payload);
 		if (response.data.status === 409) {
 			setError(response.data.message);

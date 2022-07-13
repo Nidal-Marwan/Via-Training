@@ -18,13 +18,12 @@ interface ModalProps {
 	callBackData?: any;
 	open: boolean;
 	setOpen: (state: boolean) => void;
-	setShownModal?: any;
 }
 
-export const ModalContainer = ({ page, position, data, callBackData, open, setOpen, setShownModal }: ModalProps) => {
+export const ModalContainer = ({ page, position, data, callBackData, open, setOpen }: ModalProps) => {
 	let content;
 	if (page === "login") {
-		content = <LoginModal open={open} setOpen={setOpen} setShownModal={setShownModal} />;
+		content = <LoginModal open={open} setOpen={setOpen} />;
 	} else if (page === "location" && position) {
 		content = <LocationModal callBackData={callBackData} data={data} position={position} open={open} setOpen={setOpen} />;
 	} else if (page === "drivers") {

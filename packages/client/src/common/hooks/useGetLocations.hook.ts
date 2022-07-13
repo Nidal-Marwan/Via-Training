@@ -17,7 +17,7 @@ interface LocationsData {
 }
 
 
-export const useGetLocations = (id?: number) => {
+export const useGetLocations = (id: number) => {
 	console.log("id is ", id);
 	const [rowData, setRowData] = useState<LocationsData[]>();
 	const [isLoading, setIsLoading] = useState(false);

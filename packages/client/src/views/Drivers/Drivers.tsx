@@ -1,13 +1,15 @@
 import { Button, CircularProgress } from "@mui/material";
+import { userInfo } from "os";
 import { useState } from "react";
 import { ModalContainer } from "../../common/components/ModalContainer/ModalContainer";
 import { useGetLocations } from "../../common/hooks/useGetLocations.hook";
-import { useMe } from "../../common/hooks/useMe.hook";
+import { useAppSelector, State } from "../../redux/Reducers/reducers";
+
 
 export default function Drivers() {
 	const [openModal, setOpenModal] = useState(false);
-	const { userInfo } = useMe();
-	const { rowData, isLoading } = useGetLocations(userInfo?.user.userInfo.id);
+	const user = useAppSelector((state:State)=>state.user);
+	const { rowData, isLoading } = useGetLocations(user.id);
 	const handleClick = () => {
 		setOpenModal(!openModal);
 	};
