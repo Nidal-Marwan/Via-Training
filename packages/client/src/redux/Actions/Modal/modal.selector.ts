@@ -1,6 +1,5 @@
-import { useSelector } from "react-redux";
+import { createSelector } from "reselect";
 import {State} from "../../Reducers/reducers";
 
-export const modalSelector = ()=>{
-	return useSelector((state:State)=>state.modal);
-};
+export const modalSelector = (state:State) => state.modal;
+export const modal = createSelector(modalSelector,(modal)=>modal);
