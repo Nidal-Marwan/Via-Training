@@ -1,22 +1,25 @@
-import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import Modal from "../Modal";
 import { Button, Divider, Typography } from "@mui/material";
 import { ModalBox, ActionsBox } from "./LoginModal.styles";
+import { bindActionCreators } from "redux";
+import { useAppDispatch } from "../../../../redux/Reducers/reducers";
+import * as modalActionCreators from "../../../../redux/Actions/Modal/modalActionsCreators";
 
 interface LoginModalProps {
 	open: boolean;
 	setOpen: (state: boolean) => void;
-	setShownModal: (state: boolean) => void;
 }
-export const LoginModal = ({ open, setOpen, setShownModal }: LoginModalProps) => {
+export const LoginModal = ({ open, setOpen }: LoginModalProps) => {
+	const dispatch = useAppDispatch();
+	const {setClose} = bindActionCreators(modalActionCreators,dispatch);
 	const navigate = useNavigate();
 	const { t } = useTranslation();
 
 	const handleClose = () => {
 		setOpen(false);
-		setShownModal(true);
+		dispatch(setClose());
 	};
 	const onAccept = () => {
 		navigate("locations");

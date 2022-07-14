@@ -1,6 +1,6 @@
-import DriverModal from "../Modal/DriverModal/DriverModal";
-import { AddLocationModal } from "../Modal/LocationModel/AddLocationModal";
-import { LocationModal } from "../Modal/LocationModel/LocationModal";
+import {DriverModal} from "../Modal/DriverModal/DriverModal";
+import  {AddLocationModal}  from "../Modal/LocationModel/AddLocationModal";
+import  {LocationModal}  from "../Modal/LocationModel/LocationModal";
 import { LoginModal } from "../Modal/LoginModal/LoginModal";
 interface ModalProps {
 	page: string,
@@ -20,13 +20,12 @@ interface ModalProps {
 	buttonType?: any;
 	open: boolean;
 	setOpen: (state: boolean) => void;
-	setShownModal?: any;
 }
 
-export const ModalContainer = ({ page, position, data, callBackData, open, setOpen, setShownModal, buttonType, locationData }: ModalProps) => {
+export const ModalContainer = ({ page, position, data, callBackData, open, setOpen, buttonType, locationData }: ModalProps) => {
 	let content;
 	if (page === "login") {
-		content = <LoginModal open={open} setOpen={setOpen} setShownModal={setShownModal} />;
+		content = <LoginModal open={open} setOpen={setOpen} />;
 	} else if (page === "location" && position) {
 		content = <LocationModal callBackData={callBackData} data={data} position={position} open={open} setOpen={setOpen} />;
 	} else if (page === "drivers") {
