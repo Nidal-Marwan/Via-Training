@@ -29,7 +29,6 @@ export const Map = ({ position, modalCallback }: MapProps) => {
 			const lng = event.lng;
 			modalCallback(lat, lng);
 			setMarkerPostion({ lat: +lat, lng: +lng });
-
 		}
 	};
 	return isLoaded ? (

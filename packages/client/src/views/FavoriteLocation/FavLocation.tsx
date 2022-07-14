@@ -16,11 +16,11 @@ export const FavLocation: React.FC = () => {
 	const [openMap, setOpenMap] = useState(false);
 	const [openAddLocation, setOpenAddLocation] = useState(false);
 	const [position, setPosition] = useState({ lat: 0, lng: 0 });
-	const [selectedData, setSelectedData] = useState<any>();
+	const [selectedData, setSelectedData] = useState({});
 	const { locationData, isLoading, setLocationData } = useGetLocations(userInfo?.user.userInfo.id);
 	const handleEdit = (cell: GridCellParams) => {
 		setOpenMap(!openMap);
-		setPosition({ ...position, lat: cell.row.lat, lng: cell.row.long });
+		setPosition({ lat: cell.row.lat, lng: cell.row.long });
 		setSelectedData(cell.row);
 	};
 	const handleDelete = async (cell: GridCellParams) => {
@@ -43,7 +43,7 @@ export const FavLocation: React.FC = () => {
 		{
 			field: "name", headerName: "Name", headerAlign: "center", width: 150, align: "center",
 		},
-		{ field: "lat", editable: true, headerName: "Latitude", headerAlign: "center", type: "number", width: 100, align: "center" },
+		{ field: "lat", headerName: "Latitude", headerAlign: "center", type: "number", width: 100, align: "center" },
 		{ field: "long", headerName: "Longitude", headerAlign: "center", type: "number", width: 100, align: "center" },
 		{ field: "date", headerName: "Date", headerAlign: "center", type: "date", width: 100, align: "center" },
 		{
@@ -60,8 +60,8 @@ export const FavLocation: React.FC = () => {
 	];
 	return <>
 		<p>Welcome {userInfo?.user.userInfo.email} </p>
-		<CustomButton title={"Add Location"} type={"button"} color={"inherit"} onClick={()=>{setOpenAddLocation(true);}}/>
-		{isLoading ? <CircularProgress /> : <Table datepicker={true} height={400} width={800} margin={15} columns={headers} rows={locationData ? locationData : []} />}		
+		<CustomButton title={"Add Location"} type={"button"} color={"inherit"} onClick={() => { setOpenAddLocation(true); }} />
+		{isLoading ? <CircularProgress /> : <Table datepicker height={400} width={800} margin={15} columns={headers} rows={locationData ? locationData : []} />}
 		<ModalContainer callBackData={setLocationData} data={selectedData} position={{ lat: position.lat, lng: position.lng }} open={openMap} setOpen={setOpenMap} page='location' />
 		<ModalContainer callBackData={setLocationData} position={{ lat: 0, lng: 0 }} open={openAddLocation} setOpen={setOpenAddLocation} page="addLocation" />
 
