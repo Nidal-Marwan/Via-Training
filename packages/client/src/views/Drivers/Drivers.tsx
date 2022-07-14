@@ -11,15 +11,17 @@ import { CustomButton } from "../../common/components/Button/Button";
 import { useGetDrivers } from "../../common/hooks/useGetDrivers.hook";
 import { useGetLocations } from "../../common/hooks/useGetLocations.hook";
 import { useTranslation } from "react-i18next";
+import { useSelector } from "react-redux";
+import { userSelector } from "../../redux/Actions/User/user.selector";
 
 export const Drivers = () => {
 	const { t } = useTranslation();
 	const [openModal, setOpenModal] = useState(false);
-	const { userInfo } = useMe();
+	const userInfo = useSelector(userSelector);
 	const [cursor, setCursor] = useState("auto");
 	const [selectedData, setSelectedData] = useState<any>();
-	const { rowData, driverLocationData, setRowData } = useGetDrivers(userInfo?.user.userInfo.id);
-	const { locationData } = useGetLocations(userInfo?.user.userInfo.id);
+	const { rowData, driverLocationData, setRowData } = useGetDrivers(userInfo.id);
+	const { locationData } = useGetLocations(userInfo.id);
 	const [buttonType, setButtonType] = useState("submit");
 	const handleEdit = (cell: GridCellParams) => {
 		setOpenModal(!openModal);		
@@ -35,7 +37,7 @@ export const Drivers = () => {
 		const cellId = +cell.row.id;
 		const response = await trainingClient.delete(`/drivers/${cellId}`);
 		if (response.data.status === 200) {
-			const response = await trainingClient.get(`/drivers/${userInfo?.user.userInfo.id}`);
+			const response = await trainingClient.get(`/drivers/${userInfo.id}`);
 			if (response.data.status === 200) {
 				setRowData(response.data.drivers.driversInfo);
 			}
@@ -74,7 +76,7 @@ export const Drivers = () => {
 
 	];
 	return <>
-		<p>Welcome {userInfo?.user.userInfo.email} </p>
+		<p>Welcome {userInfo.email} </p>
 		<CustomButton title={t("drivers.modal.addDriverButton")} type={"button"} color={"inherit"} onClick={handleClick}/>
 		<Table datepicker={true} height={400} width={950} margin={15} columns={headers} rows={rowData ? rowData : []} />
 		<ModalContainer callBackData={setRowData} buttonType={buttonType} data={selectedData} locationData={locationData} page="drivers" open={openModal} setOpen={setOpenModal} />

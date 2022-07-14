@@ -6,7 +6,8 @@ import LanguageDetector from "i18next-browser-languagedetector";
 import languages from "./common/localization/languages";
 import { App } from "./App";
 import { BrowserRouter } from "react-router-dom";
-
+import { Provider } from "react-redux";
+import { store } from "./redux/Store/store";
 i18next
 	.use(HttpApi)
 	.use(LanguageDetector)
@@ -26,11 +27,18 @@ i18next
 		},
 	});
 
+
+
 const root = ReactDOM.createRoot(
 	document.getElementById("root") as HTMLElement
 );
 root.render(
+
 	<BrowserRouter>
-		<App />
+		<Provider store={store}>
+			<App />
+		</Provider>
 	</BrowserRouter>
+
+
 );

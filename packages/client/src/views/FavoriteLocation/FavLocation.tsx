@@ -1,5 +1,4 @@
 import Table from "../../common/components/Table/Table";
-import { useMe } from "../../common/hooks/useMe.hook";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { useState } from "react";
@@ -9,15 +8,17 @@ import { trainingClient } from "../../common/api/trainingClient";
 import { useGetLocations } from "../../common/hooks/useGetLocations.hook";
 import { CircularProgress } from "@mui/material";
 import { CustomButton } from "../../common/components/Button/Button";
+import { useSelector } from "react-redux";
+import { userSelector } from "../../redux/Actions/User/user.selector";
 
-export const FavLocation: React.FC = () => {
-	const { userInfo } = useMe();
+export const FavLocation:React.FC = () => {
+	const userInfo = useSelector(userSelector);
 	const [cursor, setCursor] = useState("auto");
 	const [openMap, setOpenMap] = useState(false);
 	const [openAddLocation, setOpenAddLocation] = useState(false);
 	const [position, setPosition] = useState({ lat: 0, lng: 0 });
-	const [selectedData, setSelectedData] = useState({});
-	const { locationData, isLoading, setLocationData } = useGetLocations(userInfo?.user.userInfo.id);
+	const [selectedData, setSelectedData] = useState<any>();
+	const { locationData, isLoading, setLocationData } = useGetLocations(userInfo?.id);
 	const handleEdit = (cell: GridCellParams) => {
 		setOpenMap(!openMap);
 		setPosition({ lat: cell.row.lat, lng: cell.row.long });
@@ -27,7 +28,7 @@ export const FavLocation: React.FC = () => {
 		const cellId = +cell.row.id;
 		const response = await trainingClient.delete(`/locations/${cellId}`);
 		if (response.data.status === 200) {
-			const response = await trainingClient.get(`/locations/${userInfo?.user.userInfo.id}`);
+			const response = await trainingClient.get(`/locations/${userInfo?.id}`);
 			if (response.data.status === 200) {
 				setLocationData(response.data.data);
 			}
@@ -59,11 +60,14 @@ export const FavLocation: React.FC = () => {
 
 	];
 	return <>
-		<p>Welcome {userInfo?.user.userInfo.email} </p>
-		<CustomButton title={"Add Location"} type={"button"} color={"inherit"} onClick={() => { setOpenAddLocation(true); }} />
-		{isLoading ? <CircularProgress /> : <Table datepicker height={400} width={800} margin={15} columns={headers} rows={locationData ? locationData : []} />}
+		<p>Welcome {userInfo?.email} </p>
+		<CustomButton title={"Add Location"} type={"button"} color={"inherit"} onClick={()=>{setOpenAddLocation(true);}}/>
+		{isLoading ? <CircularProgress /> : <Table datepicker={true} height={400} width={800} margin={15} columns={headers} rows={locationData ? locationData : []} />}		
 		<ModalContainer callBackData={setLocationData} data={selectedData} position={{ lat: position.lat, lng: position.lng }} open={openMap} setOpen={setOpenMap} page='location' />
 		<ModalContainer callBackData={setLocationData} position={{ lat: 0, lng: 0 }} open={openAddLocation} setOpen={setOpenAddLocation} page="addLocation" />
 
 	</>;
 };
+
+
+

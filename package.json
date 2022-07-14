@@ -17,8 +17,7 @@
       "lint:client:fix": "eslint packages/client/src/**/*.{ts,tsx} --fix",
       "lint:server:fix": "eslint packages/server/src/**/*.{ts,tsx} --fix",
       "lint:client": "eslint packages/client/src/**/*.{ts,tsx}",
-      "lint:server": "eslint packages/server/src/**/*.{ts,tsx}",
-      "prepare": "husky install"
+      "lint:server": "eslint packages/server/src/**/*.{ts,tsx}"
    },
    "repository": {
       "type": "git",

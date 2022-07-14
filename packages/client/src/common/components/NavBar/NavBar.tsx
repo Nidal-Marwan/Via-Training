@@ -10,15 +10,9 @@ import { Link } from "react-router-dom";
 import LanguageSelector from "../LanguageSelector/LanguageSelector";
 import { useEffect, useState } from "react";
 import { CustomButton } from "../Button/Button";
-
-const handleLogout = () => {
-	if(window.localStorage.getItem("access_token")){
-		window.localStorage.removeItem("access_token");
-		window.dispatchEvent(new Event("storage"));
-	}else{
-		return;
-	}
-};
+import { bindActionCreators } from "redux";
+import * as userActionCreators from "../../../redux/Actions/User/userActionsCreators";
+import { useAppDispatch } from "../../../redux/Reducers/reducers";
 
 const shouldHideSignoutButton = () => {
 	if(window.localStorage.getItem("access_token")){
@@ -30,14 +24,23 @@ const shouldHideSignoutButton = () => {
 
 export const NavBar: React.FC = () => {
 	const [isHidden, setIsHidden] = useState(shouldHideSignoutButton());
+	const dispatch = useAppDispatch();
+	const {deleteUser} = bindActionCreators(userActionCreators,dispatch);
 	useEffect(()=>{
 		window.addEventListener("storage", () => {
 			setIsHidden(shouldHideSignoutButton());
 		});
-		
-		
 	},[isHidden]);
-	
+	const handleLogout = () => {
+		
+		if(window.localStorage.getItem("access_token")){
+			window.localStorage.removeItem("access_token");
+			window.dispatchEvent(new Event("storage"));
+			dispatch(deleteUser());
+		}else{
+			return;
+		}
+	};
 	const { t } = useTranslation();
 	return (
 		<Box>
@@ -70,3 +73,4 @@ export const NavBar: React.FC = () => {
 		</Box>
 	);
 };
+

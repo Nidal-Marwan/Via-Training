@@ -9,8 +9,9 @@ import { SelectInput } from "../../SelectInput/SelectInput";
 import { CustomButton } from "../../Button/Button";
 import { useTranslation } from "react-i18next";
 import { trainingClient } from "../../../api/trainingClient";
-import { useMe } from "../../../hooks/useMe.hook";
 import CloseIcon from "@mui/icons-material/Close";
+import { userSelector} from "../../../../redux/Actions/User/user.selector";
+import {  useSelector } from "react-redux";
 
 interface DriverModalProps {
 	data?: {
@@ -27,9 +28,9 @@ interface DriverModalProps {
 	locationData: any;
 	buttonType: any;
 }
-export default function DriverModal({ data, open, setOpen, callBackData, locationData, buttonType }: DriverModalProps) {
+export const DriverModal =({ data, open, setOpen, callBackData, locationData, buttonType }: DriverModalProps) => {
+	const userInfo = useSelector(userSelector);
 	const { t } = useTranslation();
-	const { userInfo } = useMe();
 	const [error, setError] = useState<string | null>(null);
 	const handleClose = () => {
 		setOpen(false);
@@ -55,11 +56,11 @@ export default function DriverModal({ data, open, setOpen, callBackData, locatio
 	};
 
 	const handleSubmit = async(values: any) => {
-		const payload = { ...values, userId: userInfo?.user.userInfo.id, id: data?.id };
+		const payload = { ...values, userId: userInfo.id, id: data?.id };
 		if(buttonType === "button"){
 			const response = await trainingClient.put("/drivers", payload);
 			if (response.data.status === 200) {
-				const response = await trainingClient.get(`/drivers/${userInfo?.user.userInfo.id}`);
+				const response = await trainingClient.get(`/drivers/${userInfo.id}`);
 				if (response.data.status === 200) {
 					callBackData(response.data.drivers.driversInfo);
 				}
@@ -68,7 +69,7 @@ export default function DriverModal({ data, open, setOpen, callBackData, locatio
 		}else{
 			const response = await trainingClient.post("/drivers", payload);
 			if (response.data.status === 200) {
-				const response = await trainingClient.get(`/drivers/${userInfo?.user.userInfo.id}`);
+				const response = await trainingClient.get(`/drivers/${userInfo.id}`);
 				if (response.data.status === 200) {
 					callBackData(response.data.drivers.driversInfo);
 				}
@@ -77,7 +78,6 @@ export default function DriverModal({ data, open, setOpen, callBackData, locatio
 		}
 	};
 
-	console.log(locationData);
 	return (
 		<Modal open={open} onCancel={onCancel}>
 			<ModalBox>
@@ -155,4 +155,4 @@ export default function DriverModal({ data, open, setOpen, callBackData, locatio
 			</ModalBox>
 		</Modal >
 	);
-}
+};
