@@ -9,10 +9,10 @@ import { useGetLocations } from "../../common/hooks/useGetLocations.hook";
 import { CircularProgress } from "@mui/material";
 import { CustomButton } from "../../common/components/Button/Button";
 import { useSelector } from "react-redux";
-import { user } from "../../redux/Actions/User/user.selector";
+import { userSelector } from "../../redux/Actions/User/user.selector";
 
 export const FavLocation:React.FC = () => {
-	const userInfo = useSelector(user);
+	const userInfo = useSelector(userSelector);
 	const [cursor, setCursor] = useState("auto");
 	const [openMap, setOpenMap] = useState(false);
 	const [openAddLocation, setOpenAddLocation] = useState(false);

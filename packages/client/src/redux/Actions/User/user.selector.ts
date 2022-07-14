@@ -2,5 +2,5 @@ import {State} from "../../Reducers/reducers";
 import { createSelector } from "reselect";
 
 
-export const userSelector = (state:State) => state.user;
-export const user = createSelector(userSelector,(user)=>user);
+export const user = (state:State) => state.user;
+export const userSelector = createSelector(user,(user)=>user);

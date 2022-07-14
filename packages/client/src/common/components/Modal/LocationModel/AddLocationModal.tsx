@@ -7,7 +7,7 @@ import Table from "../../Table/Table";
 import { trainingClient } from "../../../api/trainingClient";
 import { ModalBox, MapBox, ActionsBox } from "./LocationModal.styles";
 import { format } from "date-fns";
-import { user } from "../../../../redux/Actions/User/user.selector";
+import { userSelector } from "../../../../redux/Actions/User/user.selector";
 import {useSelector} from "react-redux";
 interface LocationProps {
 	position: {
@@ -20,7 +20,7 @@ interface LocationProps {
 }
 
 export const AddLocationModal = ({ position, callBackData, open, setOpen }: LocationProps) => {
-	const userInfo = useSelector(user);
+	const userInfo = useSelector(userSelector);
 	const { t } = useTranslation();
 	const [locationInfo, setLocationInfo] = useState({ lat: position.lat, lng: position.lng });
 	const [locationName, setLocationName] = useState("");
