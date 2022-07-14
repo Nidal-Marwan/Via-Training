@@ -1,6 +1,6 @@
-import DriverModal from "../Modal/DriverModal/DriverModal";
-import  AddLocationModal  from "../Modal/LocationModel/AddLocationModal";
-import  LocationModal  from "../Modal/LocationModel/LocationModal";
+import {DriverModal} from "../Modal/DriverModal/DriverModal";
+import  {AddLocationModal}  from "../Modal/LocationModel/AddLocationModal";
+import  {LocationModal}  from "../Modal/LocationModel/LocationModal";
 import { LoginModal } from "../Modal/LoginModal/LoginModal";
 interface ModalProps {
 	page: string,

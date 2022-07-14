@@ -8,16 +8,11 @@ import { trainingClient } from "../../common/api/trainingClient";
 import { useGetLocations } from "../../common/hooks/useGetLocations.hook";
 import { CircularProgress } from "@mui/material";
 import { CustomButton } from "../../common/components/Button/Button";
-import { State } from "../../redux/Reducers/reducers";
-import { connect } from "react-redux";
-import { userState } from "../../redux/Reducers/userReducer";
-import { userSelector } from "../../redux/Actions/User/user.selector";
-interface Props{
-	user?: userState
-}
+import { useSelector } from "react-redux";
+import { user } from "../../redux/Actions/User/user.selector";
 
-const FavLocation:React.FC<Props|any> = ({user}:Props) => {
-	const userInfo = user;
+export const FavLocation:React.FC = () => {
+	const userInfo = useSelector(user);
 	const [cursor, setCursor] = useState("auto");
 	const [openMap, setOpenMap] = useState(false);
 	const [openAddLocation, setOpenAddLocation] = useState(false);
@@ -73,14 +68,6 @@ const FavLocation:React.FC<Props|any> = ({user}:Props) => {
 
 	</>;
 };
-
-const mapState = (state:State)=>{
-	return {
-		user: userSelector(state)
-	};
-};
-
-export default connect(mapState)(FavLocation);
 
 
 
