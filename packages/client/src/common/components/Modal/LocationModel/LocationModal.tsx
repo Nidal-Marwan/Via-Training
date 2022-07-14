@@ -35,6 +35,7 @@ export const LocationModal = ({ position, data, callBackData, open, setOpen }: L
 
 	useEffect(() => {
 		setLocationInfo({ lat: data.lat, lng: data.long });
+		setLocationName(data.name);
 		setIsLoading(true);
 		const timer = setTimeout(() => setIsLoading(false), 600);
 		return () => clearTimeout(timer);

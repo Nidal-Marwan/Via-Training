@@ -8,7 +8,7 @@ import { trainingClient } from "../../../api/trainingClient";
 import { ModalBox, MapBox, ActionsBox } from "./LocationModal.styles";
 import { format } from "date-fns";
 import { userSelector } from "../../../../redux/Actions/User/user.selector";
-import {useSelector} from "react-redux";
+import { useSelector } from "react-redux";
 interface LocationProps {
 	position: {
 		lat: number,
@@ -31,7 +31,6 @@ export const AddLocationModal = ({ position, callBackData, open, setOpen }: Loca
 		name: locationName,
 		lat: locationInfo.lat,
 		lng: locationInfo.lng,
-
 	}];
 	const column = [
 		{
@@ -48,6 +47,8 @@ export const AddLocationModal = ({ position, callBackData, open, setOpen }: Loca
 	];
 	const handleClose = () => {
 		setOpen(false);
+		setLocationInfo({ lat: 0, lng: 0 });
+		setLocationName("");
 	};
 	const onAccept = async () => {
 		const payload = { name: locationName, lat: locationInfo.lat, long: locationInfo.lng, date: formattedDate, userId: userInfo.id };
