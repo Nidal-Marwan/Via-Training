@@ -9,6 +9,9 @@ import { ModalBox, MapBox, ActionsBox } from "./LocationModal.styles";
 import { GridCellParams } from "@mui/x-data-grid";
 import { format } from "date-fns";
 import { userSelector } from "../../../../redux/Actions/User/user.selector";
+import { userState } from "../../../../redux/Reducers/userReducer";
+import { connect } from "react-redux";
+import { State } from "../../../../redux/Reducers/reducers";
 interface LocationProps {
 	position: {
 		lat: number,
@@ -17,10 +20,10 @@ interface LocationProps {
 	callBackData: any;
 	open: boolean;
 	setOpen: (state: boolean) => void;
+	user?:userState
 }
 
-export const AddLocationModal = ({ position, callBackData, open, setOpen }: LocationProps) => {
-	const user = userSelector();
+const AddLocationModal = ({ position, callBackData, open, setOpen,user }: LocationProps) => {
 	const { t } = useTranslation();
 	const [locationInfo, setLocationInfo] = useState({ lat: position.lat, lng: position.lng });
 	const [locationName, setLocationName] = useState("");
@@ -50,10 +53,10 @@ export const AddLocationModal = ({ position, callBackData, open, setOpen }: Loca
 		setOpen(false);
 	};
 	const onAccept = async () => {
-		const payload = { name: locationName, lat: locationInfo.lat, long: locationInfo.lng, date: formattedDate, userId: user.id };
+		const payload = { name: locationName, lat: locationInfo.lat, long: locationInfo.lng, date: formattedDate, userId: user?.id };
 		const response = await trainingClient.post("/locations", payload);
 		if (response.data.status === 200) {
-			const response = await trainingClient.get(`/locations/${user.id}`);
+			const response = await trainingClient.get(`/locations/${user?.id}`);
 			if (response.data.status === 200) {
 				callBackData(response.data.data);
 			}
@@ -93,3 +96,11 @@ export const AddLocationModal = ({ position, callBackData, open, setOpen }: Loca
 		</ModalBox>
 	</Modal>;
 };
+
+const mapState = (state:State)=>{
+	return {
+		user: userSelector(state)
+	};
+};
+
+export default connect(mapState)(AddLocationModal);

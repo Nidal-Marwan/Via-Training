@@ -8,6 +8,9 @@ import { trainingClient } from "../../../api/trainingClient";
 import { ModalBox, MapBox, ActionsBox } from "./LocationModal.styles";
 import { GridCellParams } from "@mui/x-data-grid";
 import { userSelector } from "../../../../redux/Actions/User/user.selector";
+import { userState } from "../../../../redux/Reducers/userReducer";
+import { connect } from "react-redux";
+import { State } from "../../../../redux/Reducers/reducers";
 
 interface LocationProps {
 	position: {
@@ -24,10 +27,10 @@ interface LocationProps {
 	callBackData: any;
 	open: boolean;
 	setOpen: (state: boolean) => void;
+	user?:userState
 }
 
-export const LocationModal = ({ position, data, callBackData, open, setOpen }: LocationProps) => {
-	const user = userSelector();
+const LocationModal = ({ position, data, callBackData, open, setOpen, user }: LocationProps) => {
 	const { t } = useTranslation();
 	const [locationInfo, setLocationInfo] = useState({ lat: data?.lat, lng: data?.long });
 	const [locationName, setLocationName] = useState(data?.name);
@@ -56,10 +59,10 @@ export const LocationModal = ({ position, data, callBackData, open, setOpen }: L
 		setOpen(false);
 	};
 	const onAccept = async () => {
-		const payload = { id: data?.id, name: locationName, lat: locationInfo.lat, long: locationInfo.lng, date: data?.date, userId: user.id };
+		const payload = { id: data?.id, name: locationName, lat: locationInfo.lat, long: locationInfo.lng, date: data?.date, userId: user?.id };
 		const response = await trainingClient.put("/locations", payload);
 		if (response.data.status === 200) {
-			const response = await trainingClient.get(`/locations/${user.id}`);
+			const response = await trainingClient.get(`/locations/${user?.id}`);
 			if (response.data.status === 200) {
 				callBackData(response.data.data);
 			}
@@ -102,3 +105,11 @@ export const LocationModal = ({ position, data, callBackData, open, setOpen }: L
 		</ModalBox>
 	</Modal>;
 };
+
+const mapState = (state:State)=>{
+	return {
+		user: userSelector(state)
+	};
+};
+
+export default connect(mapState)(LocationModal);

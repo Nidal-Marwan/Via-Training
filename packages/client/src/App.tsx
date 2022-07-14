@@ -11,7 +11,7 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import  {NavBar}  from "./common/components/NavBar/NavBar";
 import { SignUp } from "./common/components/SignUp/SignUp";
 import { customTheme } from "./common/utils/theme";
-import  {FavLocation}  from "./views/FavoriteLocation/FavLocation";
+import  FavLocation  from "./views/FavoriteLocation/FavLocation";
 import { useEffect, useState } from "react";
 import { useMe } from "./common/hooks/useMe.hook";
 import { bindActionCreators } from "redux";
@@ -59,7 +59,7 @@ export const App = () => {
 							<Routes>
 								<Route path="/" element={isLoggedIn && shownModal ? <Navigate to="/locations" /> : <Home />} />
 								<Route path="signup" element={isLoggedIn ? <Navigate to="/locations" /> : <SignUp />} />
-								<Route path="locations" element={isLoggedIn ? <FavLocation /> : <Navigate to="/" />} />
+								<Route path="locations" element={isLoggedIn ? <FavLocation/> : <Navigate to="/" />} />
 								<Route path="drivers" element={isLoggedIn ? <Drivers /> : <Navigate to="/" />} />
 								{/* <Route path="liveMap" element={ <Map/> } />*/}
 							</Routes >

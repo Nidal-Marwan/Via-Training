@@ -11,6 +11,9 @@ import { useTranslation } from "react-i18next";
 import { trainingClient } from "../../../api/trainingClient";
 import CloseIcon from "@mui/icons-material/Close";
 import {userSelector} from "../../../../redux/Actions/User/user.selector";
+import { userState } from "../../../../redux/Reducers/userReducer";
+import { State } from "../../../../redux/Reducers/reducers";
+import { connect } from "react-redux";
 
 interface DriverModalProps {
 	data?: {
@@ -26,10 +29,10 @@ interface DriverModalProps {
 	callBackData: any;
 	locationData: any;
 	buttonType: any;
+	user?:userState
 }
-export default function DriverModal({ data, open, setOpen, callBackData, locationData, buttonType }: DriverModalProps) {
+const DriverModal =({ data, open, setOpen, callBackData, locationData, buttonType,user }: DriverModalProps) => {
 	const { t } = useTranslation();
-	const user = userSelector();
 	const [error, setError] = useState<string | null>(null);
 	const handleClose = () => {
 		setOpen(false);
@@ -55,11 +58,11 @@ export default function DriverModal({ data, open, setOpen, callBackData, locatio
 	};
 
 	const handleSubmit = async(values: any) => {
-		const payload = { ...values, userId: user.id, id: data?.id };
+		const payload = { ...values, userId: user?.id, id: data?.id };
 		if(buttonType === "button"){
 			const response = await trainingClient.put("/drivers", payload);
 			if (response.data.status === 200) {
-				const response = await trainingClient.get(`/drivers/${user.id}`);
+				const response = await trainingClient.get(`/drivers/${user?.id}`);
 				if (response.data.status === 200) {
 					callBackData(response.data.drivers.driversInfo);
 				}
@@ -68,7 +71,7 @@ export default function DriverModal({ data, open, setOpen, callBackData, locatio
 		}else{
 			const response = await trainingClient.post("/drivers", payload);
 			if (response.data.status === 200) {
-				const response = await trainingClient.get(`/drivers/${user.id}`);
+				const response = await trainingClient.get(`/drivers/${user?.id}`);
 				if (response.data.status === 200) {
 					callBackData(response.data.drivers.driversInfo);
 				}
@@ -77,7 +80,6 @@ export default function DriverModal({ data, open, setOpen, callBackData, locatio
 		}
 	};
 
-	console.log(locationData);
 	return (
 		<Modal open={open} onCancel={onCancel}>
 			<ModalBox>
@@ -155,4 +157,12 @@ export default function DriverModal({ data, open, setOpen, callBackData, locatio
 			</ModalBox>
 		</Modal >
 	);
-}
+};
+
+const mapState = (state:State)=>{
+	return{
+		user: userSelector(state)
+	};
+};
+
+export default connect(mapState)(DriverModal);
