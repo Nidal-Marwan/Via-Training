@@ -18,7 +18,7 @@ import { useAppDispatch } from "./redux/Reducers/reducers";
 import * as modalActionCreators from "./redux/Actions/Modal/modalActionsCreators";
 import { useSelector } from "react-redux";
 import { modalSelector } from "./redux/Actions/Modal/modal.selector";
-import { userSelector } from "./redux/Actions/User/user.selector";
+import { useMe } from "./common/hooks/useMe.hook";
 
 const cacheLtr = createCache({
 	key: "muiltr",
@@ -35,14 +35,16 @@ const checkIsLoggedIn = () => {
 };
 
 export const App = () => {
+	const { userInfo } = useMe();
 	const dispatch = useAppDispatch();
 	const { setClose } = bindActionCreators(modalActionCreators, dispatch);
 	const [isLoggedIn, setIsLoggedIn] = useState(checkIsLoggedIn());
-	const showModal = useSelector(modalSelector);
+	const [shownModal, setShownModal] = useState(false);
 
 	useEffect(() => {
 		window.addEventListener("storage", async function (e) {
 			setIsLoggedIn(checkIsLoggedIn());
+			setShownModal(false);
 			dispatch(setClose());
 		});
 	}, []);
@@ -58,7 +60,7 @@ export const App = () => {
 					<Container maxWidth="xl">
 						<Box>
 							<Routes>
-								<Route path="/" element={isLoggedIn && showModal ? <Navigate to="/locations" /> : <Home />} />
+								<Route path="/" element={isLoggedIn && shownModal ? <Navigate to="/locations" /> : <Home />} />
 								<Route path="signup" element={isLoggedIn ? <Navigate to="/locations" /> : <SignUp />} />
 								<Route path="locations" element={isLoggedIn ? <FavLocation /> : <Navigate to="/" />} />
 								<Route path="drivers" element={isLoggedIn ? <Drivers /> : <Navigate to="/" />} />
