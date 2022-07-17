@@ -1,6 +1,10 @@
 import { createTheme } from "@mui/material";
 
 export const customTheme = createTheme({
+	typography: {
+		fontFamily: "\"Roboto\", \"Helvetica\", \"Arial\", sans-serif",
+		fontSize: 12,
+	},
 	components: {
 		MuiCssBaseline: {
 			styleOverrides: {
@@ -22,7 +26,6 @@ export const customTheme = createTheme({
 					height: "100%",
 				},
 				a: {
-					color: "blue",
 					textDecoration: "none",
 				},
 			},
@@ -37,9 +40,4 @@ export const customTheme = createTheme({
 		},
 		tonalOffset: 0.2,
 	},
-	typography: {
-		fontFamily: "sans-serif",
-		fontSize: 12,
-	},
-  
 });
