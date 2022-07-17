@@ -1,14 +1,14 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import Modal from "../Modal";
-import { Box, Button, Divider, TextField, Typography } from "@mui/material";
+import { Box, Button, Divider, TextField, Typography, Input } from "@mui/material";
 import { Map } from "../../Map/Map";
-import Table from "../../Table/Table";
 import { trainingClient } from "../../../api/trainingClient";
 import { ModalBox, MapBox, ActionsBox } from "./LocationModal.styles";
 import { format } from "date-fns";
 import { userSelector } from "../../../../redux/Actions/User/user.selector";
 import { useSelector } from "react-redux";
+import LocationTableModal from "../../Table/LocationTableModal";
 interface LocationProps {
 	position: {
 		lat: number,
@@ -26,25 +26,6 @@ export const AddLocationModal = ({ position, callBackData, open, setOpen }: Loca
 	const [locationName, setLocationName] = useState("");
 	const date = new Date();
 	const formattedDate = format(date, "yyyy-MM-dd H:mm:ss");
-	const row = [{
-		id: 1,
-		name: locationName,
-		lat: locationInfo.lat,
-		lng: locationInfo.lng,
-	}];
-	const column = [
-		{
-			field: "name", headerName: "Name", headerAlign: "center", width: 150, align: "center", renderCell: () => (
-				<TextField
-					onChange={(e) => setLocationName(e.target.value)}
-					autoFocus
-					variant="standard"
-				/>
-			),
-		},
-		{ field: "lat", headerName: "Latitude", headerAlign: "center", type: "number", width: 100, align: "center" },
-		{ field: "lng", headerName: "Longitude", headerAlign: "center", type: "number", width: 100, align: "center" }
-	];
 	const handleClose = () => {
 		setOpen(false);
 		setLocationInfo({ lat: 0, lng: 0 });
@@ -68,7 +49,7 @@ export const AddLocationModal = ({ position, callBackData, open, setOpen }: Loca
 	const handleCallback = (lat: number, lng: number) => {
 		setLocationInfo({ lat, lng });
 	};
-	return <Modal
+	return <Modal 
 		open={open}
 		onCancel={onCancel}
 	>
@@ -80,7 +61,11 @@ export const AddLocationModal = ({ position, callBackData, open, setOpen }: Loca
 			<MapBox>
 				<Map modalCallback={handleCallback} position={position} />
 				<Box>
-					<Table height={170} width={400} margin={15} columns={column} rows={row} />
+					<LocationTableModal 
+						setLocationName={setLocationName}
+						lat={Number(locationInfo.lat.toFixed(3))}
+						lng={Number(locationInfo.lng.toFixed(3))}
+					/>
 					<ActionsBox>
 						<Button variant='contained' onClick={onAccept}>
 							{t("modal.location.accept")}

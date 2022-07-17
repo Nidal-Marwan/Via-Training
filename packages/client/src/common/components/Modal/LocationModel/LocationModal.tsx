@@ -9,6 +9,8 @@ import { ModalBox, MapBox, ActionsBox } from "./LocationModal.styles";
 import { GridCellParams } from "@mui/x-data-grid";
 import { userSelector } from "../../../../redux/Actions/User/user.selector";
 import { useSelector } from "react-redux";
+import { useMe } from "../../../hooks/useMe.hook";
+import LocationTableModal from "../../Table/LocationTableModal";
 interface LocationProps {
 	position: {
 		lat: number,
@@ -86,37 +88,38 @@ export const LocationModal = ({ position, data, callBackData, open, setOpen }: L
 	const handleCallback = (lat: number, lng: number) => {
 		setLocationInfo({ lat, lng });
 	};
-	return (
-		<Modal
-			open={open}
-			onCancel={onCancel}
-		>
-			<ModalBox>
-				<Typography sx={{ textAlign: "center" }} id='modal-modal-title' variant='h6' component='h2'>
-					{t("modal.location.editMessage")}
-				</Typography>
-				<Divider />
-				{isLoading ?
-					<Box sx={{ display: "flex", justifyContent: "center", alignItems: "center", height: "100%" }}>
-						<CircularProgress />
-					</Box>
-					:
-					<MapBox>
-						<Map modalCallback={handleCallback} position={position} />
-						<Box>
-							<Table height={170} width={400} margin={15} columns={column} rows={row} />
-							<ActionsBox>
-								<Button variant='contained' onClick={onAccept}>
-									{t("modal.location.accept")}
-								</Button>
-								<Button variant='outlined' onClick={onCancel}>
-									{t("modal.location.decline")}
-								</Button>
-							</ActionsBox>
-						</Box>
-					</MapBox>
-				}
-			</ModalBox>
-		</Modal>
-	);
+	return <Modal
+		open={open}
+		onCancel={onCancel}
+	>
+		<ModalBox>
+			<Typography sx={{ textAlign: "center" }} id='modal-modal-title' variant='h6' component='h2'>
+				{t("modal.location.editMessage")}
+			</Typography>
+			<Divider />
+			<MapBox>
+				<Map modalCallback={handleCallback} position={position} />
+				<Box>
+					<LocationTableModal 
+						locationName={data?.name}
+						setLocationName={setLocationName}
+						lat={Number(locationInfo.lat?.toFixed(3))}
+						lng={Number(locationInfo.lng?.toFixed(3))}
+					/>
+					{/* <Table height={170} width={400} margin={15} columns={column} rows={row} /> */}
+					<ActionsBox>
+						<Button variant='contained' onClick={onAccept}>
+							{t("modal.location.accept")}
+						</Button>
+						<Button variant='outlined' onClick={onCancel}>
+							{t("modal.location.decline")}
+						</Button>
+					</ActionsBox>
+				</Box>
+
+			</MapBox>
+
+
+		</ModalBox>
+	</Modal>;
 };

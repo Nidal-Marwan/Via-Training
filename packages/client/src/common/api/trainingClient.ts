@@ -1,7 +1,7 @@
 import axios, { AxiosRequestConfig } from "axios";
 
 export const trainingClient = axios.create({
-	baseURL: "http://localhost:3001/api",
+	baseURL: "http://localhost:3002/api",
 });
 
 trainingClient.interceptors.request.use(async (config: AxiosRequestConfig) => {
