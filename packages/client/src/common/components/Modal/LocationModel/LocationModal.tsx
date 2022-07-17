@@ -43,28 +43,6 @@ export const LocationModal = ({ position, data, callBackData, open, setOpen }: L
 		return () => clearTimeout(timer);
 	}, [data]);
 
-	const row = [{
-		id: data.id,
-		name: data.name,
-		lat: locationInfo.lat,
-		long: locationInfo.lng,
-	}];
-
-	const column = [
-		{
-			field: "name", headerName: "Name", headerAlign: "center", width: 150, align: "center", renderCell: (params: GridCellParams) => (
-				<TextField
-					onChange={(e) => setLocationName(e.target.value)}
-					autoFocus
-					defaultValue={params.row.name}
-					variant="standard"
-				/>
-			),
-		},
-		{ field: "lat", headerName: "Latitude", headerAlign: "center", type: "number", width: 100, align: "center" },
-		{ field: "long", headerName: "Longitude", headerAlign: "center", type: "number", width: 100, align: "center" }
-	];
-
 	const handleClose = () => {
 		setOpen(false);
 	};
@@ -106,7 +84,6 @@ export const LocationModal = ({ position, data, callBackData, open, setOpen }: L
 						lat={Number(locationInfo.lat?.toFixed(3))}
 						lng={Number(locationInfo.lng?.toFixed(3))}
 					/>
-					{/* <Table height={170} width={400} margin={15} columns={column} rows={row} /> */}
 					<ActionsBox>
 						<Button variant='contained' onClick={onAccept}>
 							{t("modal.location.accept")}
