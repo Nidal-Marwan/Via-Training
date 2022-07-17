@@ -1,7 +1,7 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import Modal from "../Modal";
-import { Box, Button, Divider, TextField, Typography } from "@mui/material";
+import { Box, Button, CircularProgress, Divider, TextField, Typography } from "@mui/material";
 import { Map } from "../../Map/Map";
 import Table from "../../Table/Table";
 import { trainingClient } from "../../../api/trainingClient";
@@ -14,7 +14,7 @@ interface LocationProps {
 		lat: number,
 		lng: number;
 	},
-	data?: {
+	data: {
 		id: number,
 		name: string,
 		lat: number,
@@ -29,15 +29,25 @@ interface LocationProps {
 export const LocationModal = ({ position, data, callBackData, open, setOpen }: LocationProps) => {
 	const userInfo = useSelector(userSelector);
 	const { t } = useTranslation();
-	const [locationInfo, setLocationInfo] = useState({ lat: data?.lat, lng: data?.long });
-	const [locationName, setLocationName] = useState(data?.name);
+	const [locationInfo, setLocationInfo] = useState({ lat: data.lat, lng: data.long });
+	const [locationName, setLocationName] = useState(data.name);
+	const [isLoading, setIsLoading] = useState(false);
+
+	useEffect(() => {
+		setLocationInfo({ lat: data.lat, lng: data.long });
+		setLocationName(data.name);
+		setIsLoading(true);
+		const timer = setTimeout(() => setIsLoading(false), 600);
+		return () => clearTimeout(timer);
+	}, [data]);
+
 	const row = [{
-		id: data?.id,
-		name: data?.name,
+		id: data.id,
+		name: data.name,
 		lat: locationInfo.lat,
 		long: locationInfo.lng,
-
 	}];
+
 	const column = [
 		{
 			field: "name", headerName: "Name", headerAlign: "center", width: 150, align: "center", renderCell: (params: GridCellParams) => (
@@ -52,11 +62,13 @@ export const LocationModal = ({ position, data, callBackData, open, setOpen }: L
 		{ field: "lat", headerName: "Latitude", headerAlign: "center", type: "number", width: 100, align: "center" },
 		{ field: "long", headerName: "Longitude", headerAlign: "center", type: "number", width: 100, align: "center" }
 	];
+
 	const handleClose = () => {
 		setOpen(false);
 	};
+
 	const onAccept = async () => {
-		const payload = { id: data?.id, name: locationName, lat: locationInfo.lat, long: locationInfo.lng, date: data?.date, userId: userInfo.id };
+		const payload = { id: data.id, name: locationName, lat: locationInfo.lat, long: locationInfo.lng, date: data.date, userId: userInfo.id };
 		const response = await trainingClient.put("/locations", payload);
 		if (response.data.status === 200) {
 			const response = await trainingClient.get(`/locations/${userInfo.id}`);
@@ -66,39 +78,45 @@ export const LocationModal = ({ position, data, callBackData, open, setOpen }: L
 			handleClose();
 		}
 	};
+
 	const onCancel = () => {
 		handleClose();
-
 	};
+
 	const handleCallback = (lat: number, lng: number) => {
 		setLocationInfo({ lat, lng });
 	};
-	return <Modal
-		open={open}
-		onCancel={onCancel}
-	>
-		<ModalBox>
-			<Typography sx={{ textAlign: "center" }} id='modal-modal-title' variant='h6' component='h2'>
-				{t("modal.location.editMessage")}
-			</Typography>
-			<Divider />
-			<MapBox>
-				<Map modalCallback={handleCallback} position={position} />
-				<Box>
-					<Table height={170} width={400} margin={15} columns={column} rows={row} />
-					<ActionsBox>
-						<Button variant='contained' onClick={onAccept}>
-							{t("modal.location.accept")}
-						</Button>
-						<Button variant='outlined' onClick={onCancel}>
-							{t("modal.location.decline")}
-						</Button>
-					</ActionsBox>
-				</Box>
-
-			</MapBox>
-
-
-		</ModalBox>
-	</Modal>;
+	return (
+		<Modal
+			open={open}
+			onCancel={onCancel}
+		>
+			<ModalBox>
+				<Typography sx={{ textAlign: "center" }} id='modal-modal-title' variant='h6' component='h2'>
+					{t("modal.location.editMessage")}
+				</Typography>
+				<Divider />
+				{isLoading ?
+					<Box sx={{ display: "flex", justifyContent: "center", alignItems: "center", height: "100%" }}>
+						<CircularProgress />
+					</Box>
+					:
+					<MapBox>
+						<Map modalCallback={handleCallback} position={position} />
+						<Box>
+							<Table height={170} width={400} margin={15} columns={column} rows={row} />
+							<ActionsBox>
+								<Button variant='contained' onClick={onAccept}>
+									{t("modal.location.accept")}
+								</Button>
+								<Button variant='outlined' onClick={onCancel}>
+									{t("modal.location.decline")}
+								</Button>
+							</ActionsBox>
+						</Box>
+					</MapBox>
+				}
+			</ModalBox>
+		</Modal>
+	);
 };

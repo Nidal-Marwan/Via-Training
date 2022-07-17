@@ -21,7 +21,7 @@ export const FavLocation:React.FC = () => {
 	const { locationData, isLoading, setLocationData } = useGetLocations(userInfo?.id);
 	const handleEdit = (cell: GridCellParams) => {
 		setOpenMap(!openMap);
-		setPosition({ ...position, lat: cell.row.lat, lng: cell.row.long });
+		setPosition({ lat: cell.row.lat, lng: cell.row.long });
 		setSelectedData(cell.row);
 	};
 	const handleDelete = async (cell: GridCellParams) => {
@@ -44,7 +44,7 @@ export const FavLocation:React.FC = () => {
 		{
 			field: "name", headerName: "Name", headerAlign: "center", width: 150, align: "center",
 		},
-		{ field: "lat", editable: true, headerName: "Latitude", headerAlign: "center", type: "number", width: 100, align: "center" },
+		{ field: "lat", headerName: "Latitude", headerAlign: "center", type: "number", width: 100, align: "center" },
 		{ field: "long", headerName: "Longitude", headerAlign: "center", type: "number", width: 100, align: "center" },
 		{ field: "date", headerName: "Date", headerAlign: "center", type: "date", width: 100, align: "center" },
 		{

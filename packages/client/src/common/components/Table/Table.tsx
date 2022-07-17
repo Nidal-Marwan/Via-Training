@@ -89,7 +89,7 @@ function Table(props: Data) {
 				columns={columns}
 				rows={rows}
 				checkboxSelection={props.checkbox}
-				rowsPerPageOptions={[]}
+				rowsPerPageOptions={[5]}
 				pageSize={5}
 			/>
 		</Box>
