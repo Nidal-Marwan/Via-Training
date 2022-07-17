@@ -33,3 +33,14 @@ export const MapBox = styled(Box)({
 	marginTop:"10px"
 
 });
+export const GridBox = styled(Box)({
+	display: "grid", 
+	gridTemplateColumns: "auto auto auto",
+	paddingBottom: "20px"
+});
+export const GridItem = styled(Box)({
+	border: "1px solid rgba(0, 0, 0, 0.2)",
+	padding: "10px",
+	fontSize: "30px",
+	textAlign: "center"
+});
