@@ -10,12 +10,6 @@ export class Driver {
     @Column()
     	name: string;
 
-    @Column({ type: "float", nullable: true })
-    	lat: number | null;
-
-    @Column({ type: "float", nullable: true })
-    	lng: number | null;
-
     @Column({ type: "timestamptz", default: () => "CURRENT_TIMESTAMP" })
     	date: Date;
 
@@ -27,9 +21,6 @@ export class Driver {
 
     @Column()
     	licensePlate: string;
-
-    @Column({ nullable: true })
-    	locationName: string | null;
 
     @Column()
     	locationId: number;
