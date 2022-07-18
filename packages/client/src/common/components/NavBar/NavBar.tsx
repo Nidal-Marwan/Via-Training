@@ -48,7 +48,7 @@ export const NavBar: React.FC = () => {
 						{isLoggedIn && <>
 							<MenuItem>
 								<Typography variant='h6' component='div'>
-									<Link to='liveMap'>{t("nav.map")}</Link>
+									<Link to='live-map'>{t("nav.map")}</Link>
 								</Typography>
 							</MenuItem>
 							<MenuItem>

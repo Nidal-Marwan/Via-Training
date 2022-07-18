@@ -1,6 +1,7 @@
 import { useJsApiLoader, GoogleMap, Marker } from "@react-google-maps/api";
 import { useState, useCallback } from "react";
 import { useSelector } from "react-redux";
+import { DriversMarkers } from "../../common/components/DriversMarkers/DriversMarkers";
 import { useGetDrivers } from "../../common/hooks/useGetDrivers.hook";
 import { userSelector } from "../../redux/Actions/User/user.selector";
 
@@ -40,9 +41,7 @@ export const LiveMap:React.FC = ()=>{
 			onLoad={onLoad}
 			center={position}
 		>
-			{driverLocationData?.map((location:any)=>{
-				return <Marker position={{lat:location[0].lat,lng:location[0].long}}/>;
-			})}
+			<DriversMarkers drivers={driverLocationData}/>
 		</GoogleMap>
 
 	) : (

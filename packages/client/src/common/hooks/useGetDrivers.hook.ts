@@ -5,7 +5,7 @@ interface DriverResponse {
 	status: number,
 	drivers: DriversData[]
 }
-interface DriversData {
+export interface DriversData {
 	data: {
         driversInfo:{
             id:number;
@@ -56,5 +56,5 @@ export const useGetDrivers = (id?: number) => {
 		getDrivers();
 	}, [id]);
 
-	return { rowData, driverLocationData,setDriverLocationData, isLoading, error, setRowData };
+	return { rowData, driverLocationData, setDriverLocationData, isLoading, error, setRowData };
 };
