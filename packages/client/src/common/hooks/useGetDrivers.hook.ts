@@ -56,5 +56,5 @@ export const useGetDrivers = (id?: number) => {
 		getDrivers();
 	}, [id]);
 
-	return { rowData, driverLocationData, isLoading, error, setRowData };
+	return { rowData, driverLocationData,setDriverLocationData, isLoading, error, setRowData };
 };
