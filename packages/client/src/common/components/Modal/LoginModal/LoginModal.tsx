@@ -26,7 +26,7 @@ export const LoginModal = ({ open, setOpen }: LoginModalProps) => {
 		handleClose();
 	};
 	const onCancel = () => {
-		navigate("drivers");// Temporarily until we have live map
+		navigate("liveMap");
 		handleClose();
 	};
 	return <Modal
