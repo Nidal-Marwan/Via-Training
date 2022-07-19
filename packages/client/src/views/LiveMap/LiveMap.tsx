@@ -30,16 +30,16 @@ export const LiveMap: React.FC = () => {
 	});
 	const { driverLocationData, setDriverLocationData, isLoading, locationMarkers } = useGetDrivers(userInfo.id);
 	const [openModal, setOpenModal] = useState(true);
-	const [position, setPosition] = useState({ lat: 32.03784800786203, lng: 45.6 });
+	const [position, setPosition] = useState({ lat: 32.03784800786203, lng: 35.6 });
 	const [map, setMap] = useState<google.maps.Map | null>(null);
 
 	const onLoad = useCallback((map: google.maps.Map) => {
 		map.setCenter(position);
 		setMap(map);
 		if (!isLoading && locationMarkers.length > 0) {
-			//const locationBounds = getBounds(locationMarkers);
-			//const bounds = new window.google.maps.LatLngBounds(locationBounds.sw, locationBounds.ne);
-			//map.fitBounds(bounds);
+			const locationBounds = getBounds(locationMarkers);
+			const bounds = new window.google.maps.LatLngBounds(locationBounds.sw, locationBounds.ne);
+			map.fitBounds(bounds);
 		}
 	}, [isLoading]);
 	useEffect(() => {
