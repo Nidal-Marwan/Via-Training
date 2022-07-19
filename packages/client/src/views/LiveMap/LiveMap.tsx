@@ -1,7 +1,8 @@
-import { useJsApiLoader, GoogleMap, Marker } from "@react-google-maps/api";
-import {  useCallback, useEffect } from "react";
+import { useJsApiLoader, GoogleMap } from "@react-google-maps/api";
+import { useCallback, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { DriversMarkers } from "../../common/components/DriversMarkers/DriversMarkers";
+import { LiveMapModal } from "../../common/components/Modal/LiveMapModal/LiveMapModal";
 import { useGetDrivers } from "../../common/hooks/useGetDrivers.hook";
 import { userSelector } from "../../redux/Actions/User/user.selector";
 
@@ -28,7 +29,8 @@ export const LiveMap: React.FC = () => {
 		googleMapsApiKey: "",
 	});
 	const { driverLocationData, setDriverLocationData, isLoading, locationMarkers } = useGetDrivers(userInfo.id);
-	const position = { lat: 32.03784800786203, lng: 35.1 };
+	const [openModal, setOpenModal] = useState(true);
+	const [position, setPosition] = useState({ lat: 32.03784800786203, lng: 35.6 });
 
 	const onLoad = useCallback((map: google.maps.Map) => {
 		map.setCenter(position);
@@ -59,6 +61,7 @@ export const LiveMap: React.FC = () => {
 			zoom={8}
 			onLoad={onLoad}
 		>
+			<LiveMapModal open={openModal} setOpen={setOpenModal} setPosition={setPosition} />
 			<DriversMarkers drivers={driverLocationData} />
 		</GoogleMap>
 
