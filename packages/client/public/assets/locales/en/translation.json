@@ -63,6 +63,11 @@
 			"editMessage": "Add the updated location by clicking on the map",
 			"accept": "Save",
 			"decline": "Cancel"
+		},
+		"liveMap": {
+			"message": "Allow access to current location",
+			"accept": "Allow",
+			"decline": "Cancel"
 		}
 	},
 	"server": {
