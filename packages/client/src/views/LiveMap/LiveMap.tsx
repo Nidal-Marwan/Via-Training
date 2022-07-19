@@ -1,10 +1,14 @@
-import { useJsApiLoader, GoogleMap } from "@react-google-maps/api";
+import { useJsApiLoader, GoogleMap, Marker } from "@react-google-maps/api";
 import { useCallback, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { DriversMarkers } from "../../common/components/DriversMarkers/DriversMarkers";
 import { LiveMapModal } from "../../common/components/Modal/LiveMapModal/LiveMapModal";
 import { useGetDrivers } from "../../common/hooks/useGetDrivers.hook";
 import { userSelector } from "../../redux/Actions/User/user.selector";
+
+const generateRandomNum = () => {
+	return (-0.001 + Math.random() * (0.001 - (-0.001)));
+};
 
 const getBounds = (markers: { lat: number, lng: number; }[]) => {
 	let north = markers[0].lat;
@@ -30,11 +34,10 @@ export const LiveMap: React.FC = () => {
 	});
 	const { driverLocationData, setDriverLocationData, isLoading, locationMarkers } = useGetDrivers(userInfo.id);
 	const [openModal, setOpenModal] = useState(true);
-	const [position, setPosition] = useState({ lat: 32.03784800786203, lng: 35.6 });
+	const [position, setPosition] = useState({ lat: 32.03784800786203, lng: 80.6 });
 	const [map, setMap] = useState<google.maps.Map | null>(null);
 
 	const onLoad = useCallback((map: google.maps.Map) => {
-		map.setCenter(position);
 		setMap(map);
 		if (!isLoading && locationMarkers.length > 0) {
 			const locationBounds = getBounds(locationMarkers);
@@ -42,17 +45,14 @@ export const LiveMap: React.FC = () => {
 			map.fitBounds(bounds);
 		}
 	}, [isLoading]);
-	useEffect(() => {
-		map?.setCenter(position);
-	}, [position]);
 
 	useEffect(() => {
-		setInterval(() => {
+		setTimeout(() => {
 			const newLocations = driverLocationData?.map((location: any) => {
 				const obj = Object.assign({}, location);
 				if ((obj[0].lat < 85 || obj[0].lat > -85) && (obj[0].long <= 175 || obj[0].long >= -175)) {
-					obj[0].lat = obj[0].lat + 0.001;
-					obj[0].long = obj[0].long + 0.001;
+					obj[0].lat = obj[0].lat + generateRandomNum();
+					obj[0].long = obj[0].long + generateRandomNum();
 				}
 				return obj;
 			});
@@ -60,12 +60,14 @@ export const LiveMap: React.FC = () => {
 		}, 2000);
 	}, [driverLocationData]);
 
-	return isLoaded && !isLoading && !openModal ? (
+	return isLoaded && !openModal ? (
 		<GoogleMap
 			mapContainerStyle={{ width: "100%", height: "90vh" }}
 			zoom={8}
 			onLoad={onLoad}
+			center={position}
 		>
+			<Marker position={position} />
 			<DriversMarkers drivers={driverLocationData} />
 		</GoogleMap>
 

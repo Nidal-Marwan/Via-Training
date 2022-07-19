@@ -5,7 +5,7 @@ import { ModalBox, ActionsBox } from "./LiveMapModal.styles";
 import { bindActionCreators } from "redux";
 import { useAppDispatch } from "../../../../redux/Reducers/reducers";
 import * as modalActionCreators from "../../../../redux/Actions/Modal/modalActionsCreators";
-import { useGeolocated } from "react-geolocated";
+import { useEffect } from "react";
 
 interface LiveMapModalProps {
 	open: boolean;
@@ -14,19 +14,20 @@ interface LiveMapModalProps {
 }
 export const LiveMapModal = ({ open, setOpen, setPosition }: LiveMapModalProps) => {
 	const dispatch = useAppDispatch();
-	const {setClose} = bindActionCreators(modalActionCreators,dispatch);
+	const { setClose } = bindActionCreators(modalActionCreators, dispatch);
 	const { t } = useTranslation();
 
-	const latitude = useGeolocated().coords?.latitude;
-	const longitude = useGeolocated().coords?.longitude;
-	
 	const handleClose = () => {
 		setOpen(false);
 		dispatch(setClose());
 	};
 
 	const onAccept = () => {
-		setPosition({lat: latitude, lng: longitude});
+		navigator.geolocation.getCurrentPosition((position) => {
+			const lat = position.coords.latitude;
+			const lng = position.coords.longitude;
+			setPosition({ lat, lng });
+		});
 		handleClose();
 	};
 	const onCancel = () => {
