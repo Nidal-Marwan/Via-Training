@@ -19,6 +19,7 @@ import * as modalActionCreators from "./redux/Actions/Modal/modalActionsCreators
 import { useSelector } from "react-redux";
 import { modalSelector } from "./redux/Actions/Modal/modal.selector";
 import { useMe } from "./common/hooks/useMe.hook";
+import { LiveMap } from "./views/LiveMap/LiveMap";
 
 const cacheLtr = createCache({
 	key: "muiltr",
@@ -64,7 +65,7 @@ export const App = () => {
 								<Route path="signup" element={isLoggedIn ? <Navigate to="/locations" /> : <SignUp />} />
 								<Route path="locations" element={isLoggedIn ? <FavLocation /> : <Navigate to="/" />} />
 								<Route path="drivers" element={isLoggedIn ? <Drivers /> : <Navigate to="/" />} />
-								{/* <Route path="liveMap" element={ <Map/> } />*/}
+								<Route path="live-map" element={ <LiveMap/> } />
 							</Routes >
 						</Box >
 					</Container >
