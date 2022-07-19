@@ -55,17 +55,16 @@ export const LiveMap: React.FC = () => {
 		}, 2000);
 	}, [driverLocationData]);
 
-	return isLoaded && !isLoading ? (
+	return isLoaded && !isLoading && !openModal ? (
 		<GoogleMap
 			mapContainerStyle={{ width: "100%", height: "90vh" }}
 			zoom={8}
 			onLoad={onLoad}
 		>
-			<LiveMapModal open={openModal} setOpen={setOpenModal} setPosition={setPosition} />
 			<DriversMarkers drivers={driverLocationData} />
 		</GoogleMap>
 
 	) : (
-		<></>
+		<><LiveMapModal open={openModal} setOpen={setOpenModal} setPosition={setPosition} /></>
 	);
 };
