@@ -65,7 +65,7 @@ export const App = () => {
 								<Route path="signup" element={isLoggedIn ? <Navigate to="/locations" /> : <SignUp />} />
 								<Route path="locations" element={isLoggedIn ? <FavLocation /> : <Navigate to="/" />} />
 								<Route path="drivers" element={isLoggedIn ? <Drivers /> : <Navigate to="/" />} />
-								<Route path="live-map" element={ <LiveMap/> } />
+								<Route path="live-map" element={isLoggedIn ? <LiveMap /> : <Navigate to="/" />} />
 							</Routes >
 						</Box >
 					</Container >
