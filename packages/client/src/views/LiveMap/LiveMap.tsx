@@ -2,6 +2,7 @@ import { useJsApiLoader, GoogleMap, Marker } from "@react-google-maps/api";
 import {  useCallback, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { DriversMarkers } from "../../common/components/DriversMarkers/DriversMarkers";
+import { LiveMapModal } from "../../common/components/Modal/LiveMapModal/LiveMapModal";
 import { useGetDrivers } from "../../common/hooks/useGetDrivers.hook";
 import { userSelector } from "../../redux/Actions/User/user.selector";
 
