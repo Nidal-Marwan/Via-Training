@@ -9,7 +9,7 @@ export const DriversMarkers: React.FC<DriversMarkersProps> = ({ drivers }: Drive
 	return (
 		<Fragment>
 			{drivers?.map((location: LocationInfo) => {
-				return <Marker key={location.id} position={{ lat: location.lat, lng: location.long }} />;
+				return <Marker key={location.id} position={{ lat: location.lat, lng: location.long }} icon={{ path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW, scale: 7 }} />;
 			})}
 		</Fragment>
 	);
