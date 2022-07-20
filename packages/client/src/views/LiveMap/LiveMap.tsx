@@ -6,6 +6,7 @@ import { LiveMapModal } from "../../common/components/Modal/LiveMapModal/LiveMap
 import { LocationInfo, useGetDrivers } from "../../common/hooks/useGetDrivers.hook";
 import { userSelector } from "../../redux/Actions/User/user.selector";
 
+
 const generateRandomNum = () => {
 	return (-0.001 + Math.random() * (0.001 - (-0.001)));
 };
