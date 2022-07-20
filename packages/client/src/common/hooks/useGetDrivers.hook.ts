@@ -5,50 +5,56 @@ interface DriverResponse {
 	status: number,
 	drivers: DriversData[];
 }
+
+export interface DriversInfo {
+	id: number;
+	name: string;
+	phone: number;
+	carModel: string;
+	licensePlate: string;
+	locationName: string;
+	locationId: number;
+	date: Date;
+	userId: number;
+}
+export interface LocationInfo {
+	id: number;
+	name: string;
+	lat: number;
+	long: number;
+	date: Date;
+}
 export interface DriversData {
 	data: {
-		driversInfo: {
-			id: number;
-			name: string;
-			phone: number;
-			carModel: string;
-			licensePlate: string;
-			locationName: string;
-			locationId: number;
-			date: Date;
-			userId: number;
-		},
-		locationsInfo: {
-			id: number;
-			name: string;
-			lat: number;
-			long: number;
-			date: Date;
-		};
-
+		driversInfo: DriversInfo,
+		locationsInfo: LocationInfo;
 	};
 }
-
+export interface LatLngData {
+	lat: number,
+	lng: number,
+}
 
 export const useGetDrivers = (id?: number) => {
-	const [rowData, setRowData] = useState<DriversData[]>();
-	const [driverLocationData, setDriverLocationData] = useState<DriversData[]>();
-	const [locationMarkers, setLocationMarkers] = useState([]);
+	const [rowData, setRowData] = useState<DriversInfo[]>();
+	const [driverLocationData, setDriverLocationData] = useState<LocationInfo[]>();
+	const [locationMarkers, setLocationMarkers] = useState<LatLngData[]>([]);
 	const [isLoading, setIsLoading] = useState(true);
 	const [error, setError] = useState("");
+
 	useEffect(() => {
 		const getDrivers = async () => {
 			try {
 				if (!id) {
 					return;
 				}
-				//fix any
-				const drivers = await trainingClient.get<any>(`drivers/${id}`);
+				const drivers = await trainingClient.get(`drivers/${id}`);
 				if (drivers.status === 200) {
+					const flattenedLocations = [...drivers.data.drivers.locationsInfo].flat();
 					setRowData(drivers.data.drivers.driversInfo);
-					setDriverLocationData(drivers.data.drivers.locationsInfo);
-					const locations: any = drivers.data.drivers.locationsInfo.map((driver: any) => {
-						return { lat: driver[0].lat, lng: driver[0].long };
+					setDriverLocationData(flattenedLocations);
+					const locations: LatLngData[] = flattenedLocations.map((driver: LocationInfo) => {
+						return { lat: driver.lat, lng: driver.long };
 					});
 					setLocationMarkers(locations);
 					setIsLoading(false);

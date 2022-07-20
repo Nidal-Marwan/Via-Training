@@ -1,12 +1,27 @@
 import { useJsApiLoader, GoogleMap, Marker } from "@react-google-maps/api";
-import {  useCallback, useEffect } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { DriversMarkers } from "../../common/components/DriversMarkers/DriversMarkers";
 import { LiveMapModal } from "../../common/components/Modal/LiveMapModal/LiveMapModal";
-import { useGetDrivers } from "../../common/hooks/useGetDrivers.hook";
+import { LocationInfo, useGetDrivers } from "../../common/hooks/useGetDrivers.hook";
 import { userSelector } from "../../redux/Actions/User/user.selector";
 
-const getBounds = (markers: { lat: number, lng: number; }[]) => {
+
+const generateRandomNum = () => {
+	return (-0.001 + Math.random() * (0.001 - (-0.001)));
+};
+
+interface Position {
+	lat: number,
+	lng: number,
+}
+
+interface Bounds {
+	sw: Position,
+	ne: Position,
+}
+
+const getBounds = (markers: Position[]) => {
 	let north = markers[0].lat;
 	let south = markers[0].lat;
 	let east = markers[0].lng;
@@ -29,10 +44,13 @@ export const LiveMap: React.FC = () => {
 		googleMapsApiKey: "",
 	});
 	const { driverLocationData, setDriverLocationData, isLoading, locationMarkers } = useGetDrivers(userInfo.id);
-	const position = { lat: 32.03784800786203, lng: 35.1 };
+	const [openModal, setOpenModal] = useState(true);
+	const [position, setPosition] = useState({ lat: 32.03784800786203, lng: 80.6 });
+	const [loadMap, setLoadMap] = useState(false);
+	const [map, setMap] = useState<google.maps.Map | null>(null);
 
 	const onLoad = useCallback((map: google.maps.Map) => {
-		map.setCenter(position);
+		setMap(map);
 		if (!isLoading && locationMarkers.length > 0) {
 			const locationBounds = getBounds(locationMarkers);
 			const bounds = new window.google.maps.LatLngBounds(locationBounds.sw, locationBounds.ne);
@@ -41,29 +59,29 @@ export const LiveMap: React.FC = () => {
 	}, [isLoading]);
 
 	useEffect(() => {
-		setInterval(() => {
-			const newLocations = driverLocationData?.map((location: any) => {
-				const obj = Object.assign({}, location);
-				if ((obj[0].lat < 85 || obj[0].lat > -85) && (obj[0].long <= 175 || obj[0].long >= -175)) {
-					obj[0].lat = obj[0].lat + 0.001;
-					obj[0].long = obj[0].long + 0.001;
+		setTimeout(() => {
+			const newLocations = driverLocationData?.map((location: LocationInfo) => {
+				if ((location.lat < 85 || location.lat > -85) && (location.long <= 175 || location.long >= -175)) {
+					location.lat = location.lat + generateRandomNum();
+					location.long = location.long + generateRandomNum();
 				}
-				return obj;
+				return location;
 			});
 			setDriverLocationData(newLocations);
 		}, 2000);
 	}, [driverLocationData]);
 
-	return isLoaded && !isLoading ? (
+	return isLoaded && !openModal && loadMap ? (
 		<GoogleMap
 			mapContainerStyle={{ width: "100%", height: "90vh" }}
-			zoom={8}
+			zoom={6}
 			onLoad={onLoad}
 		>
+			<Marker position={position}  />
 			<DriversMarkers drivers={driverLocationData} />
 		</GoogleMap>
 
 	) : (
-		<></>
+		<><LiveMapModal open={openModal} setOpen={setOpenModal} setPosition={setPosition} setLoadMap={setLoadMap} /></>
 	);
 };
