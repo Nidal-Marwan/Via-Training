@@ -5,14 +5,13 @@ import { ModalBox, ActionsBox } from "./LiveMapModal.styles";
 import { bindActionCreators } from "redux";
 import { useAppDispatch } from "../../../../redux/Reducers/reducers";
 import * as modalActionCreators from "../../../../redux/Actions/Modal/modalActionsCreators";
-import { useEffect } from "react";
 
 interface LiveMapModalProps {
 	open: boolean;
 	setOpen: (state: boolean) => void;
 	setPosition: any;
 }
-export const LiveMapModal = ({ open, setOpen, setPosition }: LiveMapModalProps) => {
+export const LiveMapModal = ({ open, setOpen, setPosition}: LiveMapModalProps) => {
 	const dispatch = useAppDispatch();
 	const { setClose } = bindActionCreators(modalActionCreators, dispatch);
 	const { t } = useTranslation();
@@ -33,6 +32,7 @@ export const LiveMapModal = ({ open, setOpen, setPosition }: LiveMapModalProps) 
 	const onCancel = () => {
 		handleClose();
 	};
+
 	return <Modal
 		open={open}
 		onCancel={onCancel}

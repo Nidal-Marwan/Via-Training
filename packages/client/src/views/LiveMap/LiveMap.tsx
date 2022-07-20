@@ -3,14 +3,24 @@ import { useCallback, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { DriversMarkers } from "../../common/components/DriversMarkers/DriversMarkers";
 import { LiveMapModal } from "../../common/components/Modal/LiveMapModal/LiveMapModal";
-import { useGetDrivers } from "../../common/hooks/useGetDrivers.hook";
+import { LocationInfo, useGetDrivers } from "../../common/hooks/useGetDrivers.hook";
 import { userSelector } from "../../redux/Actions/User/user.selector";
 
 const generateRandomNum = () => {
 	return (-0.001 + Math.random() * (0.001 - (-0.001)));
 };
 
-const getBounds = (markers: { lat: number, lng: number; }[]) => {
+interface Position {
+	lat: number,
+	lng: number,
+}
+
+interface Bounds {
+	sw: Position,
+	ne: Position,
+}
+
+const getBounds = (markers: Position[]) => {
 	let north = markers[0].lat;
 	let south = markers[0].lat;
 	let east = markers[0].lng;
@@ -48,13 +58,12 @@ export const LiveMap: React.FC = () => {
 
 	useEffect(() => {
 		setTimeout(() => {
-			const newLocations = driverLocationData?.map((location: any) => {
-				const obj = Object.assign({}, location);
-				if ((obj[0].lat < 85 || obj[0].lat > -85) && (obj[0].long <= 175 || obj[0].long >= -175)) {
-					obj[0].lat = obj[0].lat + generateRandomNum();
-					obj[0].long = obj[0].long + generateRandomNum();
+			const newLocations = driverLocationData?.map((location: LocationInfo) => {
+				if ((location.lat < 85 || location.lat > -85) && (location.long <= 175 || location.long >= -175)) {
+					location.lat = location.lat + generateRandomNum();
+					location.long = location.long + generateRandomNum();
 				}
-				return obj;
+				return location;
 			});
 			setDriverLocationData(newLocations);
 		}, 2000);
@@ -63,7 +72,7 @@ export const LiveMap: React.FC = () => {
 	return isLoaded && !openModal ? (
 		<GoogleMap
 			mapContainerStyle={{ width: "100%", height: "90vh" }}
-			zoom={8}
+			zoom={7}
 			onLoad={onLoad}
 			center={position}
 		>
