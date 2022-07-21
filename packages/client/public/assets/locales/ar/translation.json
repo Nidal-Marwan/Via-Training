@@ -44,7 +44,22 @@
 		}
 	},
 	"table": {
-		"datepicker": "إختر تاريخ"
+		"datepicker": "إختر تاريخ",
+		"driver": {
+			"name": "الاسم",
+			"phone": "رقم الهاتق",
+			"carModel": "نوع السيارة",
+			"licensePlate": "رقم السيارة",
+			"location": "المكان"
+		},
+		"location":{
+			"name": "الاسم",
+			"latitude": "خط العرض",
+			"longitude": "خط الطول",
+			"date": "التاريخ"
+		},
+		"edit": "تعديل",
+		"delete": "حذف"
 	},
 	"nav": {
 		"map": "الخريطة",

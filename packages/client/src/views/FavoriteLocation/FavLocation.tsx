@@ -10,8 +10,10 @@ import { CircularProgress } from "@mui/material";
 import { CustomButton } from "../../common/components/Button/Button";
 import { useSelector } from "react-redux";
 import { userSelector } from "../../redux/Actions/User/user.selector";
+import { useTranslation } from "react-i18next";
 
 export const FavLocation:React.FC = () => {
+	const { t } = useTranslation();
 	const userInfo = useSelector(userSelector);
 	const [cursor, setCursor] = useState("auto");
 	const [openMap, setOpenMap] = useState(false);
@@ -41,19 +43,17 @@ export const FavLocation:React.FC = () => {
 		setCursor("pointer");
 	};
 	const headers = [
+		{ field: "name", headerName: `${t("table.location.name")}`, headerAlign: "center", width: 150, align: "center" },
+		{ field: "lat", headerName: `${t("table.location.latitude")}`, headerAlign: "center", type: "number", width: 100, align: "center" },
+		{ field: "long", headerName: `${t("table.location.longitude")}`, headerAlign: "center", type: "number", width: 100, align: "center" },
+		{ field: "date", headerName: `${t("table.location.date")}`, headerAlign: "center", type: "date", width: 100, align: "center" },
 		{
-			field: "name", headerName: "Name", headerAlign: "center", width: 150, align: "center",
-		},
-		{ field: "lat", headerName: "Latitude", headerAlign: "center", type: "number", width: 100, align: "center" },
-		{ field: "long", headerName: "Longitude", headerAlign: "center", type: "number", width: 100, align: "center" },
-		{ field: "date", headerName: "Date", headerAlign: "center", type: "date", width: 100, align: "center" },
-		{
-			field: "edit", headerName: "Edit", headerAlign: "center", align: "center", renderCell: (param: GridCellParams) => {
+			field: "edit", headerName: `${t("table.edit")}`, headerAlign: "center", align: "center", renderCell: (param: GridCellParams) => {
 				return <EditIcon sx={{ cursor: `${cursor}` }} onMouseEnter={changeCursor} onClick={() => handleEdit(param)} />;
 			}
 		},
 		{
-			field: "delete", headerName: "Delete", headerAlign: "center", align: "center", renderCell: (param: GridCellParams) => {
+			field: "delete", headerName: `${t("table.delete")}`, headerAlign: "center", align: "center", renderCell: (param: GridCellParams) => {
 				return <DeleteIcon sx={{ cursor: `${cursor}` }} onMouseEnter={changeCursor} onClick={() => handleDelete(param)} />;
 			}
 		},

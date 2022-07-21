@@ -61,18 +61,18 @@ export const Drivers = () => {
 	};
 
 	const headers = [
-		{ field: "name", headerName: "Name", headerAlign: "center", width: 150, align: "center" },
-		{ field: "phone", headerName: "Phone", headerAlign: "center", type: "number", width: 150, align: "center" },
-		{ field: "carModel", headerName: "Car Model", headerAlign: "center", width: 150, align: "center" },
-		{ field: "licensePlate", headerName: "License Plate", headerAlign: "center", width: 150, align: "center" },
-		{ field: "locationName", headerName: "Location", headerAlign: "center", width: 150, align: "center" },
+		{ field: "name", headerName: `${t("table.driver.name")}`, headerAlign: "center", width: 150, align: "center" },
+		{ field: "phone", headerName: `${t("table.driver.phone")}`, headerAlign: "center", type: "number", width: 150, align: "center" },
+		{ field: "carModel", headerName: `${t("table.driver.carModel")}`, headerAlign: "center", width: 150, align: "center" },
+		{ field: "licensePlate", headerName: `${t("table.driver.licensePlate")}`, headerAlign: "center", width: 150, align: "center" },
+		{ field: "locationName", headerName: `${t("table.driver.location")}`, headerAlign: "center", width: 150, align: "center" },
 		{
-			field: "edit", headerName: "Edit", headerAlign: "center", align: "center", renderCell: (param: GridCellParams) => {
+			field: "edit", headerName: `${t("table.edit")}`, headerAlign: "center", align: "center", renderCell: (param: GridCellParams) => {
 				return <EditIcon sx={{ cursor: `${cursor}` }} onMouseEnter={changeCursor} onClick={() => handleEdit(param)} />;
 			}
 		},
 		{
-			field: "delete", headerName: "Delete", headerAlign: "center", align: "center", renderCell: (param: GridCellParams) => {
+			field: "delete", headerName: `${t("table.delete")}`, headerAlign: "center", align: "center", renderCell: (param: GridCellParams) => {
 				return <DeleteIcon sx={{ cursor: `${cursor}` }} onMouseEnter={changeCursor} onClick={() => handleDelete(param)} />;
 			}
 		},

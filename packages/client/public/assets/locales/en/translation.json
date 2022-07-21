@@ -44,7 +44,22 @@
 		}
 	},
 	"table": {
-		"datepicker": "Pick a date"
+		"datepicker": "Pick a date",
+		"driver": {
+			"name": "Name",
+			"phone": "Phone",
+			"carModel": "Car Model",
+			"licensePlate": "License Plate",
+			"location": "Location"
+		},
+		"location":{
+			"name": "Name",
+			"latitude": "Latitude",
+			"longitude": "Longitude",
+			"date": "Date"
+		},
+		"edit": "Edit",
+		"delete": "Delete"
 	},
 	"nav": {
 		"map": "Map",
