@@ -18,22 +18,21 @@ export const SignUp: React.FC = () => {
 	const navigate = useNavigate();
 	const { t } = useTranslation();
 	const [error, setError] = useState<string | null>();
-	const [isLoading, setIsLoading] = useState(false);
 
-	const handleSubmit = async (values: any) => {
+
+	const handleSubmit = async (values: any, actions: any) => {
+		setError(null);
+
 		const transformedValues = { ...values, email: values.email.toLowerCase() };
 
-		setIsLoading(true);
-		setError(null);
 		const response = await trainingClient.post<SignUpResponse>(
 			"/home/signup",
 			transformedValues
 		);
 		if (response.data.status === 201) {
-			setIsLoading(false);
 			navigate("/");
+			actions.resetForm();
 		} else {
-			setIsLoading(false);
 			setError(response.data.message);
 		}
 	};
@@ -59,52 +58,48 @@ export const SignUp: React.FC = () => {
 					</StyledAlert>
 				)}
 				<StyledBox>
-					{isLoading ? <CircularProgress /> : (
-						<Formik
-							initialValues={{ name: "", email: "", phone: "", password: "" }}
-							validationSchema={signupSchema}
-							onSubmit={(values) => handleSubmit(values)}
-						>
-							<StyledForm>
-								<Title variant='h3'>Signup</Title>
-								<TextInput
-									name='name'
-									type='text'
-									id='outlined-basic'
-									label={t("form.name")}
-								/>
-								<TextInput
-									name='email'
-									type='email'
-									id='outlined-basic'
-									label={t("form.email")}
-								/>
-								<TextInput
-									name='phone'
-									type='number'
-									id='outlined-basic'
-									label={t("form.phone")}
-								/>
-								<TextInput
-									name='password'
-									type='password'
-									id='outlined-basic'
-									label={t("form.password")}
-								/>
-								<CustomButton
-									color='primary'
-									title={t("form.signup")}
-									type='submit'
-								/>
-								<Typography variant='body1'>
-									{t("form.signin.text")}{" "}
-									<Link to='/'>{t("form.signin.link")}</Link>
-								</Typography>
-							</StyledForm>
-						</Formik>
-
-					)}
-
+					<Formik
+						initialValues={{ name: "", email: "", phone: "", password: "" }}
+						validationSchema={signupSchema}
+						onSubmit={handleSubmit}
+					>
+						<StyledForm>
+							<Title variant='h3'>Signup</Title>
+							<TextInput
+								name='name'
+								type='text'
+								id='outlined-basic'
+								label={t("form.name")}
+							/>
+							<TextInput
+								name='email'
+								type='email'
+								id='outlined-basic'
+								label={t("form.email")}
+							/>
+							<TextInput
+								name='phone'
+								type='number'
+								id='outlined-basic'
+								label={t("form.phone")}
+							/>
+							<TextInput
+								name='password'
+								type='password'
+								id='outlined-basic'
+								label={t("form.password")}
+							/>
+							<CustomButton
+								color='primary'
+								title={t("form.signup")}
+								type='submit'
+							/>
+							<Typography variant='body1'>
+								{t("form.signin.text")}{" "}
+								<Link to='/'>{t("form.signin.link")}</Link>
+							</Typography>
+						</StyledForm>
+					</Formik>
 				</StyledBox>
 			</Stack>
 		</ContainerBox>
