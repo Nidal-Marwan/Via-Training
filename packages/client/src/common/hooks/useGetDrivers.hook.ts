@@ -57,8 +57,8 @@ export const useGetDrivers = (id?: number) => {
 						return { lat: driver.lat, lng: driver.long };
 					});
 					setLocationMarkers(locations);
-					setIsLoading(false);
 				}
+				setIsLoading(false);
 			} catch (e: any) {
 				setError(e);
 			}

@@ -12,21 +12,17 @@ const generateRandomNum = () => {
 };
 
 interface Position {
-	lat: number,
-	lng: number,
+	lat: number;
+	lng: number;
 }
 
-interface Bounds {
-	sw: Position,
-	ne: Position,
-}
+const getBounds = (locations: Position[], center: Position) => {
+	let north = center.lat;
+	let south = center.lat;
+	let east = center.lng;
+	let west = center.lng;
 
-const getBounds = (markers: Position[]) => {
-	let north = markers[0].lat;
-	let south = markers[0].lat;
-	let east = markers[0].lng;
-	let west = markers[0].lng;
-
+	const markers = [...locations, center];
 	markers.forEach((marker) => {
 		north = Math.max(marker.lat, north);
 		south = Math.min(marker.lat, south);
@@ -35,6 +31,14 @@ const getBounds = (markers: Position[]) => {
 	});
 
 	return { sw: { lat: south, lng: west }, ne: { lat: north, lng: east } };
+};
+
+const setBounds = (map: google.maps.Map | null, locationMarkers: Position[], center: Position) => {
+	if (locationMarkers.length !== 0) {
+		const locationBounds = getBounds(locationMarkers, center);
+		const bounds = new window.google.maps.LatLngBounds(locationBounds.sw, locationBounds.ne);
+		map?.fitBounds(bounds);
+	}
 };
 
 export const LiveMap: React.FC = () => {
@@ -51,12 +55,15 @@ export const LiveMap: React.FC = () => {
 
 	const onLoad = useCallback((map: google.maps.Map) => {
 		setMap(map);
-		if (!isLoading && locationMarkers.length > 0) {
-			const locationBounds = getBounds(locationMarkers);
-			const bounds = new window.google.maps.LatLngBounds(locationBounds.sw, locationBounds.ne);
-			map.fitBounds(bounds);
+		setBounds(map, locationMarkers, position);
+		map.setCenter(position);
+	}, [locationMarkers, position]);
+
+	useEffect(() => {
+		if (isLoaded) {
+			setBounds(map, locationMarkers, position);
 		}
-	}, [isLoading]);
+	}, [locationMarkers, position, isLoaded, map]);
 
 	useEffect(() => {
 		setTimeout(() => {
@@ -74,10 +81,10 @@ export const LiveMap: React.FC = () => {
 	return isLoaded && !openModal && loadMap ? (
 		<GoogleMap
 			mapContainerStyle={{ width: "100%", height: "90vh" }}
-			zoom={6}
+			zoom={8}
 			onLoad={onLoad}
 		>
-			<Marker position={position}  />
+			<Marker position={position} />
 			<DriversMarkers drivers={driverLocationData} />
 		</GoogleMap>
 
