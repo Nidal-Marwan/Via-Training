@@ -46,19 +46,19 @@ export const NavBar: React.FC = () => {
 					<StyledBox>
 						<Logo />
 						{isLoggedIn && <>
-							<MenuItem>
+							<MenuItem component={Link} to="live-map">
 								<Typography variant='h6' component='div'>
-									<Link to='live-map'>{t("nav.map")}</Link>
+									{t("nav.map")}
 								</Typography>
 							</MenuItem>
-							<MenuItem>
+							<MenuItem component={Link} to="drivers">
 								<Typography variant='h6' component='div'>
-									<Link to='drivers'> {t("nav.driver")}</Link>
+									{t("nav.driver")}
 								</Typography>
 							</MenuItem>
-							<MenuItem>
+							<MenuItem component={Link} to="locations">
 								<Typography variant='h6' component='div'>
-									<Link to='locations'> {t("nav.location")}</Link>
+									{t("nav.location")}
 								</Typography>
 							</MenuItem>
 						</>}
