@@ -1,7 +1,7 @@
 import Table from "../../common/components/Table/Table";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { GridCellParams } from "@mui/x-data-grid";
 import { ModalContainer } from "../../common/components/ModalContainer/ModalContainer";
 import { trainingClient } from "../../common/api/trainingClient";
@@ -50,12 +50,16 @@ export const Drivers = () => {
 	const getLocationFromId = () => {
 		driverLocationData?.map((location: LocationInfo) => {
 			rowData?.map((item: DriversInfo) => {
-				if (item.locationId === location.id)
+				if (item.locationId === location.id){
 					item.locationName = location.name;
+				}
 			});
 		});
 	};
-	getLocationFromId();
+	useEffect(()=>{
+		getLocationFromId();
+	},[rowData]);
+	
 	const changeCursor = () => {
 		setCursor("pointer");
 	};

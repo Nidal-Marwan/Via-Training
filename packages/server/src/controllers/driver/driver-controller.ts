@@ -25,9 +25,6 @@ export const postDriver = async (req: Request, res: Response) => {
 	if (!licensePlate) {
 		error["licenseError"] = "License-Plate is required";
 	}
-	if (!locationId) {
-		error["locationIdError"] = "Location-Id is required";
-	}
 	if (!userId) {
 		error["userIdError"] = "UserId is required";
 	}
@@ -68,9 +65,6 @@ export const putDriver = async (req: Request, res: Response) => {
 	}
 	if (!licensePlate) {
 		error["licenseError"] = "License-Plate is required";
-	}
-	if (!locationId) {
-		error["locationIdError"] = "Location-Id is required";
 	}
 	if (!userId) {
 		error["userIdError"] = "UserId is required";
