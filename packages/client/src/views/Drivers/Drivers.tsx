@@ -50,16 +50,18 @@ export const Drivers = () => {
 	const getLocationFromId = () => {
 		driverLocationData?.map((location: LocationInfo) => {
 			rowData?.map((item: DriversInfo) => {
-				if (item.locationId === location.id){
+				if (item.locationId === location.id) {
 					item.locationName = location.name;
+				} else if (item.locationId === 0) {
+					item.locationName = "No Location";
 				}
 			});
 		});
 	};
-	useEffect(()=>{
+	useEffect(() => {
 		getLocationFromId();
-	},[rowData]);
-	
+	}, [rowData]);
+
 	const changeCursor = () => {
 		setCursor("pointer");
 	};
