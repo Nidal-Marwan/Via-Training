@@ -44,7 +44,7 @@ export const NavBar: React.FC = () => {
 			<AppBar color='secondary' position='static'>
 				<StyledToolBar>
 					<StyledBox>
-						<Logo />
+						<Logo isLoggedIn={isLoggedIn}/>
 						{isLoggedIn && <>
 							<MenuItem>
 								<Typography variant='h6' component='div'>
