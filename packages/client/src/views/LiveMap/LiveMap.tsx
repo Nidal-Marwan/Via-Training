@@ -57,7 +57,7 @@ export const LiveMap: React.FC = () => {
 		setMap(map);
 		setBounds(map, locationMarkers, position);
 		map.setCenter(position);
-	}, [isLoading, position]);
+	}, [locationMarkers, position]);
 
 	useEffect(() => {
 		if (isLoaded) {
