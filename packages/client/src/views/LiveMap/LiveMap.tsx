@@ -47,23 +47,27 @@ export const LiveMap: React.FC = () => {
 		id: "google-map-script",
 		googleMapsApiKey: "",
 	});
-	const { driverLocationData, setDriverLocationData, isLoading, locationMarkers } = useGetDrivers(userInfo.id);
+
+	const { driverLocationData, setDriverLocationData, locationMarkers } = useGetDrivers(userInfo.id);
 	const [openModal, setOpenModal] = useState(true);
 	const [position, setPosition] = useState({ lat: 32.03784800786203, lng: 80.6 });
 	const [loadMap, setLoadMap] = useState(false);
 	const [map, setMap] = useState<google.maps.Map | null>(null);
 
-	const onLoad = useCallback((map: google.maps.Map) => {
+	const onLoad = useCallback(async (map: google.maps.Map) => {
+		console.log(position, "In onLoad");
 		setMap(map);
 		setBounds(map, locationMarkers, position);
 		map.setCenter(position);
 	}, [locationMarkers, position]);
 
 	useEffect(() => {
+		console.log(position, "In useEffect");
 		if (isLoaded) {
 			setBounds(map, locationMarkers, position);
 		}
-	}, [locationMarkers, position, isLoaded, map]);
+	}, [map, position]);
+
 
 	useEffect(() => {
 		setTimeout(() => {
@@ -78,7 +82,7 @@ export const LiveMap: React.FC = () => {
 		}, 2000);
 	}, [driverLocationData]);
 
-	return isLoaded && !openModal && loadMap ? (
+	return isLoaded && loadMap ? (
 		<GoogleMap
 			mapContainerStyle={{ width: "100%", height: "90vh" }}
 			zoom={8}
@@ -87,8 +91,9 @@ export const LiveMap: React.FC = () => {
 			<Marker position={position} />
 			<DriversMarkers drivers={driverLocationData} />
 		</GoogleMap>
-
 	) : (
-		<><LiveMapModal open={openModal} setOpen={setOpenModal} setPosition={setPosition} setLoadMap={setLoadMap} /></>
+		<>
+			<LiveMapModal open={openModal} setOpen={setOpenModal} setPosition={setPosition} setLoadMap={setLoadMap} />
+		</>
 	);
 };
