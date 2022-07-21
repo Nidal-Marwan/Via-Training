@@ -21,17 +21,17 @@ const Login = () => {
 
 	const { t } = useTranslation();
 	const [isLoggedIn, setIsLoggedIn] = useState(false);
-	const [isLoading, setIsLoading] = useState(false);
 	const [error, setError] = useState<string | null>();
 
 	const initialValues = {
 		email: "",
 		password: "",
 	};
-	const handleSubmit = async (values: any) => {
-		const transformedValues = { ...values, email: values.email.toLowerCase() };
-		setIsLoading(true);
+	const handleSubmit = async (values: any, actions: any) => {
 		setError(null);
+
+		const transformedValues = { ...values, email: values.email.toLowerCase() };
+
 		const response = await trainingClient.post<LoginResponse>(
 			"/home/login",
 			transformedValues
@@ -39,11 +39,9 @@ const Login = () => {
 		if (response.data.status === 200) {
 			window.localStorage.setItem("access_token", response.data.token);
 			window.dispatchEvent(new Event("storage"));
-			setIsLoading(false);
 			setIsLoggedIn(true);
-
+			actions.resetForm();
 		} else {
-			setIsLoading(false);
 			setError(response.data.message);
 		}
 	};
@@ -69,42 +67,40 @@ const Login = () => {
 					</StyledAlert>
 				)}
 				<StyledBox>
-					{isLoading ? <CircularProgress /> : (
-						<Formik
-							initialValues={initialValues}
-							validationSchema={loginSchema}
-							onSubmit={(values) => handleSubmit(values)}
-							validateOnChange={false}
-						>
-							<StyledForm>
-								<TextInput
-									name='email'
-									type='text'
-									id='outlined-basic'
-									label={t("form.email")}
-								/>
-								<TextInput
-									name='password'
-									type='password'
-									id='outlined-basic'
-									label={t("form.password")}
-								/>
-								<CustomButton
-									color='primary'
-									title={t("form.login")}
-									type='submit'
-								/>
-								{/* will become a link when routes are created so we can route the user to signup page*/}
-								<Typography variant='body1'>
-									{t("form.registration.text")}{" "}
-									<Link to='/signup'>{t("form.registration.link")}</Link>
-								</Typography>
-							</StyledForm>
-						</Formik>
-					)}
+					<Formik
+						initialValues={initialValues}
+						validationSchema={loginSchema}
+						onSubmit={handleSubmit}
+						validateOnChange={false}
+					>
+						<StyledForm>
+							<TextInput
+								name='email'
+								type='text'
+								id='outlined-basic'
+								label={t("form.email")}
+							/>
+							<TextInput
+								name='password'
+								type='password'
+								id='outlined-basic'
+								label={t("form.password")}
+							/>
+							<CustomButton
+								color='primary'
+								title={t("form.login")}
+								type='submit'
+							/>
+							{/* will become a link when routes are created so we can route the user to signup page*/}
+							<Typography variant='body1'>
+								{t("form.registration.text")}{" "}
+								<Link to='/signup'>{t("form.registration.link")}</Link>
+							</Typography>
+						</StyledForm>
+					</Formik>
 				</StyledBox>
 			</Stack>
-			<ModalContainer page='login' open={isLoggedIn} setOpen={setIsLoggedIn}  />
+			<ModalContainer page='login' open={isLoggedIn} setOpen={setIsLoggedIn} />
 		</>
 	);
 };
