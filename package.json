@@ -12,7 +12,7 @@
       "start:server:dev": "npm run start:dev --workspace=training-server",
       "start:server:prod": " npm run start:prod --workspace=training-server",
       "start:client:server": "npm run build:client --workspace=training-server",
-      "start": "ts-node index.ts",
+      "start": "ts-node packages/server/index.ts",
       "typeorm": "typeorm-ts-node-commonjs",
       "lint:client:fix": "eslint packages/client/src/**/*.{ts,tsx} --fix",
       "lint:server:fix": "eslint packages/server/src/**/*.{ts,tsx} --fix",
