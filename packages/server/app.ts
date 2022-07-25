@@ -14,12 +14,15 @@ AppDataSource.initialize()
 		const app = express();
 		app.use(cors({ origin: "http://localhost:3000" }));
 		app.use(express.urlencoded({ extended: true }));
-		app.use(express.static(path.join(__dirname, "public")));
+		// app.use(express.static(path.join(__dirname, "public")));
 		app.use(express.json());
 		app.use("/api/home", authRouter);
 		app.use("/api/locations", locationRouter);
 		app.use("/api/drivers", driversRouter);
-
+		app.use(express.static(path.join(__dirname, "../client/public")));
+		if(process.env.NODE_ENV === "production"){
+			app.use(express.static(path.join(__dirname, "../client/public")));
+		}
 		app.listen(PORT, () => {
 			logger.info(`Server started and running on http://localhost:${PORT}`);
 		});
