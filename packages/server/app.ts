@@ -1,7 +1,8 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 // import * as express from "express";
-// eslint-disable-next-line @typescript-eslint/no-var-requires
 const express = require("express");
-import * as path from "path";
+const path = require("path");
+// import * as path from "path";
 import * as authRouter from "./src/routes/auth/auth-route";
 import * as locationRouter from "./src/routes/location/location-router";
 import * as driversRouter from "./src/routes/drivers/driver-routes";
