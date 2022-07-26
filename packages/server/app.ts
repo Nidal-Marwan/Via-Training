@@ -3,12 +3,19 @@
 const express = require("express");
 const path = require("path");
 // import * as path from "path";
-import * as authRouter from "./src/routes/auth/auth-route";
-import * as locationRouter from "./src/routes/location/location-router";
-import * as driversRouter from "./src/routes/drivers/driver-routes";
-import { AppDataSource } from "./src/utils/data-source";
-import * as cors from "cors";
-import logger from "./src/utils/logger";
+const authRouter = require("./src/routes/auth/auth-route");
+const locationRouter = require("./src/routes/location/location-router");
+const driversRouter = require("./src/routes/drivers/driver-routes");
+const AppDataSource = require("./src/utils/data-source");
+const cors = require("cors");
+const logger = require("./src/utils/logger");
+
+// import * as authRouter from "./src/routes/auth/auth-route";
+// import * as locationRouter from "./src/routes/location/location-router";
+// import * as driversRouter from "./src/routes/drivers/driver-routes";
+// import { AppDataSource } from "./src/utils/data-source";
+// import * as cors from "cors";
+// import logger from "./src/utils/logger";
 
 
 const PORT = process.env.PORT || 3001;
