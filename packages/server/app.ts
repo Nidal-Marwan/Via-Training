@@ -15,7 +15,7 @@ const cors = require("cors");
 // import * as driversRouter from "./src/routes/drivers/driver-routes";
 // import { AppDataSource } from "./src/utils/data-source";
 // import * as cors from "cors";
-import logger from "./src/utils/logger";
+// import logger from "./src/utils/logger";
 
 
 const PORT = process.env.PORT || 3001;
@@ -31,7 +31,7 @@ app.use("/api/locations", locationRouter);
 app.use("/api/drivers", driversRouter);
 
 app.listen(PORT, () => {
-	logger.info(`Server started and running on http://localhost:${PORT}`);
+	// logger.info(`Server started and running on http://localhost:${PORT}`);
 });
 // })
 // .catch((error) => logger.error(error.message));
