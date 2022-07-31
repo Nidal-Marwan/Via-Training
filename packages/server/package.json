@@ -3,11 +3,17 @@
 	"version": "1.0.0",
 	"description": "Node js server for the training client",
 	"main": "index.js",
+	"engines": {
+		"node": "16.15.1",
+		"npm": "8.11.0"
+	},
 	"scripts": {
 		"start:dev": "nodemon app.ts",
 		"start:prod": "SET NODE_ENV=production node app.ts",
-		"build:client": "cd .. && cd client && npm build",
-		"start": "ts-node src/index.ts",
+		"build:client": "cd .. && cd client && npm install && npm run build",
+		"build:server": "tsc -p .",
+		"start": "ts-node src/app.ts",
+		"heroku-postbuild": "build:client",
 		"typeorm": "typeorm-ts-node-commonjs",
 		"lint:client:fix": "eslint packages/client/src/**/*.{ts,tsx} --fix",
 		"lint:server:fix": "eslint packages/server/src/**/*.{ts,tsx} --fix",

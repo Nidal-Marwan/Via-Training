@@ -1,0 +1,123 @@
+{
+	"app": {
+		"sekeleton": "REACT SKELETON"
+	},
+	"form": {
+		"name": "Name",
+		"email": " Email",
+		"phone": " Phone",
+		"password": "Password ",
+		"signup": "SignUp",
+		"login": "Login",
+		"registration": {
+			"text": "Not a member?",
+			"link": "Join us"
+		},
+		"signin": {
+			"text": "Already have account ?",
+			"link": " SignIn"
+		},
+		"loginAlerts": {
+			"email": {
+				"invalid": "Please enter a valid email",
+				"required": "Email is required"
+			},
+			"password": {
+				"required": "Password is required",
+				"min": "Password is too short - should be at least 8 characters"
+			}
+		},
+		"signupAlerts": {
+			"name": "Name is required",
+			"phone": {
+				"required": "Phone is required",
+				"min": "Invalid phone number"
+			},
+			"email": {
+				"required": "Email is required",
+				"invalid": "Invalid email address"
+			},
+			"password": {
+				"required": "Password is required",
+				"min": "Must be 8 characters or more"
+			}
+		}
+	},
+	"table": {
+		"datepicker": "Pick a date",
+		"driver": {
+			"name": "Name",
+			"phone": "Phone",
+			"carModel": "Car Model",
+			"licensePlate": "License Plate",
+			"location": "Location"
+		},
+		"location":{
+			"name": "Name",
+			"latitude": "Latitude",
+			"longitude": "Longitude",
+			"date": "Date"
+		},
+		"edit": "Edit",
+		"delete": "Delete"
+	},
+	"nav": {
+		"map": "Map",
+		"driver": "Driver",
+		"location": "Location",
+		"signout": "Sign Out"
+	},
+	"modal": {
+		"favorites": {
+			"message": "Would you like to set-up favorite locations?",
+			"accept": "Yes",
+			"decline": "Cancel"
+		},
+		"location": {
+			"addMessage": "Add a new Location by clicking on the map",
+			"editMessage": "Add the updated location by clicking on the map",
+			"accept": "Save",
+			"decline": "Cancel"
+		},
+		"liveMap": {
+			"message": "Allow access to current location",
+			"accept": "Allow",
+			"decline": "Cancel"
+		}
+	},
+	"server": {
+		"signup": {
+			"email": "Email already exists",
+			"phone": "Phone already exists"
+		},
+		"login": "Email or password are incorrect"
+	},
+	"drivers": {
+		"modal": {
+			"addDriverButton": "ADD DRIVER",
+			"addTitle": "Add a New Driver",
+			"editTitle": "Edit Driver",
+			"form": {
+				"name": "Name",
+				"phone": "Phone",
+				"car_model": "Car Model",
+				"license_plate": "License Plate",
+				"location": "Location"
+			},
+			"errors": {
+				"name": "Name is required",
+				"phone": {
+					"required": "Phone is required",
+					"min": "Invalid phone number"
+				},
+				"car_model": "Car model is required",
+				"license_plate": "License plate is required",
+				"location": "Location is required"
+			},
+			"actions": {
+				"submit": "Submit",
+				"cancel": "Cancel"
+			}
+		}
+	}
+}

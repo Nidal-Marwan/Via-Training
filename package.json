@@ -13,6 +13,7 @@
       "start:server:prod": " npm run start:prod --workspace=training-server",
       "start:client:server": "npm run build:client --workspace=training-server",
       "start": "node packages/server/app.ts",
+      "heroku-postbuild": "cd client && npm install && npm run build",
       "typeorm": "typeorm-ts-node-commonjs",
       "lint:client:fix": "eslint packages/client/src/**/*.{ts,tsx} --fix",
       "lint:server:fix": "eslint packages/server/src/**/*.{ts,tsx} --fix",
@@ -39,15 +40,16 @@
       "typescript": "4.5.2"
    },
    "dependencies": {
-      "ts-node": "10.7.0",
       "@types/jsonwebtoken": "^8.5.8",
       "body-parser": "^1.19.1",
+      "dotenv": "^16.0.1",
       "express": "^4.18.1",
       "express-session": "^1.17.3",
       "jsonwebtoken": "^8.5.1",
       "pg": "^8.4.0",
       "reflect-metadata": "^0.1.13",
       "training-server": "file:packages/server",
+      "ts-node": "10.7.0",
       "typeorm": "0.3.6",
       "winston": "^3.7.2"
    }
