@@ -13,7 +13,7 @@
       "start:server:prod": " npm run start:prod --workspace=training-server",
       "start:client:server": "npm run build:client --workspace=training-server",
       "start": "node packages/server/app.ts",
-      "heroku-postbuild": "cd client && npm install && npm run build",
+      "heroku-postbuild": "cd packages && cd client && npm install && npm run build",
       "typeorm": "typeorm-ts-node-commonjs",
       "lint:client:fix": "eslint packages/client/src/**/*.{ts,tsx} --fix",
       "lint:server:fix": "eslint packages/server/src/**/*.{ts,tsx} --fix",
