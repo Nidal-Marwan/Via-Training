@@ -40,7 +40,7 @@ export const App = () => {
 	const dispatch = useAppDispatch();
 	const { setClose } = bindActionCreators(modalActionCreators, dispatch);
 	const [isLoggedIn, setIsLoggedIn] = useState(checkIsLoggedIn());
-	const [shownModal, setShownModal] = useState(false);
+	const [shownModal, setShownModal] = useState(true);
 
 	useEffect(() => {
 		window.addEventListener("storage", async function (e) {
